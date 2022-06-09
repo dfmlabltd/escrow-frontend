@@ -12,6 +12,9 @@ export default function KeyVerification() {
 		error,
 		success,
 	} = useLoginHooks();
+
+	const iSSERVER = typeof window === "undefined";
+	const getValue = !iSSERVER ? localStorage.getItem("email") : "";
 	return (
 		<section id="xcrow_contract">
 			<div className="w-full min-h-screen contract_bg">
@@ -27,8 +30,7 @@ export default function KeyVerification() {
 								Key verification
 							</h3>
 							<p className="text-md text-white">
-								Enter the one-time key that was sent to{" "}
-								{localStorage.getItem("email")}
+								Enter the one-time key that was sent to {getValue}
 							</p>
 						</div>
 
@@ -78,11 +80,7 @@ export default function KeyVerification() {
 									</button>
 									<p className="text-white mt-5">
 										Didn't receive the key?{" "}
-										<button
-											onClick={(e) =>
-												handleGetOTP(e, localStorage.getItem("email"))
-											}
-										>
+										<button onClick={(e) => handleGetOTP(e, getValue)}>
 											<span className="text-xcrow_secondary font-xcrow_smb">
 												Resend
 											</span>

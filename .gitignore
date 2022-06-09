@@ -70,6 +70,8 @@ typings/
 
 # dotenv environment variables file
 .env
+package.lock.json
+yarn.lock
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
