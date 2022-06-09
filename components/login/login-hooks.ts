@@ -15,7 +15,7 @@ export function useLoginHooks() {
 
 	const handleGetOTP = async (e: any, mail?: any) => {
 		e.preventDefault();
-		if (!isEmail(value) && window.location.pathname === "login") {
+		if (!isEmail(value) && window.location.pathname === "/login") {
 			setError("Invalid Email");
 		} else {
 			try {
