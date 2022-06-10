@@ -111,12 +111,41 @@ contract Contract {
 
     /************************************************************** STATE END *************************************************************************** */
 
-    /// @dev The constructor should be called only by a manager contract
-    /// @param currency the ERC20 token address for transaction
-    /// @param manager the contract address of the manager contract
-    constructor(IERC20 currency, ContractManager manager) {
-        _currency = currency;
-        _manager = manager;
+    /**
+     @dev The constructor should be called only by a manager contract
+    * @param trusteeAmounts containing the wallet of each trustee
+    * @param trusteeWallets containing the max amount each trustee can request
+    * @param depositorsAmounts containing the amount each depositor can deposit
+    * @param depositorWallets containing the wallet of each depositor
+    * @param currency the ERC20 token address for transaction
+    **/
+    constructor(
+        uint256  [] memory trusteeAmounts, 
+        address [] memory trusteeWallets, 
+        uint256 [] memory depositorsAmounts, 
+        address [] memory depositorWallets,
+        IERC20 currency) {
+            require(trusteeAmounts.length > 0, "INVALID");
+            require(trusteeAmounts.length == trusteeWallets.length && depositorsAmounts.length == depositorWallets.length, "INVALID");
+
+            uint256 trusteeLength = trusteeAmounts.length;
+            for(uint i; i < trusteeLength; i++) {
+                address trusteeWallet = trusteeWallets[i];
+                Entity storage trustee = _trustees[trusteeWallet];
+                trustee.amount = trusteeAmounts[i];
+                trustee.wallet = trusteeWallet;
+            }
+
+            uint256 depositLength = depositorsAmounts.length;
+            for(uint i; i < depositLength; i++) {
+                address depositorWallet = depositorWallets[i];
+                Entity storage _depositor = _depositors[depositorWallet];
+                _depositor.amount = depositorsAmounts[i];
+                _depositor.wallet = depositorWallet;
+            }
+
+            _currency = currency;
+            _manager = ContractManager(msg.sender);
     }
 
     /****************************************************** MODIFIERS *********************************************************************************** */

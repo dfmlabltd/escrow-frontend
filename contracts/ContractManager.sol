@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: Unlicense
-// Adehun Ethereum Virtual Machine Compatible Smart Contract v0.0.1 (Contract.sol)
+// Adehun Ethereum Virtual Machine Compatible Smart Contract v0.0.1 (ContractManager.sol)
 
 /**
  * @title Adehun Ethereum Virtual Machine Compatible Smart Contract
@@ -7,7 +7,7 @@
  * This contract is responsible for storing all escrow related information.
  * @author Decentralized Future in Motion Lab Limited
  */
-
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./Contract.sol";
 
 pragma solidity ^0.8.4;
@@ -19,9 +19,22 @@ contract ContractManager {
     event Vote(address, address, address, string, uint256);
     event Approval(address, address, address, string, uint256);
 
-    mapping(address => bool) _contracts;
 
-    constructor() {}
+    mapping(uint256 => Contract) public _contracts;
+
+    uint256 _contractsCount;
+
+    mapping(address => bool) public _contractsStatus;
+
+    function create(
+        uint256  [] memory trusteeAmounts, 
+        address [] memory trusteeWallets, 
+        uint256 [] memory depositorsAmounts, 
+        address [] memory depositorWallets,
+        IERC20 currency) public {
+            Contract _contract = new Contract(trusteeAmounts, trusteeWallets, depositorsAmounts, depositorWallets, currency);
+            _contracts[++_contractsCount] = _contract;
+    }
 
     function deposit(
         address contractAddress,
@@ -76,7 +89,7 @@ contract ContractManager {
     }
 
     modifier isValidContract() {
-        require(_contracts[msg.sender], "UNAUTHORIZED");
+        require(_contractsStatus[msg.sender], "UNAUTHORIZED");
         _;
     }
 }
