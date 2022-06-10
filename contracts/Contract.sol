@@ -121,7 +121,7 @@ contract Contract {
 
     /// checks if the caller of the function is a trustee (can withdraw from the contract)
 
-    modifier _isTrustee() {
+    modifier isTrustee() {
         require(_trustees[msg.sender].wallet == address(0), "UNAUTHORIZED");
         _;
     }
@@ -153,9 +153,9 @@ contract Contract {
     /// @param description description of the request
     function request(uint256 amount, string memory description)
         external
-        _isTrustee
+        isTrustee
     {
-        require(_depositors[msg.sender].balance >= amount, "INVALID");
+        require(_trustees[msg.sender].balance >= amount, "INVALID");
         require(_balance >= amount, "INVALID");
         WithdrawalRequest memory withdrawal = WithdrawalRequest(
             amount,
