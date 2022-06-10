@@ -29,9 +29,9 @@ export default function Faqs() {
 				{question.map((item: any) => (
 					<Question item={item} />
 				))}
-				<div className="py-10">
-					<dl className="mt-8 mx-auto max-w-screen-md flex flex-col space-y-5 lg:flex-row lg:flex-wrap">
-						{/* <div className="w-full">
+				{/* <div className="py-10">
+					<dl className="mt-8 mx-auto max-w-screen-md flex flex-col space-y-5 lg:flex-row lg:flex-wrap"> */}
+				{/* <div className="w-full">
 							<div className="question-and-answer select-none cursor-pointer border-2 border-gray-100 px-6 py-6 rounded-lg text-sm group md:px-10">
 								<dt className="question">
 									<div className="flex justify-between items-start space-x-6">
@@ -53,7 +53,7 @@ export default function Faqs() {
 							</div>
 						</div> */}
 
-						{/* <div className="w-full">
+				{/* <div className="w-full">
 							<div className="question-and-answer select-none cursor-pointer border-2 border-gray-100 px-6 py-6 rounded-lg text-sm group md:px-10">
 								<dt className="question">
 									<div className="flex justify-between items-start space-x-6">
@@ -77,7 +77,7 @@ export default function Faqs() {
 							</div>
 						</div> */}
 
-						{/* <div className="w-full">
+				{/* <div className="w-full">
 							<div className="question-and-answer select-none cursor-pointer border-2 border-gray-100 px-6 py-6 rounded-lg text-sm group md:px-10">
 								<dt className="question">
 									<div className="flex justify-between items-start space-x-6">
@@ -100,8 +100,8 @@ export default function Faqs() {
 								</dd>
 							</div>
 						</div> */}
-					</dl>
-				</div>
+				{/* </dl>
+				</div> */}
 			</div>
 		</section>
 	);
@@ -111,7 +111,7 @@ const Question = ({ item }: any) => {
 	const [open, setOpen] = useState(false);
 	return (
 		<div>
-			<div className="py-10">
+			<div className="">
 				<dl className="mt-8 mx-auto max-w-screen-md flex flex-col space-y-5 lg:flex-row lg:flex-wrap">
 					<div className="w-full">
 						<div className="question-and-answer select-none cursor-pointer border-2 border-gray-100 px-6 py-6 rounded-lg text-sm group md:px-10">
