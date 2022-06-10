@@ -137,7 +137,7 @@ contract Contract {
     function deposit(uint256 amount) external isDepositor {
         Entity memory sender = _depositors[msg.sender];
         require(sender.wallet != address(0), "UNAUTHORIZED");
-        require(sender.deposited <= sender.amount, "INVALID");
+        require(sender.deposited + amount <= sender.amount, "INVALID");
         _currency.approve(address(this), amount);
         _currency.transferFrom(msg.sender, address(this), amount);
         _depositors[msg.sender].deposited += amount;
