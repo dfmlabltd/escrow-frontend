@@ -10,7 +10,7 @@
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
 
 contract Contract {
     /***************************************************** STRUCT AND ENUM ************************************************************************* */
@@ -27,10 +27,17 @@ contract Contract {
         REJECTED
     }
 
+    struct WithdrawalRequestVote {
+        address wallet;
+        uint256 points;
+    }
+
     struct WithdrawalRequest {
         uint256 amount;
         address wallet;
         string description; // stored on IPFS
+        uint256 points; // total approval points
+        WithdrawalRequestVote[] votes;
         WithdrawalStatus status;
     }
 
@@ -157,13 +164,10 @@ contract Contract {
     {
         require(_trustees[msg.sender].balance >= amount, "INVALID");
         require(_balance >= amount, "INVALID");
-        WithdrawalRequest memory withdrawal = WithdrawalRequest(
-            amount,
-            msg.sender,
-            description,
-            WithdrawalStatus.PENDING
-        );
-        _requests[++_withdrawalCount] = withdrawal;
+        WithdrawalRequest storage withdrawal = _requests[++_withdrawalCount];
+        withdrawal.wallet = msg.sender;
+        withdrawal.description = description;
+        withdrawal.status = WithdrawalStatus.PENDING;
         _manager.request(address(this), msg.sender, amount, description);
     }
 
@@ -175,14 +179,84 @@ contract Contract {
         external
         isDepositor
     {
-        require(_requests[id].status == WithdrawalStatus.PENDING, "INVALID");
-        _requests[id].status = WithdrawalStatus.REJECTED;
+        WithdrawalRequest storage _request = _requests[id];
+        require(_request.status == WithdrawalStatus.PENDING, "INVALID");
+        _request.status = WithdrawalStatus.REJECTED;
+
+        uint256 length = _request.votes.length;
+
+        WithdrawalRequestVote[] storage votes = _request.votes;
+
+        for (uint256 i; i < length; i++) {
+            _depositors[votes[i].wallet].balance += votes[i].points;
+        }
+
+        _request.status = WithdrawalStatus.REJECTED;
+
         _manager.reject(
             address(this),
             msg.sender,
-            _requests[id].wallet,
+            _request.wallet,
             description
         );
+    }
+
+    /// @notice Only a valid depositor can approve
+    /// @dev FUNCTION NEEDS SERIOUS IMPROVEMENT
+    /// @param id the id of the withdrawal request
+    /// @param description description of the rejection
+    function approve(uint256 id, string memory description)
+        external
+        isDepositor
+        returns (bool)
+    {
+        WithdrawalRequest storage _request = _requests[id];
+        require(_request.status == WithdrawalStatus.PENDING, "INVALID");
+
+        uint256 balance = _depositors[msg.sender].balance;
+        require(balance > 0, "INVALID");
+
+        uint256 remaingPoint = _request.amount - _request.points;
+
+        if (balance >= remaingPoint) {
+            WithdrawalRequestVote memory vote = WithdrawalRequestVote(
+                msg.sender,
+                remaingPoint
+            );
+            _request.points += remaingPoint;
+            _request.votes.push(vote);
+            _request.status = WithdrawalStatus.APPROVED;
+            _depositors[msg.sender].balance -= remaingPoint;
+            _manager.vote(
+                address(this),
+                _request.wallet,
+                msg.sender,
+                description,
+                remaingPoint
+            );
+            _manager.approval(
+                address(this),
+                _request.wallet,
+                msg.sender,
+                description,
+                remaingPoint
+            );
+
+            return true;
+        }
+
+        _request.points += balance;
+        _request.votes.push(WithdrawalRequestVote(msg.sender, balance));
+        _depositors[msg.sender].balance = 0;
+        _manager.vote(
+            address(this),
+            _request.wallet,
+            msg.sender,
+            description,
+            balance
+        );
+
+        return false;
     }
 
     /************************************************************** FUNCTIONS END *************************************************************************** */
@@ -192,14 +266,18 @@ contract ContractManager {
     event Deposit(address, address, uint256);
     event Request(address, address, uint256, string);
     event Rejected(address, address, address, string);
+    event Vote(address, address, address, string, uint256);
+    event Approval(address, address, address, string, uint256);
 
     mapping(address => bool) _contracts;
+
+    constructor() {}
 
     function deposit(
         address contractAddress,
         address depositor,
         uint256 amount
-    ) external isContract {
+    ) external isValidContract {
         emit Deposit(contractAddress, depositor, amount);
     }
 
@@ -208,7 +286,7 @@ contract ContractManager {
         address depositor,
         uint256 amount,
         string memory description
-    ) external isContract {
+    ) external isValidContract {
         emit Request(contractAddress, depositor, amount, description);
     }
 
@@ -217,11 +295,37 @@ contract ContractManager {
         address depositor,
         address trustee,
         string memory description
-    ) external isContract {
+    ) external isValidContract {
         emit Rejected(contractAddress, depositor, trustee, description);
     }
 
-    modifier isContract() {
+    function vote(
+        address contractAddress,
+        address depositor,
+        address trustee,
+        string memory description,
+        uint256 balance
+    ) external isValidContract {
+        emit Vote(contractAddress, depositor, trustee, description, balance);
+    }
+
+    function approval(
+        address contractAddress,
+        address depositor,
+        address trustee,
+        string memory description,
+        uint256 balance
+    ) external isValidContract {
+        emit Approval(
+            contractAddress,
+            depositor,
+            trustee,
+            description,
+            balance
+        );
+    }
+
+    modifier isValidContract() {
         require(_contracts[msg.sender], "UNAUTHORIZED");
         _;
     }
