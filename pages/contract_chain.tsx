@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import { useContractHook } from "../components/contract/contract-hook";
+import { useRouter } from "next/router";
+import Notification from "../components/notification";
 import Backarrow from "../components/back-arrow";
 
 export default function Contractchain() {
+	const { tokens, handleFetchCoins, coins } = useContractHook();
+	const [tokenValue, setTokenValue] = useState<any>();
+	const [coinValue, setCoinValue] = useState<any>();
+	const [error, setError] = useState("");
+	const [open, setOpen] = useState(false);
+	const router = useRouter();
+	const [openCoins, setOpenCoins] = useState(false);
+	const handleNext = (e: any) => {
+		e.preventDefault();
+		if (tokenValue === undefined || coinValue === undefined) {
+			setError("Please fill in the required fields");
+		} else {
+			router.push("/trusteeRequirement");
+		}
+	};
 	return (
 		<section id="xcrow_contract">
 			<div className="w-full min-h-screen contract_bg">
@@ -21,7 +39,7 @@ export default function Contractchain() {
 								select and connect a digital wallet on special exchange
 							</p>
 						</div>
-
+						{error !== "" && <Notification kind="error" message={error} />}
 						<form action="">
 							<div className="w-full flex flex-col space-y-10">
 								<div className="relative form-input">
@@ -36,18 +54,77 @@ export default function Contractchain() {
 											<input
 												type="text"
 												id="cryptocurrency"
+												value={tokenValue?.name}
 												placeholder="CELO"
 												className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base pr-32"
 											/>
 										</div>
 										<div className="absolute top-0 right-0">
-											<div className="inline-block relative place-content-center">
-												<select className="block appearance-none h-14 bg-xcrow_secondary border border-xcrow_secondary px-5 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base">
-													<option>Default</option>
-													<option>Option 1</option>
-													<option>Option 2</option>
-													<option>Option 3</option>
-												</select>
+											<div className="inline-block relative place-content-center ">
+												<div
+													onClick={() => setOpen(!open)}
+													style={{
+														borderRadius: "10px",
+														display: "flex",
+														alignItems: "center",
+													}}
+													className="block appearance-none h-14 w-16 bg-xcrow_secondary border border-xcrow_secondary px-5 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base"
+												>
+													{" "}
+													{tokenValue?.icon ? (
+														<>
+															<svg
+																style={{ display: "none" }}
+																fill={""}
+																width={"0px"}
+																height={"0px"}
+															>
+																<use xlinkHref={`${tokenValue?.icon}`} />
+															</svg>
+															<img
+																src={tokenValue?.icon}
+																width="40px"
+																style={{
+																	borderRadius: "50px",
+																}}
+															/>
+														</>
+													) : (
+														"Default"
+													)}
+												</div>
+												{open && (
+													<div
+														style={{
+															position: "absolute",
+															background: "black",
+															right: "10px",
+															padding: "5px 20px",
+															marginTop: "10px",
+															zIndex: 5,
+															borderRadius: "8px",
+
+															color: "white",
+														}}
+													>
+														{tokens?.map((token: any) => (
+															<p
+																onClick={() => {
+																	setTokenValue(token);
+																	handleFetchCoins(token.id);
+																	setOpen(false);
+																}}
+																style={{
+																	whiteSpace: "nowrap",
+																	borderTop: "1px solid white",
+																	cursor: "pointer",
+																}}
+															>
+																{token.name}
+															</p>
+														))}
+													</div>
+												)}
 												<div
 													className="pointer-events-none absolute inset-y-0 flex items-center text-white"
 													style={{ right: "10px" }}
@@ -74,18 +151,77 @@ export default function Contractchain() {
 											<input
 												type="text"
 												id="tokenName"
+												value={coinValue?.name}
 												placeholder="Search token name"
 												className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base pr-32"
 											/>
 										</div>
 										<div className="absolute top-0 right-0">
-											<div className="inline-block relative place-content-center">
-												<select className="block appearance-none h-14 bg-xcrow_secondary border border-xcrow_secondary px-5 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base">
-													<option>cUSD</option>
-													<option>Option 1</option>
-													<option>Option 2</option>
-													<option>Option 3</option>
-												</select>
+											<div className="inline-block relative place-content-center ">
+												<div
+													onClick={() => setOpenCoins(!openCoins)}
+													style={{
+														borderRadius: "10px",
+														display: "flex",
+														alignItems: "center",
+													}}
+													className="block appearance-none h-14 w-16 bg-xcrow_secondary border border-xcrow_secondary px-5 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base"
+												>
+													{" "}
+													{coinValue?.icon ? (
+														<>
+															<svg
+																style={{ display: "none" }}
+																fill={""}
+																width={"0px"}
+																height={"0px"}
+															>
+																<use xlinkHref={`${coinValue?.icon}`} />
+															</svg>
+															<img
+																src={coinValue?.icon}
+																width="40px"
+																style={{
+																	borderRadius: "50px",
+																}}
+															/>
+														</>
+													) : (
+														"Default"
+													)}
+												</div>
+												{openCoins && (
+													<div
+														style={{
+															position: "absolute",
+															background: "black",
+															right: "10px",
+															padding: "5px 30px",
+															marginTop: "10px",
+															zIndex: 5,
+															borderRadius: "8px",
+
+															color: "white",
+														}}
+													>
+														{coins?.map((token: any) => (
+															<p
+																onClick={() => {
+																	setCoinValue(token);
+																	setOpenCoins(false);
+																}}
+																style={{
+																	whiteSpace: "nowrap",
+																	borderTop: "1px solid white",
+																	padding: "5px",
+																	cursor: "pointer",
+																}}
+															>
+																{token.name}
+															</p>
+														))}
+													</div>
+												)}
 												<div
 													className="pointer-events-none absolute inset-y-0 flex items-center text-white"
 													style={{ right: "10px" }}
@@ -103,7 +239,10 @@ export default function Contractchain() {
 									</div>
 								</div>
 								<div className="relative flex flex-col pt-8">
-									<button className="uppercase bg-xcrow_secondary w-full px-4 py-4 rounded-xl text-white text-base">
+									<button
+										onClick={handleNext}
+										className="uppercase bg-xcrow_secondary w-full px-4 py-4 rounded-xl text-white text-base"
+									>
 										Next
 									</button>
 								</div>
