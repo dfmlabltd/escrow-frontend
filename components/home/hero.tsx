@@ -28,7 +28,7 @@ export default function Hero() {
 							for conflict resolution
 						</p>
 						<div className="flex flex-col space-y-6 space-x-0 pt-10 relative md:flex-row md:space-y-0 md:space-x-6">
-							<Link href={"/contract"}>
+							<Link href={"/contract_chain"}>
 								<button className="px-16 text-white text-sm py-4 bg-xcrow_secondary rounded">
 									Create Contract
 								</button>

@@ -16,6 +16,16 @@ export enum ActionType {
 	UPDATE_TRUSTEES,
 	UPDATE_AMOUNT,
 	UPDATE_WALLET,
+	REMOVE_KEY,
+}
+interface IRemoveKeyProps {
+	trustees: Map<string, Trustee>;
+	key: string;
+}
+function removeKey({ trustees, key }: IRemoveKeyProps): Map<string, Trustee> {
+	trustees.delete(key);
+
+	return new Map(trustees);
 }
 function defaultTrustees(trustees?: any): Map<string, Trustee> {
 	return new Map(
@@ -83,12 +93,17 @@ function updateWallet({
 
 	return new Map(trustees);
 }
+type RemoveKeyAction = {
+	type: ActionType.REMOVE_KEY;
+	payload: { key: string };
+};
 type AddNewEmailAction = { type: ActionType.ADD_FIELD };
 type ReducerAction =
 	| AddNewEmailAction
 	| UpdateEmailAction
 	| UpdateAmountAction
-	| UpdateWalletAction;
+	| UpdateWalletAction
+	| RemoveKeyAction;
 
 export const useTrusteesHook = (setValue: any) => {
 	function trusteesReducer(
@@ -124,7 +139,13 @@ export const useTrusteesHook = (setValue: any) => {
 						wallet_address: action.payload?.wallet_address,
 					}),
 				};
-
+			case ActionType.REMOVE_KEY:
+				return {
+					trustees: removeKey({
+						trustees: state.trustees,
+						key: action.payload.key,
+					}),
+				};
 			default:
 				return state;
 		}
@@ -182,6 +203,21 @@ export const useTrusteesHook = (setValue: any) => {
 							wallet_address: item.wallet_address,
 						}))
 					);
+				} else {
+					const trustees = Array.from(state.trustees).map(([key, email]) => ({
+						...email,
+						email: email.email,
+						amount: email.amount,
+						wallet_address: email.wallet_address,
+					}));
+
+					setValue(
+						trustees.map((item: any) => ({
+							email: item.email,
+							amount: item.amount,
+							wallet_address: item.wallet_address,
+						}))
+					);
 				}
 			}
 		},
@@ -220,6 +256,16 @@ export const useTrusteesHook = (setValue: any) => {
 		},
 		[updateValue]
 	);
+	const remove = useCallback(
+		async (key: any) => {
+			await dispatch({
+				type: ActionType.REMOVE_KEY,
+				payload: { key },
+			});
+			updateValue("removeKey");
+		},
+		[updateValue]
+	);
 	const addTrustees = useCallback(async () => {
 		dispatch({ type: ActionType.ADD_FIELD });
 	}, []);
@@ -229,6 +275,7 @@ export const useTrusteesHook = (setValue: any) => {
 		addTrustees,
 		onChangeAmount,
 		onChangeEmail,
+		remove,
 		onChangeWallet,
 	};
 };

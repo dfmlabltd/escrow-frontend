@@ -9,7 +9,7 @@ import { useTrusteesHook } from "../components/trustees/trustees";
 
 export default function DepositorRequirement() {
 	const [value, setValue] = useState<any>();
-	const [check, setCheck] = useState(false);
+	const [check, setCheck] = useState("depositor");
 	const [error, setError] = useState("");
 
 	const router = useRouter();
@@ -19,36 +19,58 @@ export default function DepositorRequirement() {
 		onChangeEmail,
 		onChangeAmount,
 		onChangeWallet,
+		remove,
 	} = useTrusteesHook(setValue);
 	const handleSubmit = () => {
-		if (check) {
+		if (check !== "anyone") {
 			router.push("/contractDetails");
 		} else {
+			console.log(value);
 			if (value === undefined) {
 				setError("Please fill in fields");
 			} else {
-				const valueFilter = value?.filter(
-					(item: any) => item.email !== undefined || item.amount !== undefined
-				);
-				const res = valueFilter.map((item: any) => {
+				if (value?.length === 1) {
 					if (
-						item.email === undefined ||
-						item.amount === undefined ||
-						item.wallet_address === undefined
+						value[0].email === undefined ||
+						value[0].amount === undefined ||
+						value[0].wallet_address === undefined
 					) {
-						return true;
-					} else if (!isEmail(item.email)) {
-						return true;
-					} else if (!isNumeric(item.amount)) {
-						return true;
-					} else if (!isEthereumAddress(item.wallet_address)) {
-						return true;
+						if (!isEmail(value[0].email)) {
+							setError("Please enter a valid email");
+						} else if (!isNumeric(value[0].amount)) {
+							setError("Please enter a valid amount");
+						} else if (!isEthereumAddress(value[0].wallet_address)) {
+							setError("Please fill in a valid address");
+						}
+						setError("Please fill in the required fields");
+					} else {
+						setError("");
+						router.push("/contractDetails");
 					}
-				});
-				if (res.includes(true)) {
-					setError("Please fill all required fields");
 				} else {
-					router.push("/depositorRequirement");
+					const valueFilter = value?.filter(
+						(item: any) => item.email !== undefined || item.amount !== undefined
+					);
+					const res = valueFilter.map((item: any) => {
+						if (
+							item.email === undefined ||
+							item.amount === undefined ||
+							item.wallet_address === undefined
+						) {
+							return true;
+						} else if (!isEmail(item.email)) {
+							return true;
+						} else if (!isNumeric(item.amount)) {
+							return true;
+						} else if (!isEthereumAddress(item.wallet_address)) {
+							return true;
+						}
+					});
+					if (res.includes(true)) {
+						setError("Please fill all required fields");
+					} else {
+						router.push("/contractDetails");
+					}
 				}
 			}
 		}
@@ -75,116 +97,148 @@ export default function DepositorRequirement() {
 						<form action="">
 							<div className="w-full flex flex-col space-y-10">
 								<div className="flex space-x-3 pt-20">
-									<label htmlFor="milestone" className="text-white text-md">
-										Milestone (optionals)
-									</label>
 									<label
+										htmlFor="milestone"
+										className="text-white text-md mt-4"
+									>
+										Add Depositor (optionals)
+									</label>
+									{/* <label
 										htmlFor="default-toggle"
 										className="inline-flex relative items-center cursor-pointer"
+									> */}
+									<select
+										onChange={(e) => setCheck(e.target.value)}
+										className="block appearance-none h-14 bg-xcrow_secondary border border-xcrow_secondary px-5 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base"
 									>
-										<input
+										<option value="depositor">I'm the Depositor</option>
+										<option value="people">Other People</option>
+										<option value="anyone">Anyone can deposit</option>
+									</select>
+									{/* <input
 											type="checkbox"
 											onChange={(e) => setCheck(e.target.checked)}
 											id="default-toggle"
 											className="sr-only peer"
 										/>
 										<div className="w-11 h-5 bg-gray-200 peer-focus:outline-none  rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-xcrow_secondary after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-xcrow_secondary after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gray-400"></div>
-									</label>
+										 */}
+									{/* </label> */}
 								</div>
 								{error !== "" && (
 									<div>
 										<Notification kind="error" message={error} />
 									</div>
 								)}
-								{Array.from(trustees).map(([key, email], index) => (
-									<div className="flex flex-col pt-8" key={key}>
-										<form action="">
-											<div className="w-full flex flex-col space-y-10">
-												<div className="flex flex-col space-y-8 md:space-y-0 md:space-x-8 md:flex-row">
-													<div className="relative md:w-1/3">
-														<label
-															htmlFor="cryptocurrency"
-															className="text-white text-md"
-														>
-															Email Address
-														</label>
-														<div className="relative mt-2">
-															<div className="w-full">
-																<input
-																	type="text"
-																	name={key}
-																	value={email.email}
-																	key={key}
-																	id={key}
-																	onChange={(e) => onChangeEmail(e, key)}
-																	placeholder="Enter Trustee's Email Address"
-																	className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base pr-32"
-																/>
+								{check === "anyone" && (
+									<>
+										{Array.from(trustees).map(([key, email], index) => (
+											<div className="flex flex-col pt-8" key={key}>
+												<form action="">
+													<div className="w-full flex flex-col space-y-10">
+														<div className="flex flex-col space-y-8 md:space-y-0 md:space-x-8 md:flex-row">
+															<div className="relative md:w-1/3">
+																<label
+																	htmlFor="cryptocurrency"
+																	className="text-white text-md"
+																>
+																	Email Address
+																</label>
+																<div className="relative mt-2">
+																	<div className="w-full">
+																		<input
+																			type="text"
+																			name={key}
+																			value={email.email}
+																			key={key}
+																			id={key}
+																			onChange={(e) => onChangeEmail(e, key)}
+																			placeholder="Enter Trustee's Email Address"
+																			className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base pr-32"
+																		/>
+																	</div>
+																</div>
 															</div>
-														</div>
-													</div>
 
-													<div className="relative md:w-1/3">
-														<label
-															htmlFor="tokenName"
-															className="text-white text-md"
-														>
-															Amount
-														</label>
-														<div className="relative mt-2">
-															<div className="w-full">
-																<input
-																	type="number"
-																	name={key}
-																	value={email.amount}
-																	key={key}
-																	id={key}
-																	onChange={(e) => onChangeAmount(e, key)}
-																	placeholder="Amount"
-																	className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base pr-32"
-																/>
+															<div className="relative md:w-2/3">
+																<label
+																	htmlFor="tokenName"
+																	className="text-white text-md"
+																>
+																	Amount
+																</label>
+																<div className="relative mt-2">
+																	<div className="w-full">
+																		<input
+																			type="number"
+																			name={key}
+																			value={email.amount}
+																			key={key}
+																			id={key}
+																			onChange={(e) => onChangeAmount(e, key)}
+																			placeholder="Amount"
+																			className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base pr-32"
+																		/>
+																	</div>
+																</div>
 															</div>
-														</div>
-													</div>
 
-													<div className="relative md:w-1/3">
-														<label
-															htmlFor="tokenName"
-															className="text-white text-md"
-														>
-															Wallet Address
-														</label>
-														<div className="relative mt-2">
-															<div className="w-full">
-																<input
-																	type="text"
-																	name={key}
-																	value={email.wallet_address}
-																	key={key}
-																	id={key}
-																	onChange={(e) => onChangeWallet(e, key)}
-																	placeholder="Wallet Address"
-																	className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base pr-32"
-																/>
+															<div className="relative md:w-2/3">
+																<label
+																	htmlFor="tokenName"
+																	className="text-white text-md"
+																>
+																	Wallet Address
+																</label>
+																<div className="relative mt-2">
+																	<div className="w-full">
+																		<input
+																			type="text"
+																			name={key}
+																			value={email.wallet_address}
+																			key={key}
+																			id={key}
+																			onChange={(e) => onChangeWallet(e, key)}
+																			placeholder="Wallet Address"
+																			className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base pr-32"
+																		/>
+																	</div>
+																</div>
 															</div>
+															{index !== 0 && (
+																<div
+																	className="relative"
+																	style={{
+																		display: "flex",
+																		alignItems: "center",
+																		justifyContent: "center",
+																	}}
+																>
+																	<p
+																		className="text-white text-md mt-8 cursor-pointer"
+																		onClick={() => remove(key)}
+																	>
+																		Remove
+																	</p>
+																</div>
+															)}
 														</div>
 													</div>
-												</div>
+												</form>
 											</div>
-										</form>
-									</div>
-								))}
-
-								<div className="flex flex-row space-x-3 items-center">
-									<div
-										className="bg-xcrow_default milestone_add"
-										onClick={addTrustees}
-									>
-										<span></span>
-										<span></span>
-									</div>
-									<span className="text-white text-md">Add milestone</span>
-								</div>
+										))}
+										<div className="flex flex-row space-x-3 items-center">
+											<div
+												className="bg-xcrow_default milestone_add"
+												onClick={addTrustees}
+											>
+												<span></span>
+												<span></span>
+											</div>
+											<span className="text-white text-md">Add Depositor</span>
+										</div>
+									</>
+								)}
 							</div>
 						</form>
 					</div>

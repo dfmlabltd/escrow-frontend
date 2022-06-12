@@ -9,15 +9,17 @@ export const useContractHook = () => {
 		setTokens(res.data);
 	}, []);
 
-	const handleFetchCoins = async (id: string) => {
+	const handleFetchCoins = useCallback(async (id: string) => {
 		const res = await axios.get(`${process.env.BASE_URL}/crypto/network/${id}`);
 		setCoins(res.data);
-	};
+	}, []);
 
 	useEffect(() => {
 		handleFetchTokens();
 	}, [handleFetchTokens]);
-
+	useEffect(() => {
+		handleFetchCoins("1");
+	}, [handleFetchCoins]);
 	return {
 		tokens,
 		handleFetchCoins,
