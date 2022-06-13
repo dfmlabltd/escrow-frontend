@@ -31,10 +31,7 @@ const Contract = inject("contractStore")(
 		const [openCoins, setOpenCoins] = useState(false);
 
 		const handleNext = (e: any, amount: string) => {
-			e.preventDefault();
-			if (tokenValue === undefined || coinValue === undefined) {
-				setError("Please fill in the required fields");
-			} else if (!isNumeric(amount)) {
+			if (!isNumeric(amount)) {
 				setError("Please put in a valid amount");
 			} else {
 				router.push("/trusteeRequirement");
