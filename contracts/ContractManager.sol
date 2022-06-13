@@ -18,6 +18,7 @@ contract ContractManager {
     event Rejected(address, address, address, string);
     event Vote(address, address, address, string, uint256);
     event Approval(address, address, address, string, uint256);
+    event Withdrawal(address, address, uint256);
 
 
     mapping(uint256 => Contract) public _contracts;
@@ -31,8 +32,11 @@ contract ContractManager {
         address [] memory trusteeWallets, 
         uint256 [] memory depositorsAmounts, 
         address [] memory depositorWallets,
+        uint256 disputeWaitDay,
+        uint256 targetAmount,
+        bool autoApprove,
         IERC20 currency) public {
-            Contract _contract = new Contract(trusteeAmounts, trusteeWallets, depositorsAmounts, depositorWallets, currency);
+            Contract _contract = new Contract(trusteeAmounts, trusteeWallets, depositorsAmounts, depositorWallets, disputeWaitDay, targetAmount, autoApprove, currency);
             _contracts[++_contractsCount] = _contract;
     }
 
@@ -77,14 +81,26 @@ contract ContractManager {
         address depositor,
         address trustee,
         string memory description,
-        uint256 balance
+        uint256 amount
     ) external isValidContract {
         emit Approval(
             contractAddress,
             depositor,
             trustee,
             description,
-            balance
+            amount
+        );
+    }
+
+     function withdrawal(
+        address contractAddress,
+        address trustee,
+        uint256 amount
+    ) external isValidContract {
+        emit Withdrawal(
+            contractAddress,
+            trustee,
+            amount
         );
     }
 

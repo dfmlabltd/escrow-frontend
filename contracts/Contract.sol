@@ -15,17 +15,29 @@ pragma solidity ^0.8.4;
 
 contract Contract {
     /***************************************************** STRUCT AND ENUM ************************************************************************* */
-    struct Entity {
+    struct Trustee {
+        uint256 amount;
+        uint256 balance;
+        address wallet;
+    }
+
+    struct Depositor {
         uint256 amount;
         uint256 balance;
         uint256 deposited;
         address wallet;
     }
 
+    struct Deposit {
+        uint256 amount;
+        address wallet;
+    }
+
     enum WithdrawalStatus {
         PENDING,
+        REJECTED,
         APPROVED,
-        REJECTED
+        COMPLETED
     }
 
     struct WithdrawalRequestVote {
@@ -38,7 +50,7 @@ contract Contract {
         address wallet;
         string description; // stored on IPFS
         uint256 points; // total approval points
-        WithdrawalRequestVote [] votes;
+        WithdrawalRequestVote[] votes;
         WithdrawalStatus status;
     }
 
@@ -46,7 +58,8 @@ contract Contract {
 
     /************************************************************** MAPPING *************************************************************************** */
 
-    /* @notice stores the information and data pertaining
+    /**
+     * @notice stores the information and data pertaining
      * to depositors (contract funders)
      * responsible for making approval
      * a depositor can approve transaction
@@ -55,7 +68,28 @@ contract Contract {
      * how much more they can approve
      */
 
-    mapping(address => Entity) public _depositors;
+    mapping(address => Depositor) public _depositors;
+
+    /* @notice stores the information and data pertaining
+     * to deposits that has been made into a contract
+     * @dev a mapping of depositors address to Entity
+     * showing how much each depositor has deposited vs
+     * how much more they can approve
+     */
+
+    mapping(uint256 => Deposit) public _deposits;
+
+    /**
+     * @notice stores total number of depositers
+     **/
+
+    uint256 public _depositorsCount;
+
+    /**
+     * @notice stores total number of deposit
+     **/
+
+    uint256 public _depositCount;
 
     /**
      * @notice stores the information and data pertaining
@@ -66,7 +100,7 @@ contract Contract {
      * how much they have withdrawn
      **/
 
-    mapping(address => Entity) public _trustees;
+    mapping(address => Trustee) public _trustees;
 
     /**
      * @notice all transactions will be carried using the
@@ -109,6 +143,26 @@ contract Contract {
 
     uint256 _withdrawalCount;
 
+    /**
+     * @notice the number of days you have to wait before a
+     * dispute decision is made
+     **/
+
+    uint256 _disputeWaitDay;
+
+    /**
+     * @notice the maximum total amount in a contract
+     **/
+
+    uint256 _targetAmount;
+
+    /**
+     * @notice automatically approve transactions
+     * no need for vote
+     **/
+
+    bool _autoApprove;
+
     /************************************************************** STATE END *************************************************************************** */
 
     /**
@@ -120,32 +174,51 @@ contract Contract {
     * @param currency the ERC20 token address for transaction
     **/
     constructor(
-        uint256  [] memory trusteeAmounts, 
-        address [] memory trusteeWallets, 
-        uint256 [] memory depositorsAmounts, 
-        address [] memory depositorWallets,
-        IERC20 currency) {
-            require(trusteeAmounts.length > 0, "INVALID");
-            require(trusteeAmounts.length == trusteeWallets.length && depositorsAmounts.length == depositorWallets.length, "INVALID");
+        uint256[] memory trusteeAmounts,
+        address[] memory trusteeWallets,
+        uint256[] memory depositorsAmounts,
+        address[] memory depositorWallets,
+        uint256 disputeWaitDay,
+        uint256 targetAmount,
+        bool autoApprove,
+        IERC20 currency
+    ) {
+        require(trusteeAmounts.length > 0, "INVALID");
+        require(
+            trusteeAmounts.length == trusteeWallets.length &&
+                depositorsAmounts.length == depositorWallets.length,
+            "INVALID"
+        );
 
-            uint256 trusteeLength = trusteeAmounts.length;
-            for(uint i; i < trusteeLength; i++) {
-                address trusteeWallet = trusteeWallets[i];
-                Entity storage trustee = _trustees[trusteeWallet];
-                trustee.amount = trusteeAmounts[i];
-                trustee.wallet = trusteeWallet;
-            }
+        uint256 trusteeLength = trusteeAmounts.length;
+        for (uint256 i; i < trusteeLength; i++) {
+            address trusteeWallet = trusteeWallets[i];
+            Trustee storage trustee = _trustees[trusteeWallet];
+            trustee.amount = trusteeAmounts[i];
+            trustee.wallet = trusteeWallet;
+        }
 
-            uint256 depositLength = depositorsAmounts.length;
-            for(uint i; i < depositLength; i++) {
-                address depositorWallet = depositorWallets[i];
-                Entity storage _depositor = _depositors[depositorWallet];
-                _depositor.amount = depositorsAmounts[i];
-                _depositor.wallet = depositorWallet;
-            }
+        uint256 depositLength = depositorsAmounts.length;
+        for (uint256 i; i < depositLength; i++) {
+            address depositorWallet = depositorWallets[i];
+            Depositor storage _depositor = _depositors[depositorWallet];
+            _depositor.amount = depositorsAmounts[i];
+            _depositor.wallet = depositorWallet;
+            _depositorsCount++;
+        }
 
-            _currency = currency;
-            _manager = ContractManager(msg.sender);
+        _currency = currency;
+        _targetAmount = targetAmount;
+        _manager = ContractManager(msg.sender);
+        _disputeWaitDay = disputeWaitDay;
+
+        
+        if(_depositorsCount == 0) {
+            _autoApprove = true;
+        } else {
+            _autoApprove = autoApprove;
+        }
+        
     }
 
     /****************************************************** MODIFIERS *********************************************************************************** */
@@ -172,13 +245,49 @@ contract Contract {
     /// @dev FUNCTION NEEDS SERIOUS IMPROVEMENT
     /// @param amount the amount to deposit
     function deposit(uint256 amount) external isDepositor {
-        Entity memory sender = _depositors[msg.sender];
-        require(sender.wallet != address(0), "UNAUTHORIZED");
-        require(sender.deposited + amount <= sender.amount, "INVALID");
+        Depositor storage depositor = _depositors[msg.sender];
+        require(depositor.wallet != address(0), "UNAUTHORIZED");
+        require(amount > 0, "INVALID");
+
+        // comment because its redundant (save gas!!!)
+        // require(_balance + amount <= _targetAmount, "INVALID");
+
+        require(depositor.deposited + amount <= depositor.amount, "INVALID");
         _currency.approve(address(this), amount);
         _currency.transferFrom(msg.sender, address(this), amount);
-        _depositors[msg.sender].deposited += amount;
-        _depositors[msg.sender].balance += amount;
+
+        // update state
+        Deposit storage _deposit = _deposits[++_depositorsCount];
+        _deposit.amount = amount;
+        _deposit.wallet = msg.sender;
+
+        depositor.deposited += amount;
+        depositor.balance += amount;
+
+        _balance += amount;
+
+        _manager.deposit(address(this), msg.sender, amount);
+    }
+
+    /// @notice Any body can deposit using the currency provided.
+    /// You can deposit until you have reached the specified amount
+    /// @dev FUNCTION NEEDS SERIOUS IMPROVEMENT
+    /// @param amount the amount to deposit
+    function depositAny(uint256 amount) external {
+        require(_depositorsCount == 0, "INVALID");
+        require(msg.sender != address(0), "UNAUTHORIZED");
+        require(_balance + amount <= _targetAmount, "INVALID");
+        require(amount > 0, "INVALID");
+
+        // send token to this contract
+        _currency.approve(address(this), amount);
+        _currency.transferFrom(msg.sender, address(this), amount);
+
+        // update state
+        Deposit storage _deposit = _deposits[++_depositorsCount];
+        _deposit.amount = amount;
+        _deposit.wallet = msg.sender;
+
         _balance += amount;
 
         _manager.deposit(address(this), msg.sender, amount);
@@ -194,11 +303,27 @@ contract Contract {
     {
         require(_trustees[msg.sender].balance >= amount, "INVALID");
         require(_balance >= amount, "INVALID");
+        require(amount > 0, "INVALID");
+
+        // send a new request
         WithdrawalRequest storage withdrawal = _requests[++_withdrawalCount];
         withdrawal.wallet = msg.sender;
         withdrawal.description = description;
-        withdrawal.status = WithdrawalStatus.PENDING;
+
         _manager.request(address(this), msg.sender, amount, description);
+
+        if (_autoApprove) {
+            withdrawal.status = WithdrawalStatus.APPROVED;
+            _manager.approval(
+                address(this),
+                address(0),
+                msg.sender,
+                description,
+                amount
+            );
+        } else {
+            withdrawal.status = WithdrawalStatus.PENDING;
+        }
     }
 
     /// @notice Only a valid trustee can send withdrawal request
@@ -210,7 +335,11 @@ contract Contract {
         isDepositor
     {
         WithdrawalRequest storage _request = _requests[id];
-        require(_request.status == WithdrawalStatus.PENDING, "INVALID");
+        require(
+            _request.status == WithdrawalStatus.PENDING &&
+                _request.wallet != address(0),
+            "INVALID"
+        );
         _request.status = WithdrawalStatus.REJECTED;
 
         uint256 length = _request.votes.length;
@@ -249,10 +378,15 @@ contract Contract {
         uint256 remaingPoint = _request.amount - _request.points;
 
         if (balance >= remaingPoint) {
-            WithdrawalRequestVote memory vote = WithdrawalRequestVote(msg.sender, remaingPoint);
+            WithdrawalRequestVote memory vote = WithdrawalRequestVote(
+                msg.sender,
+                remaingPoint
+            );
+
             _request.points += remaingPoint;
             _request.votes.push(vote);
             _request.status = WithdrawalStatus.APPROVED;
+
             _depositors[msg.sender].balance -= remaingPoint;
             _manager.vote(
                 address(this),
@@ -284,6 +418,18 @@ contract Contract {
         );
 
         return false;
+    }
+
+    function withdraw(uint256 id) external isTrustee {
+        WithdrawalRequest storage _request = _requests[id];
+        require(_request.wallet == msg.sender, "UNAUTHORIZED");
+        require(_request.status == WithdrawalStatus.APPROVED, "UNAUTHORIZED");
+        require(_balance >= _request.amount, "INVALID");
+
+
+        _currency.transfer(_request.wallet,  _request.amount);
+
+
     }
 
     /************************************************************** FUNCTIONS END *************************************************************************** */
