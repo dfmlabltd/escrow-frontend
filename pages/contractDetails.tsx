@@ -60,6 +60,24 @@ export default function ContractDetails() {
 										</div>
 									</div>
 								</div>
+								<div className="relative form-input">
+									<label
+										htmlFor="contractamount"
+										className="text-white text-md"
+									>
+										Dispute Wait Day
+									</label>
+									<div className="relative mt-2">
+										<div className="w-full">
+											<input
+												type="text"
+												id="contractamount"
+												placeholder="What's the waiting time to resolve conflicts"
+												className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base"
+											/>
+										</div>
+									</div>
+								</div>
 								<div className="relative flex flex-col pt-8">
 									<button className="uppercase bg-xcrow_secondary w-full px-4 py-4 rounded-xl text-white text-base">
 										Next
