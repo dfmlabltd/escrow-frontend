@@ -46,11 +46,11 @@ export function useLoginHooks() {
 						password: password,
 					}
 				);
-				localStorage.setItem("user_token", res);
+				localStorage.setItem("user_token", JSON.stringify(res.data));
 				setSuccess("Logged in Successfully");
 				router.push("/");
 			} catch (e: any) {
-				setError(e.message);
+				setError(e.data.data);
 			}
 		}
 	};
