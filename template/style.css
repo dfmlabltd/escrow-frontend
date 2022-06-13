@@ -271,10 +271,15 @@ body{
 }
 .contract_bg{
     background: rgb(104,19,110);
-    background: -moz-linear-gradient(22deg, rgba(104,19,110,0.7959558823529411) 0%, rgba(48,27,113,0.8) 30%, rgba(48,27,113,0.8) 70%, rgba(104,19,110,0.8) 100%);
-    background: -webkit-linear-gradient(22deg, rgba(104,19,110,0.7959558823529411) 0%, rgba(48,27,113,0.8) 30%, rgba(48,27,113,0.8) 70%, rgba(104,19,110,0.8) 100%);
-    background: linear-gradient(22deg, rgba(104,19,110,0.7959558823529411) 0%, rgba(48,27,113,0.8) 30%, rgba(48,27,113,0.8) 70%, rgba(104,19,110,0.8) 100%);
+    background: -moz-linear-gradient(22deg, rgba(104,19,110,0.7959558823529411) 0%, rgba(48,27,113,0.8) 30%, rgba(48,27,113,0.8) 70%, rgba(104,19,110,0.8) 100%), url("../x_crow Asset/Background.png");
+    background: -webkit-linear-gradient(22deg, rgba(104,19,110,0.7959558823529411) 0%, rgba(48,27,113,0.8) 30%, rgba(48,27,113,0.8) 70%, rgba(104,19,110,0.8) 100%), url("../x_crow Asset/Background.png");
+    background: linear-gradient(22deg, rgba(104,19,110,0.7959558823529411) 0%, rgba(48,27,113,0.8) 30%, rgba(48,27,113,0.8) 70%, rgba(104,19,110,0.8) 100%), url("../x_crow Asset/Background.png");
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#68136e",endColorstr="#68136e",GradientType=1);
+
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .xcrow-nav-back{
@@ -325,4 +330,7 @@ body{
 }
 .milestone_add>span:nth-child(2){
     transform: rotate(90deg) translateY(0px) translate(0px);
+}
+.contract_header_logo{
+    width: 40px;
 }
