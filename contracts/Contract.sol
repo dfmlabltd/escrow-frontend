@@ -34,6 +34,7 @@ contract Contract {
     }
 
     enum WithdrawalStatus {
+        INVALID,
         PENDING,
         REJECTED,
         APPROVED,
@@ -218,7 +219,7 @@ contract Contract {
         } else {
             _autoApprove = autoApprove;
         }
-        
+
     }
 
     /****************************************************** MODIFIERS *********************************************************************************** */
