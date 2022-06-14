@@ -5,13 +5,100 @@ import { useRouter } from "next/router";
 import isNumeric from "validator/lib/isNumeric";
 import isEmail from "validator/lib/isEmail";
 import isEthereumAddress from "validator/lib/isEthereumAddress";
+import { RadioGroup } from "@headlessui/react";
 import { useTrusteesHook } from "../components/trustees/trustees";
+const plans = [
+	{
+		name: "I'm the Depositor",
+	},
+	{
+		name: "Other People",
+	},
+	{
+		name: "Anyone can deposit",
+	},
+];
+function Example({ check, setCheck }: any) {
+	console.log(check);
+	return (
+		<div className="w-full px-4 py-16 ">
+			<div className="mx-auto w-full ">
+				<RadioGroup value={check} onChange={setCheck}>
+					<div
+						className="space-y-2 d-flex mt-5"
+						style={{
+							display: "flex",
+							flexWrap: "wrap",
+							justifyContent: "space-between",
+							alignItems: "center",
+							width: "60%",
+						}}
+					>
+						{plans.map((plan) => (
+							<RadioGroup.Option
+								key={plan.name}
+								value={plan.name}
+								className={({ active, checked }) =>
+									`${
+										active
+											? "ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300"
+											: ""
+									}
+                  ${checked ? "bg-xcrow_secondary text-white" : "bg-white"}
+                    relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none`
+								}
+							>
+								{({ active, checked }) => (
+									<>
+										<div className="flex w-full items-center justify-between">
+											<div className="flex items-center">
+												<div className="text-sm">
+													<RadioGroup.Label
+														as="p"
+														className={`font-medium  ${
+															checked ? "text-white" : "text-gray-800 font-bold"
+														}`}
+													>
+														{plan.name}
+													</RadioGroup.Label>
+												</div>
+											</div>
+											{checked && (
+												<div className="shrink-0 text-white">
+													<CheckIcon className="h-6 w-6" />
+												</div>
+											)}
+										</div>
+									</>
+								)}
+							</RadioGroup.Option>
+						))}
+					</div>
+				</RadioGroup>
+			</div>
+		</div>
+	);
+}
 
+function CheckIcon(props: any) {
+	return (
+		<svg viewBox="0 0 24 24" fill="none" {...props}>
+			<circle cx={12} cy={12} r={12} fill="#fff" opacity="0.2" />
+			<path
+				d="M7 13l3 3 7-7"
+				stroke="#fff"
+				strokeWidth={1.5}
+				strokeLinecap="round"
+				strokeLinejoin="round"
+			/>
+		</svg>
+	);
+}
 export default function DepositorRequirement() {
 	const [value, setValue] = useState<any>();
 	const [check, setCheck] = useState("depositor");
 	const [error, setError] = useState("");
-
+	console.log(check);
 	const router = useRouter();
 	const {
 		trustees,
@@ -96,41 +183,13 @@ export default function DepositorRequirement() {
 					<div className="flex flex-col">
 						<form action="">
 							<div className="w-full flex flex-col space-y-10">
-								<div className="flex space-x-3 pt-20">
-									<label
-										htmlFor="milestone"
-										className="text-white text-md mt-4"
-									>
-										Add Depositor (optionals)
-									</label>
-									{/* <label
-										htmlFor="default-toggle"
-										className="inline-flex relative items-center cursor-pointer"
-									> */}
-									<select
-										onChange={(e) => setCheck(e.target.value)}
-										className="block appearance-none h-14 bg-xcrow_secondary border border-xcrow_secondary px-5 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base"
-									>
-										<option value="depositor">I'm the Depositor</option>
-										<option value="people">Other People</option>
-										<option value="anyone">Anyone can deposit</option>
-									</select>
-									{/* <input
-											type="checkbox"
-											onChange={(e) => setCheck(e.target.checked)}
-											id="default-toggle"
-											className="sr-only peer"
-										/>
-										<div className="w-11 h-5 bg-gray-200 peer-focus:outline-none  rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-xcrow_secondary after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-xcrow_secondary after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gray-400"></div>
-										 */}
-									{/* </label> */}
-								</div>
 								{error !== "" && (
 									<div>
 										<Notification kind="error" message={error} />
 									</div>
 								)}
-								{check === "anyone" && (
+								<Example check={check} setCheck={setCheck} />
+								{check === "Anyone can deposit" && (
 									<>
 										{Array.from(trustees).map(([key, email], index) => (
 											<div className="flex flex-col pt-8" key={key}>
