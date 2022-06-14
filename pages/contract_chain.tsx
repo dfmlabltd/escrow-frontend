@@ -14,35 +14,6 @@ const Contract = inject("contractStore")(
   observer((props: Props) => {
     const dataStore = props.contractStore!;
 
-<<<<<<< HEAD
-    const handleAmount = (amount: any, e?: any) => {
-      e.preventDefault();
-      if (!isNumeric(amount)) {
-        setError("Please put in a valid amount");
-      } else {
-        router.push("/contract_chain");
-      }
-    };
-    const { tokens, handleFetchCoins, coins } = useContractHook();
-    const [tokenValue, setTokenValue] = useState<any>();
-    const [coinValue, setCoinValue] = useState<any>();
-    const [error, setError] = useState("");
-    const [open, setOpen] = useState(false);
-    const router = useRouter();
-    const [openCoins, setOpenCoins] = useState(false);
-
-    const handleNext = (e: any, amount: string) => {
-      if (!isNumeric(amount)) {
-        setError("Please put in a valid amount");
-      } else {
-        router.push("/trusteeRequirement");
-      }
-    };
-    return (
-      <section id="xcrow_contract">
-        <div className="w-full min-h-screen contract_bg">
-          <Backarrow />
-=======
 		const { tokens, handleFetchCoins, coins } = useContractHook();
 		const [tokenValue, setTokenValue] = useState<any>();
 		const [coinValue, setCoinValue] = useState<any>();
@@ -63,7 +34,6 @@ const Contract = inject("contractStore")(
 			<section id="xcrow_contract">
 				<div className="w-full min-h-screen contract_bg">
 					<Backarrow />
->>>>>>> 6662c935e191b037d0c31dfb787f6819efa94383
 
           <div className="container px-6 flex flex-col mx-auto pb-24">
             <div className="max-w-md flex flex-col space-y-12 mx-auto mt-10">

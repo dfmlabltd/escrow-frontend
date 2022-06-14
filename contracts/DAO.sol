@@ -14,7 +14,6 @@ pragma solidity ^0.8.4;
 
 contract DAO {
     enum MemberStatus {
-        INVALID,
         PENDING,
         ACTIVE,
         RENOUNCED,
@@ -34,6 +33,7 @@ contract DAO {
         uint256 support;
         uint256 against;
         uint256 abstain;
+        bool completed;
     }
 
     enum VoteChoice {
@@ -177,6 +177,35 @@ contract DAO {
         vote.wallet = msg.sender;
 
         vote.choice = choice;
+    }
+
+    function join(uint256 id) external {
+        MembershipRequest storage request = _memberRequests[id];
+
+        require(!request.completed, "INVALID");
+        require(block.timestamp >= request.deadline, "INVALID");
+        require(request.support > request.against, "INVALID");
+
+        Member storage member = _members[msg.sender];
+
+        require(
+            member.status == MemberStatus.PENDING ||
+                member.status == MemberStatus.RENOUNCED,
+            "INVALID"
+        );
+
+        if (member.status != MemberStatus.RENOUNCED) {
+            _membersAddress[++_membersCount] = msg.sender;
+        }
+
+        request.completed = true;
+    }
+
+    function renounce() external payable isMember {
+        require(_balance >= _stakeAmount, "INVALID");
+        _members[msg.sender].status = MemberStatus.RENOUNCED;
+        address payable sender = payable(msg.sender);
+        sender.transfer(_stakeAmount);
     }
 
     modifier isMember() {
