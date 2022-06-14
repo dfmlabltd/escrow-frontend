@@ -14,14 +14,6 @@ const Contract = inject("contractStore")(
 	observer((props: Props) => {
 		const dataStore = props.contractStore!;
 
-		const handleAmount = (amount: any, e?: any) => {
-			e.preventDefault();
-			if (!isNumeric(amount)) {
-				setError("Please put in a valid amount");
-			} else {
-				router.push("/contract_chain");
-			}
-		};
 		const { tokens, handleFetchCoins, coins } = useContractHook();
 		const [tokenValue, setTokenValue] = useState<any>();
 		const [coinValue, setCoinValue] = useState<any>();
@@ -31,6 +23,7 @@ const Contract = inject("contractStore")(
 		const [openCoins, setOpenCoins] = useState(false);
 
 		const handleNext = (e: any, amount: string) => {
+			e.preventDefault();
 			if (!isNumeric(amount)) {
 				setError("Please put in a valid amount");
 			} else {
