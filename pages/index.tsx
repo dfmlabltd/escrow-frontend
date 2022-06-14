@@ -10,9 +10,10 @@ import { useEffect, useCallback } from "react";
 import axios from "axios";
 
 const iSSERVER = typeof window === "undefined";
-const getRefresh: any = !iSSERVER ? localStorage.getItem("user_token") : "";
-var refreshToken = getRefresh ? JSON.parse(getRefresh) : "";
-const token = refreshToken?.access;
+const getRefresh: any = !iSSERVER
+	? JSON.parse(`${localStorage.getItem("user_token")}`)
+	: "";
+const token = getRefresh?.access;
 const Home: NextPage = () => {
 	const { isExpired } = useJwt(token);
 	const handleTokenRefresh = useCallback(async () => {
@@ -20,11 +21,11 @@ const Home: NextPage = () => {
 			const res: any = await axios.post(
 				`${process.env.BASE_URL}/user/auth/token/refresh/`,
 				{
-					refresh: refreshToken?.refresh,
+					refresh: getRefresh?.refresh,
 				}
 			);
 			const decod = {
-				refresh: refreshToken.refresh,
+				refresh: getRefresh.refresh,
 				access: res.data?.access,
 			};
 			localStorage.setItem("access_token", JSON.stringify(decod));
