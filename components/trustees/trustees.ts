@@ -1,4 +1,5 @@
 import { useReducer, useCallback, useState, ChangeEvent } from "react";
+import { useStoreContext } from "../../pages/_app";
 import nextId from "react-id-generator";
 
 interface Trustee {
@@ -105,7 +106,7 @@ type ReducerAction =
 	| UpdateWalletAction
 	| RemoveKeyAction;
 
-export const useTrusteesHook = (setValue: any) => {
+export const useTrusteesHook = (value: any) => {
 	function trusteesReducer(
 		state: ReducerState,
 		action: ReducerAction
@@ -154,10 +155,12 @@ export const useTrusteesHook = (setValue: any) => {
 		...initialState,
 		trustees: defaultTrustees([""]),
 	});
-
+	const {
+		ContractsStore: { handleChange },
+	} = useStoreContext();
 	const updateValue = useCallback(
 		(type: string) => {
-			if (setValue) {
+			if (value) {
 				if (type === "email") {
 					const trustees = Array.from(state.trustees).map(([key, email]) => ({
 						...email,
@@ -166,7 +169,8 @@ export const useTrusteesHook = (setValue: any) => {
 						wallet_address: email.wallet_address,
 					}));
 
-					setValue(
+					handleChange(
+						value,
 						trustees.map((item: any) => ({
 							email: item.email,
 							amount: item.amount,
@@ -181,7 +185,8 @@ export const useTrusteesHook = (setValue: any) => {
 						wallet_address: email.wallet_address,
 					}));
 
-					setValue(
+					handleChange(
+						value,
 						trustees.map((item: any) => ({
 							email: item.email,
 							amount: item.amount,
@@ -196,7 +201,8 @@ export const useTrusteesHook = (setValue: any) => {
 						wallet_address: email.wallet_address,
 					}));
 
-					setValue(
+					handleChange(
+						value,
 						trustees.map((item: any) => ({
 							email: item.email,
 							amount: item.amount,
@@ -211,7 +217,8 @@ export const useTrusteesHook = (setValue: any) => {
 						wallet_address: email.wallet_address,
 					}));
 
-					setValue(
+					handleChange(
+						value,
 						trustees.map((item: any) => ({
 							email: item.email,
 							amount: item.amount,
@@ -221,7 +228,7 @@ export const useTrusteesHook = (setValue: any) => {
 				}
 			}
 		},
-		[setValue, state.trustees]
+		[value, state.trustees]
 	);
 	const onChangeEmail = useCallback(
 		async (e: ChangeEvent<HTMLInputElement>, key: string) => {

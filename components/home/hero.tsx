@@ -41,8 +41,8 @@ export default function Hero() {
 						</div>
 					</div>
 
-					<div className="" style={{ width: "63%" }}>
-						<img src="/assets/Hero.png" width={"100%"} />
+					<div className="flex flex-col items-center md:w-1/2 md:items-end">
+						<img src="assets/Hero.png" alt="Adehun" className="w-full" />
 					</div>
 				</div>
 			</div>

@@ -12,12 +12,9 @@ import isEmail from "validator/lib/isEmail";
 import isEthereumAddress from "validator/lib/isEthereumAddress";
 
 function TrusteeRequirement() {
-	const [value, setValue] = useState<any>();
 	const [error, setError] = useState("");
 	const {
 		ContractsStore: {
-			handleChange,
-			handleTrusteesChange,
 			contractInfo: { trustees: trust },
 		},
 	} = useStoreContext();
@@ -30,24 +27,24 @@ function TrusteeRequirement() {
 		onChangeAmount,
 		onChangeWallet,
 		remove,
-	} = useTrusteesHook(setValue);
+	} = useTrusteesHook("trustees");
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		if (value === undefined) {
+		if (trust === undefined) {
 			setError("Please fill in fields");
 		} else {
-			if (value?.length === 1) {
+			if (trust?.length === 1) {
 				if (
-					value[0].email === undefined ||
-					value[0].amount === undefined ||
-					value[0].wallet_address === undefined
+					trust[0].email === undefined ||
+					trust[0].amount === undefined ||
+					trust[0].wallet_address === undefined
 				) {
-					if (!isEmail(value[0].email)) {
+					if (!isEmail(trust[0].email)) {
 						setError("Please enter a valid email");
-					} else if (!isNumeric(value[0].amount)) {
+					} else if (!isNumeric(trust[0].amount)) {
 						setError("Please enter a valid amount");
-					} else if (!isEthereumAddress(value[0].wallet_address)) {
+					} else if (!isEthereumAddress(trust[0].wallet_address)) {
 						setError("Please fill in a valid address");
 					}
 					setError("Please fill in the required fields");
@@ -56,10 +53,10 @@ function TrusteeRequirement() {
 					router.push("/depositorRequirement");
 				}
 			} else {
-				const valueFilter = value?.filter(
+				const valueFilter = trust?.filter(
 					(item: any) => item.email !== undefined || item.amount !== undefined
 				);
-				console.log(value, valueFilter);
+
 				const res = valueFilter.map((item: any) => {
 					if (
 						item.email === undefined ||
@@ -77,7 +74,7 @@ function TrusteeRequirement() {
 				});
 				if (res.includes(true)) {
 					setError("Please fill all required fields");
-				} else if (value?.length !== 1) {
+				} else if (trust?.length !== 1) {
 					router.push("/depositorRequirement");
 				}
 			}
@@ -134,22 +131,6 @@ function TrusteeRequirement() {
 														key={key}
 														id={key}
 														onChange={(e) => {
-															if (trust[index]?.email === undefined) {
-																handleChange("trustees", [
-																	...trust,
-																	{
-																		email: "",
-																		amount: 0,
-																		wallet_address: "",
-																	},
-																]);
-															}
-															handleTrusteesChange(
-																"trustees",
-																index,
-																e.target.value,
-																"email"
-															);
 															onChangeEmail(e, key);
 														}}
 														placeholder="Enter Trustee's Email Address"
@@ -172,23 +153,6 @@ function TrusteeRequirement() {
 														key={key}
 														id={key}
 														onChange={(e) => {
-															if (trust[index]?.amount === undefined) {
-																handleChange("trustees", [
-																	...trust,
-																	{
-																		email: "",
-																		amount: "",
-																		wallet_address: "",
-																	},
-																]);
-															}
-															handleTrusteesChange(
-																"trustees",
-																index,
-																e.target.value,
-																"amount"
-															);
-
 															onChangeAmount(e, key);
 														}}
 														placeholder="Amount"
@@ -211,22 +175,6 @@ function TrusteeRequirement() {
 														key={key}
 														id={key}
 														onChange={(e) => {
-															if (trust[index]?.wallet_address === undefined) {
-																handleChange("trustees", [
-																	...trust,
-																	{
-																		email: "",
-																		amount: "",
-																		wallet_address: "",
-																	},
-																]);
-															}
-															handleTrusteesChange(
-																"trustees",
-																index,
-																e.target.value,
-																"wallet_address"
-															);
 															onChangeWallet(e, key);
 														}}
 														placeholder="Wallet Address"

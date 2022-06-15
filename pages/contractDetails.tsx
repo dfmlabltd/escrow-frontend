@@ -78,6 +78,27 @@ export default function ContractDetails() {
 										</div>
 									</div>
 								</div>
+								<div className="flex space-x-3 justify-center">
+									<label
+										htmlFor="default-toggle"
+										className="inline-flex relative items-center cursor-pointer"
+									>
+										<input
+											type="checkbox"
+											className="w-4 h-4 border-0 rounded-md focus:ring-0"
+											checked
+										/>
+									</label>
+									<label htmlFor="milestone" className="text-white text-md">
+										Auto withdrawal{" "}
+										<span className="text-sm text-gray-400">(optionals)</span>
+									</label>
+								</div>
+								<div className="relative flex flex-col pt-8">
+									<button className="uppercase bg-xcrow_secondary w-full px-4 py-4 rounded-xl text-white text-base">
+										Next
+									</button>
+								</div>
 								<div className="relative flex flex-col pt-8">
 									<button className="uppercase bg-xcrow_secondary w-full px-4 py-4 rounded-xl text-white text-base">
 										Next
