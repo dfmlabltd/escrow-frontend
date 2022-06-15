@@ -3,15 +3,25 @@ import Backarrow from "../components/back-arrow";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Notification from "../components/notification";
+import { observer } from "mobx-react-lite";
+import { useStoreContext } from "./_app";
 import { MdCancel } from "react-icons/md";
 import { useTrusteesHook } from "../components/trustees/trustees";
 import isNumeric from "validator/lib/isNumeric";
 import isEmail from "validator/lib/isEmail";
 import isEthereumAddress from "validator/lib/isEthereumAddress";
 
-export default function TrusteeRequirement() {
+function TrusteeRequirement() {
 	const [value, setValue] = useState<any>();
 	const [error, setError] = useState("");
+	const {
+		ContractsStore: {
+			handleChange,
+			handleTrusteesChange,
+			contractInfo: { trustees: trust },
+		},
+	} = useStoreContext();
+
 	const router = useRouter();
 	const {
 		trustees,
@@ -49,6 +59,7 @@ export default function TrusteeRequirement() {
 				const valueFilter = value?.filter(
 					(item: any) => item.email !== undefined || item.amount !== undefined
 				);
+				console.log(value, valueFilter);
 				const res = valueFilter.map((item: any) => {
 					if (
 						item.email === undefined ||
@@ -65,7 +76,6 @@ export default function TrusteeRequirement() {
 					}
 				});
 				if (res.includes(true)) {
-					console.log("yes");
 					setError("Please fill all required fields");
 				} else if (value?.length !== 1) {
 					router.push("/depositorRequirement");
@@ -73,6 +83,7 @@ export default function TrusteeRequirement() {
 			}
 		}
 	};
+
 	return (
 		<section id="xcrow_contract">
 			<div className="w-full min-h-screen contract_bg">
@@ -119,10 +130,28 @@ export default function TrusteeRequirement() {
 													<input
 														type="text"
 														name={key}
-														value={email.email}
+														value={trust[index]?.email}
 														key={key}
 														id={key}
-														onChange={(e) => onChangeEmail(e, key)}
+														onChange={(e) => {
+															if (trust[index]?.email === undefined) {
+																handleChange("trustees", [
+																	...trust,
+																	{
+																		email: "",
+																		amount: 0,
+																		wallet_address: "",
+																	},
+																]);
+															}
+															handleTrusteesChange(
+																"trustees",
+																index,
+																e.target.value,
+																"email"
+															);
+															onChangeEmail(e, key);
+														}}
 														placeholder="Enter Trustee's Email Address"
 														className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base pr-32"
 													/>
@@ -139,10 +168,29 @@ export default function TrusteeRequirement() {
 													<input
 														type="number"
 														name={key}
-														value={email.amount}
+														value={trust[index]?.amount}
 														key={key}
 														id={key}
-														onChange={(e) => onChangeAmount(e, key)}
+														onChange={(e) => {
+															if (trust[index]?.amount === undefined) {
+																handleChange("trustees", [
+																	...trust,
+																	{
+																		email: "",
+																		amount: "",
+																		wallet_address: "",
+																	},
+																]);
+															}
+															handleTrusteesChange(
+																"trustees",
+																index,
+																e.target.value,
+																"amount"
+															);
+
+															onChangeAmount(e, key);
+														}}
 														placeholder="Amount"
 														className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base pr-32"
 													/>
@@ -159,10 +207,28 @@ export default function TrusteeRequirement() {
 													<input
 														type="text"
 														name={key}
-														value={email.wallet_address}
+														value={trust[index]?.wallet_address}
 														key={key}
 														id={key}
-														onChange={(e) => onChangeWallet(e, key)}
+														onChange={(e) => {
+															if (trust[index]?.wallet_address === undefined) {
+																handleChange("trustees", [
+																	...trust,
+																	{
+																		email: "",
+																		amount: "",
+																		wallet_address: "",
+																	},
+																]);
+															}
+															handleTrusteesChange(
+																"trustees",
+																index,
+																e.target.value,
+																"wallet_address"
+															);
+															onChangeWallet(e, key);
+														}}
 														placeholder="Wallet Address"
 														className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base pr-32"
 													/>
@@ -180,7 +246,9 @@ export default function TrusteeRequirement() {
 											>
 												<p
 													className="text-white text-md mt-8 cursor-pointer"
-													onClick={() => remove(key)}
+													onClick={() => {
+														remove(key);
+													}}
 												>
 													<MdCancel />
 												</p>
@@ -217,3 +285,4 @@ export default function TrusteeRequirement() {
 		</section>
 	);
 }
+export default observer(TrusteeRequirement);
