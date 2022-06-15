@@ -111,14 +111,10 @@ const Contract = inject("contractStore")(
 																	width={"0px"}
 																	height={"0px"}
 																>
-																	<use
-																		xlinkHref={`${
-																			tokens !== undefined && tokens[0]?.icon
-																		}`}
-																	/>
+																	<use xlinkHref={`${tokens[0]?.icon}`} />
 																</svg>
 																<img
-																	src={tokens !== undefined && tokens[0]?.icon}
+																	src={tokens[0]?.icon}
 																	width="40px"
 																	style={{
 																		borderRadius: "50px",

@@ -3,6 +3,7 @@ import Backarrow from "../components/back-arrow";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Notification from "../components/notification";
+import { MdCancel } from "react-icons/md";
 import { useTrusteesHook } from "../components/trustees/trustees";
 import isNumeric from "validator/lib/isNumeric";
 import isEmail from "validator/lib/isEmail";
@@ -20,7 +21,7 @@ export default function TrusteeRequirement() {
 		onChangeWallet,
 		remove,
 	} = useTrusteesHook(setValue);
-	console.log(value);
+
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 		if (value === undefined) {
@@ -181,7 +182,7 @@ export default function TrusteeRequirement() {
 													className="text-white text-md mt-8 cursor-pointer"
 													onClick={() => remove(key)}
 												>
-													Remove
+													<MdCancel />
 												</p>
 											</div>
 										)}

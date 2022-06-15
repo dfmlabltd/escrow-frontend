@@ -1,8 +1,12 @@
 import axios from "axios";
 import { useState, useEffect, useCallback } from "react";
-
+interface Itoken {
+	name: string;
+	icon: string;
+}
+[];
 export const useContractHook = () => {
-	const [tokens, setTokens] = useState<any>();
+	const [tokens, setTokens] = useState<Itoken[]>([]);
 	const [coins, setCoins] = useState<any>();
 	const handleFetchTokens = useCallback(async () => {
 		const res = await axios.get(`${process.env.BASE_URL}/crypto/network/`);

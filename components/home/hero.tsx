@@ -9,7 +9,7 @@ export default function Hero() {
 		>
 			<Navbar />
 			<div id="hero">
-				<div className="container mx-auto px-6 flex flex-col py-24 space-y-6 items-center justify-between md:flex-row md:space-y-0">
+				<div className="container mx-auto px-6 flex flex-col py-20 space-y-6 items-center justify-between md:flex-row md:space-y-0">
 					<div className="flex flex-col space-y-6 md:w-1/2">
 						<div id="slider_counter" className="flex flex-row space-x-1">
 							<span className="counter counter_open"></span>
@@ -41,7 +41,9 @@ export default function Hero() {
 						</div>
 					</div>
 
-					<div className="w-1/3"></div>
+					<div className="" style={{ width: "63%" }}>
+						<img src="/assets/Hero.png" width={"100%"} />
+					</div>
 				</div>
 			</div>
 		</section>
