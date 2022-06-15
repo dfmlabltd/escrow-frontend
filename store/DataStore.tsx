@@ -1,50 +1,80 @@
-import { observable } from "mobx";
+import { observable, action, makeAutoObservable } from "mobx";
 import { useStaticRendering } from "mobx-react";
 
 const isServer = typeof window === "undefined";
 // eslint-disable-next-line react-hooks/rules-of-hooks
 useStaticRendering(isServer);
 
-type ContractStore = {
+interface ContractStore {
 	depositors: [
 		{
-			user: string;
-			amount: number;
-			wallet_address: string;
+			email: string;
+			amount: any;
+			wallet_address?: any;
 		}
 	];
 	trustees: [
 		{
-			user: string;
-			amount: number;
-			wallet_address: string;
+			email: string;
+			amount: any;
+			wallet_address?: any;
 		}
 	];
 
-	amount: number | undefined;
+	amount: string;
 	token_address: string;
+	token: object;
+	coin: object;
 	blockchain_network: string;
 	title: string;
-};
+}
 
 export class ContractsStore {
-	@observable contractInfo: any;
+	@observable contractInfo: any = {
+		depositors: [
+			{
+				email: "",
+				amount: "",
+				wallet_address: "",
+			},
+		],
+		trustees: [
+			{
+				email: "",
+				amount: "",
+				wallet_address: "",
+			},
+		],
+		amount: "",
+		token_address: "",
+		token: {},
+		coin: {},
+		blockchain_network: "",
+		title: "",
+	};
+	constructor() {
+		makeAutoObservable(this);
+	}
 	@observable amount: any;
 
 	hydrate(contractStore: ContractStore) {
-		this.contractInfo = contractStore != null ? contractStore : "";
-		this.amount = contractStore.amount != null ? contractStore.amount : "";
+		if (!contractStore) return;
+		this.contractInfo(contractStore);
 	}
 
-	handleAmount(e: string) {
-		this.amount = e;
-	}
-	handleContractInfo(data: object) {
+	@action handleChange = (field: string, data: any) => {
+		this.contractInfo[field] = data;
+	};
+	@action handleTrusteesChange = (
+		field: string,
+		index: number,
+		data: any,
+		sub: string
+	) => {
+		this.contractInfo[field][index][sub] = data;
+	};
+	@action handleContractInfo(data: object) {
 		this.contractInfo = data;
 	}
 }
-
-export async function fetchInitialStoreState() {
-	// You can do anything to fetch initial store state
-	return {};
-}
+export const storeContract = new ContractsStore();
