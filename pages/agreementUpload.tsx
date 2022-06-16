@@ -4,7 +4,7 @@ import Backarrow from "../components/back-arrow";
 
 export default function AgreementUpload() {
 	const router = useRouter();
-	const handleNext = () => {
+	const handleNext = (e: any) => {
 		router.push("contract_review");
 	};
 	return (
@@ -123,7 +123,10 @@ export default function AgreementUpload() {
 
 					<div className="max-w-md flex flex-col space-y-12 mt-10">
 						<div className="w-full flex flex-col pt-8">
-							<button className="uppercase bg-xcrow_secondary w-full px-4 py-4 rounded-xl text-white text-base">
+							<button
+								onClick={handleNext}
+								className="uppercase bg-xcrow_secondary w-full px-4 py-4 rounded-xl text-white text-base"
+							>
 								Next
 							</button>
 						</div>
