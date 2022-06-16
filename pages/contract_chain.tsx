@@ -328,9 +328,13 @@ const Contract = () => {
 											<div className="absolute top-0 right-0">
 												<div className="inline-block relative place-content-center">
 													<select className="block appearance-none h-14 bg-xcrow_secondary border border-xcrow_secondary px-5 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base">
+														<option>
+															{coin !== undefined ? coin?.name : ""}
+														</option>
 														<option>USD</option>
 														<option>EUR</option>
 														<option>YEN</option>
+
 														<option>NGN</option>
 													</select>
 													<div

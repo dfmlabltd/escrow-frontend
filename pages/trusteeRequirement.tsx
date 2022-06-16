@@ -15,7 +15,7 @@ function TrusteeRequirement() {
 	const [error, setError] = useState("");
 	const {
 		ContractsStore: {
-			contractInfo: { trustees: trust },
+			contractInfo: { trustees: trust, coin },
 		},
 	} = useStoreContext();
 
@@ -104,14 +104,18 @@ function TrusteeRequirement() {
 							<Notification kind="error" message={error} />
 						</div>
 					)}
+					{/* {alert(Array.from(trustees).length)} */}
 					{Array.from(trustees).map(([key, email], index) => (
 						<div className="flex flex-col pt-8" key={key}>
-							<p
-								className="text-md  mb-8"
-								style={{ fontSize: "20px", color: "#cedede" }}
-							>
-								Trustee {index + 1}
-							</p>
+							{Array.from(trustees).length >= 2 && (
+								<p
+									className="text-md  mb-8"
+									style={{ fontSize: "20px", color: "#cedede" }}
+								>
+									Trustee {index + 1}
+								</p>
+							)}
+
 							<form action="">
 								<div className="w-full flex flex-col space-y-10">
 									<div className="flex flex-col space-y-8 md:space-y-0 md:space-x-8 md:flex-row">
@@ -159,6 +163,32 @@ function TrusteeRequirement() {
 														className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base pr-32"
 													/>
 												</div>
+												<div className="absolute top-0 right-0">
+													<div className="inline-block relative place-content-center">
+														<select className="block appearance-none h-14 bg-xcrow_secondary border border-xcrow_secondary px-5 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base">
+															<option>
+																{coin !== undefined ? coin.name : ""}
+															</option>
+															<option>USD</option>
+															<option>EUR</option>
+															<option>YEN</option>
+
+															<option>NGN</option>
+														</select>
+														<div
+															className="pointer-events-none absolute inset-y-0 flex items-center text-white"
+															style={{ right: "10px" }}
+														>
+															<svg
+																className="fill-current h-5 w-5"
+																xmlns="http://www.w3.org/2000/svg"
+																viewBox="0 0 20 20"
+															>
+																<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+															</svg>
+														</div>
+													</div>
+												</div>
 											</div>
 										</div>
 
@@ -198,7 +228,7 @@ function TrusteeRequirement() {
 														remove(key);
 													}}
 												>
-													<MdCancel />
+													<MdCancel style={{ color: "red" }} />
 												</p>
 											</div>
 										)}

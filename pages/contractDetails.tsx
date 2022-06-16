@@ -47,30 +47,12 @@ export default function ContractDetails() {
 										htmlFor="contractamount"
 										className="text-white text-md"
 									>
-										Description
-									</label>
-									<div className="relative mt-2">
-										<div className="w-full">
-											<input
-												type="text"
-												id="contractamount"
-												placeholder="Provide a detailed description about your contract"
-												className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base"
-											/>
-										</div>
-									</div>
-								</div>
-								<div className="relative form-input">
-									<label
-										htmlFor="contractamount"
-										className="text-white text-md"
-									>
 										Dispute Wait Day
 									</label>
 									<div className="relative mt-2">
 										<div className="w-full">
 											<input
-												type="text"
+												type="number"
 												id="contractamount"
 												placeholder="What's the waiting time to resolve conflicts"
 												className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base"
@@ -86,7 +68,6 @@ export default function ContractDetails() {
 										<input
 											type="checkbox"
 											className="w-4 h-4 border-0 rounded-md focus:ring-0"
-											checked
 										/>
 									</label>
 									<label htmlFor="milestone" className="text-white text-md">
