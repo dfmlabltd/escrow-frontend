@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 export default function Navbar() {
 	return (
@@ -12,7 +13,7 @@ export default function Navbar() {
 							<a href="#">How it Works</a>
 							<a href="#">Resolution Center</a>
 							<a href="#">FAQs</a>
-							<a href="#">My Contract</a>
+							<Link href={"contract_summary"}>My Contract</Link>
 							<a href="#" className="border border-gray-400 px-3 py-3 rounded">
 								Launch Adehun App
 							</a>

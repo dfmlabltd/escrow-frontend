@@ -22,10 +22,10 @@ interface ContractStore {
 	];
 
 	amount: string;
-	token_address: string;
 	token: object;
 	coin: object;
-	blockchain_network: string;
+	wait_day: number;
+	auto_withdrawal: boolean;
 	title: string;
 }
 
@@ -48,6 +48,8 @@ export class ContractsStore {
 		amount: "",
 		token_address: "",
 		token: {},
+		auto_withdrawal: false,
+		wait_day: 2,
 		coin: {},
 		blockchain_network: "",
 		title: "",

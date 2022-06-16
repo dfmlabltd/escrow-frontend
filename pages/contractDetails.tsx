@@ -1,6 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import { useStoreContext } from "./_app";
+import { observer } from "mobx-react-lite";
+import Notification from "../components/notification";
+import { useRouter } from "next/router";
 import Backarrow from "../components/back-arrow";
-export default function ContractDetails() {
+function ContractDetails() {
+	const [error, setError] = useState("");
+
+	const router = useRouter();
+	const {
+		ContractsStore: {
+			handleChange,
+			contractInfo: { title, wait_day, auto_withdrawal },
+		},
+	} = useStoreContext();
+	const handleNext = (e: any) => {
+		e.preventDefault();
+		if (title.trim() === "") {
+			setError("Please Input a title");
+		} else if (wait_day < 1) {
+			setError("Please Input a valid wait day");
+		} else {
+			router.push(`agreementUpload`);
+		}
+	};
 	return (
 		<section id="xcrow_contract">
 			<div className="w-full min-h-screen contract_bg">
@@ -20,6 +43,7 @@ export default function ContractDetails() {
 								contract title and contract descriptions.
 							</p>
 						</div>
+						{error !== "" && <Notification kind="error" message={error} />}
 
 						<form action="">
 							<div className="w-full flex flex-col space-y-10">
@@ -34,6 +58,10 @@ export default function ContractDetails() {
 										<div className="w-full">
 											<input
 												type="text"
+												value={title}
+												onChange={(e: any) =>
+													handleChange("title", e.target.value)
+												}
 												id="contractamount"
 												placeholder="Contract title"
 												className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base"
@@ -53,6 +81,10 @@ export default function ContractDetails() {
 										<div className="w-full">
 											<input
 												type="number"
+												value={wait_day}
+												onChange={(e: any) =>
+													handleChange("wait_day", e.target.value)
+												}
 												id="contractamount"
 												placeholder="What's the waiting time to resolve conflicts"
 												className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base"
@@ -67,6 +99,10 @@ export default function ContractDetails() {
 									>
 										<input
 											type="checkbox"
+											onChange={(e: any) =>
+												handleChange("auto_withdrawal", e.target.checked)
+											}
+											checked={auto_withdrawal === true}
 											className="w-4 h-4 border-0 rounded-md focus:ring-0"
 										/>
 									</label>
@@ -75,13 +111,12 @@ export default function ContractDetails() {
 										<span className="text-sm text-gray-400">(optionals)</span>
 									</label>
 								</div>
+
 								<div className="relative flex flex-col pt-8">
-									<button className="uppercase bg-xcrow_secondary w-full px-4 py-4 rounded-xl text-white text-base">
-										Next
-									</button>
-								</div>
-								<div className="relative flex flex-col pt-8">
-									<button className="uppercase bg-xcrow_secondary w-full px-4 py-4 rounded-xl text-white text-base">
+									<button
+										onClick={handleNext}
+										className="uppercase bg-xcrow_secondary w-full px-4 py-4 rounded-xl text-white text-base"
+									>
 										Next
 									</button>
 								</div>
@@ -93,3 +128,5 @@ export default function ContractDetails() {
 		</section>
 	);
 }
+
+export default observer(ContractDetails);

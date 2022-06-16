@@ -1,6 +1,10 @@
 import React from "react";
-
-export default function ContractReview() {
+import { observer } from "mobx-react-lite";
+import { useStoreContext } from "./_app";
+function ContractReview() {
+	const {
+		ContractsStore: { contractInfo },
+	} = useStoreContext();
 	return (
 		<div>
 			<section id="xcrow_contractDetails">
@@ -59,7 +63,7 @@ export default function ContractReview() {
 															<h5>Set an amount</h5>
 														</div>
 														<div className="flex flex-col">
-															<span>$10000</span>
+															<span>${contractInfo.amount}</span>
 														</div>
 													</div>
 												</div>
@@ -75,7 +79,7 @@ export default function ContractReview() {
 															<h5>Cryptocurrency</h5>
 														</div>
 														<div className="flex flex-col">
-															<span>Celo</span>
+															<span>{contractInfo.token.name}</span>
 														</div>
 													</div>
 													<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
@@ -83,7 +87,7 @@ export default function ContractReview() {
 															<h5>Token</h5>
 														</div>
 														<div className="flex flex-col">
-															<span>cUSD</span>
+															<span>{contractInfo.coin.name}</span>
 														</div>
 													</div>
 												</div>
@@ -94,67 +98,41 @@ export default function ContractReview() {
 															Depositor Requirement
 														</h5>
 													</div>
-													<div className="text-white">
-														<h5 className="font-xcrow_smb text-sm">
-															Milestone 1
-														</h5>
-													</div>
-													<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-														<div className="flex flex-col">
-															<h5>Amount</h5>
-														</div>
-														<div className="flex flex-col">
-															<span>$20000</span>
-														</div>
-													</div>
-													<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-														<div className="flex flex-col">
-															<h5>Wallet Address</h5>
-														</div>
-														<div className="flex flex-col">
-															<span>0x4894hdu939337373u88827ys9292</span>
-														</div>
-													</div>
-													<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-														<div className="flex flex-col">
-															<h5>Email</h5>
-														</div>
-														<div className="flex flex-col">
-															<span>ghostworkspace@gmail.com</span>
-														</div>
-													</div>
-												</div>
-
-												<div className="border-b border-gray-600 py-5 space-y-3 overflow-hidden">
-													<div className="text-white">
-														<h5 className="font-xcrow_smb text-sm">
-															Milestone 2
-														</h5>
-													</div>
-													<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-														<div className="flex flex-col">
-															<h5>Amount</h5>
-														</div>
-														<div className="flex flex-col">
-															<span>$20000</span>
-														</div>
-													</div>
-													<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-														<div className="flex flex-col">
-															<h5>Wallet Address</h5>
-														</div>
-														<div className="flex flex-col">
-															<span>0x4894hdu939337373u88827ys9292</span>
-														</div>
-													</div>
-													<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-														<div className="flex flex-col">
-															<h5>Email</h5>
-														</div>
-														<div className="flex flex-col">
-															<span>ghostworkspace@gmail.com</span>
-														</div>
-													</div>
+													{contractInfo?.depositors.map(
+														(item: any, index: any) => (
+															<>
+																<div className="text-white">
+																	<h5 className="font-xcrow_smb text-sm">
+																		Milestone {index + 1}
+																	</h5>
+																</div>
+																<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
+																	<div className="flex flex-col">
+																		<h5>Amount</h5>
+																	</div>
+																	<div className="flex flex-col">
+																		<span>${item.amount}</span>
+																	</div>
+																</div>
+																<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
+																	<div className="flex flex-col">
+																		<h5>Wallet Address</h5>
+																	</div>
+																	<div className="flex flex-col">
+																		<span>{item.wallet_address}</span>
+																	</div>
+																</div>
+																<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
+																	<div className="flex flex-col">
+																		<h5>Email</h5>
+																	</div>
+																	<div className="flex flex-col">
+																		<span>{item.email}</span>
+																	</div>
+																</div>
+															</>
+														)
+													)}
 												</div>
 
 												<div className="border-b border-gray-600 py-5 space-y-3 overflow-hidden">
@@ -163,67 +141,41 @@ export default function ContractReview() {
 															Trustee Requirement
 														</h5>
 													</div>
-													<div className="text-white">
-														<h5 className="font-xcrow_smb text-sm">
-															Milestone 1
-														</h5>
-													</div>
-													<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-														<div className="flex flex-col">
-															<h5>Amount</h5>
-														</div>
-														<div className="flex flex-col">
-															<span>$20000</span>
-														</div>
-													</div>
-													<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-														<div className="flex flex-col">
-															<h5>Wallet Address</h5>
-														</div>
-														<div className="flex flex-col">
-															<span>0x4894hdu939337373u88827ys9292</span>
-														</div>
-													</div>
-													<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-														<div className="flex flex-col">
-															<h5>Email</h5>
-														</div>
-														<div className="flex flex-col">
-															<span>ghostworkspace@gmail.com</span>
-														</div>
-													</div>
-												</div>
-
-												<div className="border-b border-gray-600 py-5 space-y-3 overflow-hidden">
-													<div className="text-white">
-														<h5 className="font-xcrow_smb text-sm">
-															Milestone 2
-														</h5>
-													</div>
-													<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-														<div className="flex flex-col">
-															<h5>Amount</h5>
-														</div>
-														<div className="flex flex-col">
-															<span>$20000</span>
-														</div>
-													</div>
-													<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-														<div className="flex flex-col">
-															<h5>Wallet Address</h5>
-														</div>
-														<div className="flex flex-col">
-															<span>0x4894hdu939337373u88827ys9292</span>
-														</div>
-													</div>
-													<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-														<div className="flex flex-col">
-															<h5>Email</h5>
-														</div>
-														<div className="flex flex-col">
-															<span>ghostworkspace@gmail.com</span>
-														</div>
-													</div>
+													{contractInfo?.trustees.map(
+														(item: any, index: any) => (
+															<>
+																<div className="text-white">
+																	<h5 className="font-xcrow_smb text-sm">
+																		Milestone {index + 1}
+																	</h5>
+																</div>
+																<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
+																	<div className="flex flex-col">
+																		<h5>Amount</h5>
+																	</div>
+																	<div className="flex flex-col">
+																		<span>${item.amount}</span>
+																	</div>
+																</div>
+																<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
+																	<div className="flex flex-col">
+																		<h5>Wallet Address</h5>
+																	</div>
+																	<div className="flex flex-col">
+																		<span>{item.wallet_address}</span>
+																	</div>
+																</div>
+																<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
+																	<div className="flex flex-col">
+																		<h5>Email</h5>
+																	</div>
+																	<div className="flex flex-col">
+																		<span>{item.email}</span>
+																	</div>
+																</div>
+															</>
+														)
+													)}
 												</div>
 
 												<div className="border-b border-gray-600 py-5 space-y-3 overflow-hidden">
@@ -237,23 +189,20 @@ export default function ContractReview() {
 															<h5>Contract Title</h5>
 														</div>
 														<div className="flex flex-col">
-															<span>Build a House</span>
+															<span>{contractInfo.title}</span>
 														</div>
 													</div>
-													<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-														<div className="flex flex-col">
-															<h5>Description</h5>
-														</div>
-														<div className="flex flex-col">
-															<span>Build a duplex 4 bedroom flat.</span>
-														</div>
-													</div>
+
 													<div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
 														<div className="flex flex-col">
 															<h5>Automatic Withdraw</h5>
 														</div>
 														<div className="flex flex-col">
-															<span>Active</span>
+															<span>
+																{contractInfo.auto_withdrawal === true
+																	? "Active"
+																	: "Inactive"}
+															</span>
 														</div>
 													</div>
 												</div>
@@ -291,3 +240,5 @@ export default function ContractReview() {
 		</div>
 	);
 }
+
+export default observer(ContractReview);

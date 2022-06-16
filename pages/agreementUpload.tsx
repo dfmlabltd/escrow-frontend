@@ -1,7 +1,12 @@
 import React from "react";
+import { useRouter } from "next/router";
 import Backarrow from "../components/back-arrow";
 
 export default function AgreementUpload() {
+	const router = useRouter();
+	const handleNext = () => {
+		router.push("contract_review");
+	};
 	return (
 		<section id="xcrow_contract">
 			<div className="w-full min-h-screen contract_bg">
