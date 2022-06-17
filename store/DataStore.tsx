@@ -28,8 +28,22 @@ interface ContractStore {
 	auto_withdrawal: boolean;
 	title: string;
 }
+const iSSERVER = typeof window === "undefined";
 
 export class ContractsStore {
+	@action
+	fetchAuthFromLocalStorage = () => {
+		const localStorageAuth = !iSSERVER && localStorage.getItem("user");
+		return localStorageAuth ? JSON.parse(localStorageAuth) : null;
+	};
+	@action
+	fetchTokenFromLocalStorage = () => {
+		const localStorageAuth = !iSSERVER && localStorage.getItem("access_token");
+		return localStorageAuth ? JSON.parse(localStorageAuth) : null;
+	};
+	@observable token: null | any = this.fetchTokenFromLocalStorage();
+	@observable
+	user: null | any | undefined = this.fetchAuthFromLocalStorage();
 	@observable contractInfo: any = {
 		depositors: [
 			{
@@ -55,19 +69,26 @@ export class ContractsStore {
 		blockchain_network: "",
 		title: "",
 	};
+
+	@observable DepositorCheck: any = "";
 	constructor() {
 		makeAutoObservable(this);
 	}
 	@observable amount: any;
-
 	hydrate(contractStore: ContractStore) {
 		if (!contractStore) return;
 		this.contractInfo(contractStore);
+		if (!this.user) return;
+		this.user({ email: "" });
 	}
 
 	@action handleChange = (field: string, data: any) => {
 		this.contractInfo[field] = data;
 	};
+	@action handleDepositorCheck = (data: any) => {
+		this.DepositorCheck = data;
+	};
+
 	@action handleTrusteesChange = (
 		field: string,
 		index: number,

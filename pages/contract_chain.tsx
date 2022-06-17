@@ -9,7 +9,7 @@ import Backarrow from "../components/back-arrow";
 
 const Contract = () => {
 	const {
-		ContractsStore: { handleChange, contractInfo },
+		ContractsStore: { handleChange, contractInfo, user },
 	} = useStoreContext();
 	const { amount, token, coin } = contractInfo;
 	const { tokens, handleFetchCoins, coins } = useContractHook();

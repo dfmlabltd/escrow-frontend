@@ -44,11 +44,13 @@ function AgreementUpload() {
 							},
 						});
 						handleChange("agreement_contract", [
-							addImages.path,
-							addImages2.path,
+							`https://ipfs.infura.io/ipfs/${addImages.path}`,
+							`https://ipfs.infura.io/ipfs/${addImages2.path}`,
 						]);
 					} else {
-						handleChange("agreement_contract", [addImages.path]);
+						handleChange("agreement_contract", [
+							`https://ipfs.infura.io/ipfs/${addImages.path}`,
+						]);
 					}
 					setUploading(false);
 					router.push("contract_review");

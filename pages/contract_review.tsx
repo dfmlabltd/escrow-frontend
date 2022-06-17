@@ -1,10 +1,23 @@
 import React from "react";
+import axios from "axios";
 import { observer } from "mobx-react-lite";
 import { useStoreContext } from "./_app";
 function ContractReview() {
 	const {
-		ContractsStore: { contractInfo },
+		ContractsStore: { contractInfo, token },
 	} = useStoreContext();
+	const handleSubmit = async (e: any) => {
+		e.preventDefault();
+		const res: any = await axios.post(
+			`${process.env.BASE_URL}/api/contracts`,
+			contractInfo,
+			{
+				headers: {
+					Authorizarion: `Bearer ${token.access}`,
+				},
+			}
+		);
+	};
 	return (
 		<div>
 			<section id="xcrow_contractDetails">
@@ -206,7 +219,6 @@ function ContractReview() {
 														</div>
 													</div>
 												</div>
-
 												<div className="border-b border-gray-600 py-5 space-y-3 overflow-hidden">
 													<div className="text-xcrow_secondary">
 														<h5 className="font-xcrow_smb text-sm">
@@ -218,7 +230,8 @@ function ContractReview() {
 															<h5>upload</h5>
 														</div>
 														<div className="flex flex-col">
-															<span>Img_728hs4.jpeg</span>
+															<span>{contractInfo?.agreement_contract[0]}</span>
+															<p>{contractInfo?.agreement_contract[1]}</p>
 														</div>
 													</div>
 												</div>

@@ -1,6 +1,34 @@
+import { observer } from "mobx-react-lite";
+import { useEffect, useCallback, useState } from "react";
+import axios from "axios";
+import { useStoreContext } from "./_app";
 import React from "react";
 
-export default function ContractSummary() {
+interface contractProps {
+	token: string;
+	title: string;
+	amount: number;
+	coin: string;
+	id: number;
+}
+
+function ContractSummary() {
+	const {
+		ContractsStore: { user, token },
+	} = useStoreContext();
+	const [contracts, setContracts] = useState<contractProps[]>([]);
+	const fetchContracts = useCallback(async () => {
+		const res = await axios.get(`${process.env.BASE_URL}/contract/`, {
+			headers: {
+				Authorization: `Bearer ${token.access}`,
+			},
+		});
+		setContracts(res.data);
+	}, []);
+	useEffect(() => {
+		fetchContracts();
+	}, [fetchContracts]);
+	console.log(user);
 	return (
 		<div>
 			{" "}
@@ -16,10 +44,11 @@ export default function ContractSummary() {
 						</a>
 						<h4 className="text-base text-white font-xcrow_smb">My Contract</h4>
 					</nav>
+
 					<div className="bg-white flex flex-col pt-2 px-8">
 						<div className="flex flex-col justify-between py-3 md:flex-row md:space-x-4 md:items-center">
 							<h3 className="font-xcrow_smb text-base">
-								ghostworkspace@gmail.com
+								{user?.email === "" ? "" : user !== null && user.email}
 							</h3>
 							<button className="text-sm bg-xcrow_secondary px-6 py-2 rounded text-white mt-2 md:mt-0 outline-none">
 								Add New Contract
@@ -154,156 +183,39 @@ export default function ContractSummary() {
 								</tr>
 							</thead>
 							<tbody>
-								<tr className="bg-white border-b text-sm font-xcrow_rg hover:bg-gray-50 dark:hover:bg-gray-600">
-									<td className="px-6 py-4">001</td>
-									<td className="px-6 py-4">ghostworkspace@gmail.com</td>
-									<td className="px-6 py-4">Celo</td>
-									<td className="px-6 py-4">$1000 cUSD</td>
-									<td className="px-6 py-4">Build a house</td>
-									<td className="px-6 py-4 whitespace-nowrap">
-										<a
-											href="#"
-											className="font-semibold text-xcrow_secondary hover:underline outline-none"
+								{contracts.length > 0 ? (
+									contracts.map((contract, index) => (
+										<tr
+											key="index"
+											className="bg-white border-b text-sm font-xcrow_rg hover:bg-gray-50 dark:hover:bg-gray-600"
 										>
-											View Details
-										</a>
-									</td>
-								</tr>
-								<tr className="bg-white border-b text-sm font-xcrow_rg hover:bg-gray-50 dark:hover:bg-gray-600">
-									<td className="px-6 py-4">002</td>
-									<td className="px-6 py-4">ghostworkspace@gmail.com</td>
-									<td className="px-6 py-4">Celo</td>
-									<td className="px-6 py-4">$1000 cUSD</td>
-									<td className="px-6 py-4">Build a house</td>
-									<td className="px-6 py-4 whitespace-nowrap">
-										<a
-											href="#"
-											className="font-semibold text-xcrow_secondary hover:underline outline-none"
-										>
-											View Details
-										</a>
-									</td>
-								</tr>
-								<tr className="bg-white border-b text-sm font-xcrow_rg hover:bg-gray-50 dark:hover:bg-gray-600">
-									<td className="px-6 py-4">003</td>
-									<td className="px-6 py-4">ghostworkspace@gmail.com</td>
-									<td className="px-6 py-4">Celo</td>
-									<td className="px-6 py-4">$3400 cUSD</td>
-									<td className="px-6 py-4">consectetur a house</td>
-									<td className="px-6 py-4 whitespace-nowrap">
-										<a
-											href="#"
-											className="font-semibold text-xcrow_secondary hover:underline outline-none"
-										>
-											View Details
-										</a>
-									</td>
-								</tr>
-								<tr className="bg-white border-b text-sm font-xcrow_rg hover:bg-gray-50 dark:hover:bg-gray-600">
-									<td className="px-6 py-4">004</td>
-									<td className="px-6 py-4">ghostworkspace@gmail.com</td>
-									<td className="px-6 py-4">Celo</td>
-									<td className="px-6 py-4">$9000 cUSD</td>
-									<td className="px-6 py-4">Build a house</td>
-									<td className="px-6 py-4 whitespace-nowrap">
-										<a
-											href="#"
-											className="font-semibold text-xcrow_secondary hover:underline outline-none"
-										>
-											View Details
-										</a>
-									</td>
-								</tr>
-								<tr className="bg-white border-b text-sm font-xcrow_rg hover:bg-gray-50 dark:hover:bg-gray-600">
-									<td className="px-6 py-4">005</td>
-									<td className="px-6 py-4">ghostworkspace@gmail.com</td>
-									<td className="px-6 py-4">Celo</td>
-									<td className="px-6 py-4">$3000 cUSD</td>
-									<td className="px-6 py-4">Build a house</td>
-									<td className="px-6 py-4 whitespace-nowrap">
-										<a
-											href="#"
-											className="font-semibold text-xcrow_secondary hover:underline outline-none"
-										>
-											View Details
-										</a>
-									</td>
-								</tr>
-								<tr className="bg-white border-b text-sm font-xcrow_rg hover:bg-gray-50 dark:hover:bg-gray-600">
-									<td className="px-6 py-4">006</td>
-									<td className="px-6 py-4">ghostworkspace@gmail.com</td>
-									<td className="px-6 py-4">Celo</td>
-									<td className="px-6 py-4">$3000 cUSD</td>
-									<td className="px-6 py-4">Build a house</td>
-									<td className="px-6 py-4 whitespace-nowrap">
-										<a
-											href="#"
-											className="font-semibold text-xcrow_secondary hover:underline outline-none"
-										>
-											View Details
-										</a>
-									</td>
-								</tr>
-								<tr className="bg-white border-b text-sm font-xcrow_rg hover:bg-gray-50 dark:hover:bg-gray-600">
-									<td className="px-6 py-4">007</td>
-									<td className="px-6 py-4">ghostworkspace@gmail.com</td>
-									<td className="px-6 py-4">Celo</td>
-									<td className="px-6 py-4">$3000 cUSD</td>
-									<td className="px-6 py-4">Build a house</td>
-									<td className="px-6 py-4 whitespace-nowrap">
-										<a
-											href="#"
-											className="font-semibold text-xcrow_secondary hover:underline outline-none"
-										>
-											View Details
-										</a>
-									</td>
-								</tr>
-								<tr className="bg-white border-b text-sm font-xcrow_rg hover:bg-gray-50 dark:hover:bg-gray-600">
-									<td className="px-6 py-4">008</td>
-									<td className="px-6 py-4">ghostworkspace@gmail.com</td>
-									<td className="px-6 py-4">Celo</td>
-									<td className="px-6 py-4">$3000 cUSD</td>
-									<td className="px-6 py-4">Build a house</td>
-									<td className="px-6 py-4 whitespace-nowrap">
-										<a
-											href="#"
-											className="font-semibold text-xcrow_secondary hover:underline outline-none"
-										>
-											View Details
-										</a>
-									</td>
-								</tr>
-								<tr className="bg-white border-b text-sm font-xcrow_rg hover:bg-gray-50 dark:hover:bg-gray-600">
-									<td className="px-6 py-4">009</td>
-									<td className="px-6 py-4">ghostworkspace@gmail.com</td>
-									<td className="px-6 py-4">Celo</td>
-									<td className="px-6 py-4">$3000 cUSD</td>
-									<td className="px-6 py-4">Build a house</td>
-									<td className="px-6 py-4 whitespace-nowrap">
-										<a
-											href="#"
-											className="font-semibold text-xcrow_secondary hover:underline outline-none"
-										>
-											View Details
-										</a>
-									</td>
-								</tr>
-								<tr className="bg-white border-b text-sm font-xcrow_rg hover:bg-gray-50 dark:hover:bg-gray-600">
-									<td className="px-6 py-4">010</td>
-									<td className="px-6 py-4">ghostworkspace@gmail.com</td>
-									<td className="px-6 py-4">Celo</td>
-									<td className="px-6 py-4">$3000 cUSD</td>
-									<td className="px-6 py-4">Build a house</td>
-									<td className="px-6 py-4 whitespace-nowrap">
-										<a
-											href="#"
-											className="font-semibold text-xcrow_secondary hover:underline outline-none"
-										>
-											View Details
-										</a>
-									</td>
-								</tr>
+											<td className="px-6 py-4">{contract.id}</td>
+											<td className="px-6 py-4">{contract.title}</td>
+											<td className="px-6 py-4">{contract.token}</td>
+											<td className="px-6 py-4">{contract.amount} cUSD</td>
+											<td className="px-6 py-4">{contract.title}</td>
+											<td className="px-6 py-4 whitespace-nowrap">
+												<a
+													href="#"
+													className="font-semibold text-xcrow_secondary hover:underline outline-none"
+												>
+													View Details
+												</a>
+											</td>
+										</tr>
+									))
+								) : (
+									<div
+										style={{
+											display: "flex",
+											alignItems: "center",
+											textAlign: "center",
+											justifyContent: "center",
+										}}
+									>
+										<p>No Contract Found</p>
+									</div>
+								)}
 							</tbody>
 						</table>
 						<div className="flex justify-center">
@@ -372,3 +284,4 @@ export default function ContractSummary() {
 		</div>
 	);
 }
+export default observer(ContractSummary);

@@ -1,7 +1,13 @@
 import React from "react";
 import Navbar from "../navbar";
 import Link from "next/link";
-export default function Hero() {
+import { useStoreContext } from "../../pages/_app";
+import { observer } from "mobx-react-lite";
+function Hero() {
+	const {
+		ContractsStore: { user },
+	} = useStoreContext();
+	console.log(user);
 	return (
 		<section
 			id="header_section"
@@ -33,11 +39,13 @@ export default function Hero() {
 									Create Contract
 								</button>
 							</Link>
-							<Link href="/login">
-								<button className="px-16 text-white text-sm py-4 border rounded">
-									Log In
-								</button>
-							</Link>
+							{/* {user?.email === "" && (
+								<Link href="/login">
+									<button className="px-16 text-white text-sm py-4 border rounded">
+										Log In
+									</button>
+								</Link>
+							)} */}
 						</div>
 					</div>
 
@@ -49,3 +57,4 @@ export default function Hero() {
 		</section>
 	);
 }
+export default observer(Hero);

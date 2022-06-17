@@ -30,6 +30,7 @@ function Example({ check, setCheck }: any) {
 							<input
 								type="radio"
 								name="flexRadioDefault"
+								checked={check === "depositor"}
 								onChange={(e: any) => setCheck("depositor")}
 								id="flexRadioDefault1"
 							/>
@@ -51,6 +52,7 @@ function Example({ check, setCheck }: any) {
 							<input
 								type="radio"
 								name="flexRadioDefault"
+								checked={check === "others"}
 								onChange={(e: any) => setCheck("others")}
 								id="flexRadioDefault2"
 							/>
@@ -73,6 +75,7 @@ function Example({ check, setCheck }: any) {
 								type="radio"
 								name="flexRadioDefault"
 								id="flexRadioDefault2"
+								checked={check === "anyone"}
 								onChange={(e: any) => setCheck("anyone")}
 							/>
 							<label
@@ -96,6 +99,8 @@ function DepositorRequirement() {
 	const {
 		ContractsStore: {
 			contractInfo: { depositors, coin },
+			handleDepositorCheck,
+			DepositorCheck,
 		},
 	} = useStoreContext();
 	const router = useRouter();
@@ -107,6 +112,7 @@ function DepositorRequirement() {
 		onChangeWallet,
 		remove,
 	} = useTrusteesHook("depositors");
+
 	const handleSubmit = () => {
 		if (check !== "anyone") {
 			router.push("/contractDetails");
@@ -186,8 +192,11 @@ function DepositorRequirement() {
 										<Notification kind="error" message={error} />
 									</div>
 								)}
-								<Example check={check} setCheck={setCheck} />
-								{check === "anyone" && (
+								<Example
+									check={DepositorCheck}
+									setCheck={handleDepositorCheck}
+								/>
+								{DepositorCheck === "anyone" && (
 									<>
 										{Array.from(trustees).map(([key, email], index) => (
 											<div className="flex flex-col pt-8" key={key}>
