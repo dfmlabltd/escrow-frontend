@@ -1,12 +1,80 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
+import { create } from "ipfs-http-client";
 import Backarrow from "../components/back-arrow";
 
+const client = create({
+	url: "https://ipfs.infura.io:5001/api/v0",
+});
+
 export default function AgreementUpload() {
+	const [agreement, setAgreement] = useState<any>({
+		one: "",
+		two: "",
+	});
+
 	const router = useRouter();
-	const handleNext = (e: any) => {
-		router.push("contract_review");
+	const handleNext = async (e: any) => {
+		e.preventDefault();
+		try {
+			const addImages = await client.add(agreement.one, {
+				progress: (progress: any) => {
+					console.log("progress");
+				},
+			});
+			console.log(addImages);
+			const addImages2 = await client.add(agreement.one, {
+				progress: (progress: any) => {
+					console.log("progress");
+				},
+			});
+			console.log(addImages2);
+		} catch {}
+		// router.push("contract_review");
 	};
+	const renderPreview = () => {
+		if (agreement?.one !== "") {
+			return (
+				<div className="shadowed rad-10-im mb-4 p-2">
+					<div className="preview-space imh rad-5">
+						<img src={URL.createObjectURL(agreement?.one)} alt="" />
+					</div>
+					<p className="text-center mb-0 mt-2 text-white">Preview Image</p>
+				</div>
+			);
+		} else {
+			return (
+				<div className="shadowed rad-10-im mb-4 p-2">
+					<div className="preview-space imh rad-5">
+						<img src="" alt="" />
+					</div>
+					<p className="text-center mb-0 mt-2 text-white">Preview Image</p>
+				</div>
+			);
+		}
+	};
+	const renderSecondPreview = () => {
+		if (agreement?.two !== "") {
+			return (
+				<div className="shadowed rad-10-im mb-4 p-2">
+					<div className="preview-space imh rad-5">
+						<img src={URL.createObjectURL(agreement?.two)} alt="" />
+					</div>
+					<p className="text-center mb-0 mt-2 text-white">Preview Image</p>
+				</div>
+			);
+		} else {
+			return (
+				<div className="shadowed rad-10-im mb-4 p-2">
+					<div className="preview-space imh rad-5">
+						<img src="" alt="" />
+					</div>
+					<p className="text-center mb-0 mt-2 text-white">Preview Image</p>
+				</div>
+			);
+		}
+	};
+
 	return (
 		<section id="xcrow_contract">
 			<div className="w-full min-h-screen contract_bg">
@@ -75,9 +143,22 @@ export default function AgreementUpload() {
 															size 10MB
 														</p>
 													</div>
-													<input type="file" className="opacity-0" />
+													<input
+														type="file"
+														className="opacity-0"
+														onChange={(e) =>
+															setAgreement({
+																...agreement,
+																one:
+																	e.target.files !== null
+																		? e.target.files[0]
+																		: {},
+															})
+														}
+													/>
 												</label>
 											</div>
+											{renderPreview()}
 										</div>
 									</div>
 
@@ -111,9 +192,22 @@ export default function AgreementUpload() {
 															size 10MB
 														</p>
 													</div>
-													<input type="file" className="opacity-0" />
+													<input
+														type="file"
+														className="opacity-0"
+														onChange={(e) =>
+															setAgreement({
+																...agreement,
+																two:
+																	e.target.files !== null
+																		? e.target.files[0]
+																		: {},
+															})
+														}
+													/>
 												</label>
 											</div>
+											{renderSecondPreview()}
 										</div>
 									</div>
 								</div>
