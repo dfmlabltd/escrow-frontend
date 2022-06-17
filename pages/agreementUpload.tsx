@@ -1,36 +1,63 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import { useStoreContext } from "./_app";
 import { create } from "ipfs-http-client";
+import ScaleLoader from "react-spinners/ScaleLoader";
 import Backarrow from "../components/back-arrow";
+import { observer } from "mobx-react-lite";
 
 const client = create({
 	url: "https://ipfs.infura.io:5001/api/v0",
 });
 
-export default function AgreementUpload() {
+function AgreementUpload() {
 	const [agreement, setAgreement] = useState<any>({
 		one: "",
 		two: "",
 	});
+	const [check, setCheck] = useState<boolean>(false);
+	const [uploading, setUploading] = useState<boolean>(false);
+	const [error, setError] = useState("");
+	const {
+		ContractsStore: { handleChange },
+	} = useStoreContext();
 
 	const router = useRouter();
+
 	const handleNext = async (e: any) => {
 		e.preventDefault();
-		try {
-			const addImages = await client.add(agreement.one, {
-				progress: (progress: any) => {
-					console.log("progress");
-				},
-			});
-			console.log(addImages);
-			const addImages2 = await client.add(agreement.one, {
-				progress: (progress: any) => {
-					console.log("progress");
-				},
-			});
-			console.log(addImages2);
-		} catch {}
-		// router.push("contract_review");
+		setUploading(true);
+		if (!check) {
+			if (agreement.one === "") {
+				setError("Please upload your agreement");
+			} else {
+				try {
+					const addImages = await client.add(agreement.one, {
+						progress: (progress: any) => {
+							console.log("progress");
+						},
+					});
+					if (agreement.two !== "") {
+						const addImages2 = await client.add(agreement.one, {
+							progress: (progress: any) => {
+								console.log("progress");
+							},
+						});
+						handleChange("agreement_contract", [
+							addImages.path,
+							addImages2.path,
+						]);
+					} else {
+						handleChange("agreement_contract", [addImages.path]);
+					}
+					setUploading(false);
+					router.push("contract_review");
+				} catch {}
+			}
+		} else {
+			setUploading(false);
+			router.push("contract_review");
+		}
 	};
 	const renderPreview = () => {
 		if (agreement?.one !== "") {
@@ -102,7 +129,7 @@ export default function AgreementUpload() {
 							<input
 								type="checkbox"
 								className="w-4 h-4 border-0 rounded-md focus:ring-0"
-								checked
+								onChange={(e) => setCheck(e.target.checked)}
 							/>
 						</label>
 						<label htmlFor="milestone" className="text-white text-md">
@@ -221,7 +248,7 @@ export default function AgreementUpload() {
 								onClick={handleNext}
 								className="uppercase bg-xcrow_secondary w-full px-4 py-4 rounded-xl text-white text-base"
 							>
-								Next
+								{uploading ? <ScaleLoader /> : "Next"}
 							</button>
 						</div>
 					</div>
@@ -230,3 +257,4 @@ export default function AgreementUpload() {
 		</section>
 	);
 }
+export default observer(AgreementUpload);

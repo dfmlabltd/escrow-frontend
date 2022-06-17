@@ -48,6 +48,7 @@ export class ContractsStore {
 		amount: "",
 		token_address: "",
 		token: {},
+		agreement_contract: "",
 		auto_withdrawal: false,
 		wait_day: 2,
 		coin: {},
