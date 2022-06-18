@@ -577,6 +577,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   right: 0px;
 }
 
+.right-2{
+  right: 0.5rem;
+}
+
+.right-1{
+  right: 0.25rem;
+}
+
 .z-10{
   z-index: 10;
 }
@@ -692,6 +700,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .h-14{
   height: 3.5rem;
+}
+
+.h-12{
+  height: 3rem;
 }
 
 .min-h-screen{
@@ -962,6 +974,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .rounded-md{
   border-radius: 0.375rem;
+}
+
+.rounded-sm{
+  border-radius: 0.125rem;
 }
 
 .rounded-l-md{
@@ -2051,6 +2067,31 @@ body{
 .peer:checked ~ .peer-checked\:bg-gray-400{
   --tw-bg-opacity: 1;
   background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+}
+
+.peer:checked ~ .peer-checked\:bg-violet-400{
+  --tw-bg-opacity: 1;
+  background-color: rgb(167 139 250 / var(--tw-bg-opacity));
+}
+
+.peer:checked ~ .peer-checked\:bg-red-400{
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
+}
+
+.peer:checked ~ .peer-checked\:bg-green-400{
+  --tw-bg-opacity: 1;
+  background-color: rgb(74 222 128 / var(--tw-bg-opacity));
+}
+
+.peer:checked ~ .peer-checked\:bg-green-200{
+  --tw-bg-opacity: 1;
+  background-color: rgb(187 247 208 / var(--tw-bg-opacity));
+}
+
+.peer:checked ~ .peer-checked\:bg-green-300{
+  --tw-bg-opacity: 1;
+  background-color: rgb(134 239 172 / var(--tw-bg-opacity));
 }
 
 .peer:checked ~ .peer-checked\:after\:translate-x-full::after{
