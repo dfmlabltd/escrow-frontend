@@ -80,12 +80,8 @@ const Contract = () => {
 											<div className="inline-block relative place-content-center ">
 												<div
 													onClick={() => setOpen(!open)}
-													style={{
-														borderRadius: "10px",
-														display: "flex",
-														alignItems: "center",
-													}}
-													className="block appearance-none h-14 w-16 bg-xcrow_secondary border border-xcrow_secondary px-5 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base"
+													style={{ marginRight: "4px" }}
+													className="block appearance-none h-12 mt-1 bg-xcrow_secondary border border-xcrow_secondary px-5 py-2 pr-8 rounded-md shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base"
 												>
 													{" "}
 													{tokenValue?.icon ? (
@@ -100,7 +96,7 @@ const Contract = () => {
 															</svg>
 															<img
 																src={tokenValue?.icon}
-																width="40px"
+																width="30px"
 																style={{
 																	borderRadius: "50px",
 																}}
@@ -118,7 +114,7 @@ const Contract = () => {
 															</svg>
 															<img
 																src={tokens[0]?.icon}
-																width="40px"
+																width="30px"
 																style={{
 																	borderRadius: "50px",
 																}}
@@ -201,11 +197,11 @@ const Contract = () => {
 												<div
 													onClick={() => setOpenCoins(!openCoins)}
 													style={{
-														borderRadius: "10px",
+														marginRight: "4px",
 														display: "flex",
 														alignItems: "center",
 													}}
-													className="block appearance-none h-14 w-16 bg-xcrow_secondary border border-xcrow_secondary px-5 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base"
+													className="block appearance-none h-12 mt-1  w-16 bg-xcrow_secondary border border-xcrow_secondary px-5 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base"
 												>
 													{coinValue?.icon ? (
 														<>
@@ -219,7 +215,7 @@ const Contract = () => {
 															</svg>
 															<img
 																src={coinValue?.icon}
-																width="40px"
+																width="30px"
 																style={{
 																	borderRadius: "50px",
 																}}
@@ -245,7 +241,7 @@ const Contract = () => {
 																		? coins !== undefined && coins[0]?.icon
 																		: coinValue?.icon
 																}
-																width="40px"
+																width="30px"
 																style={{
 																	borderRadius: "50px",
 																}}
@@ -302,6 +298,7 @@ const Contract = () => {
 										</div>
 									</div>
 								</div>
+
 								<div className="w-full flex flex-col space-y-10">
 									<div className="relative form-input">
 										<label
@@ -327,7 +324,7 @@ const Contract = () => {
 											</div>
 											<div className="absolute top-0 right-0">
 												<div className="inline-block relative place-content-center">
-													<select className="block appearance-none h-14 bg-xcrow_secondary border border-xcrow_secondary px-5 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base">
+													<select className="block appearance-none h-14  bg-xcrow_secondary border border-xcrow_secondary px-5 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base">
 														<option>
 															{coin !== undefined ? coin?.name : ""}
 														</option>
