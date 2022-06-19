@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { observer } from "mobx-react-lite";
 import { useStoreContext } from "./_app";
+import Backarrow from "../components/back-arrow";
 function ContractReview() {
 	const {
 		ContractsStore: { contractInfo, token },
@@ -22,33 +23,17 @@ function ContractReview() {
 		<div>
 			<section id="xcrow_contractDetails">
 				<div className="w-full min-h-screen contract_bg">
-					<div className="container px-6 flex flex-col justify-between mx-auto">
-						<div className="relativ w-full">
-							<nav className="py-9">
-								<button className="border border-gray-400 p-1 rounded text-white">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="25"
-										height="25"
-										fill="currentColor"
-										className="bi bi-chevron-left"
-										viewBox="0 0 16 16"
-									>
-										<path
-											fill-rule="evenodd"
-											d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
-										/>
-									</svg>
-								</button>
-							</nav>
-						</div>
-					</div>
+					<Backarrow />
 
 					<div className="container px-6 flex flex-col mx-auto pb-24">
 						<div className="max-w-md flex flex-col space-y-12 mx-auto mt-10">
-							<h1 className="text-2xl text-white font-xcrow_rg text-left md:text-center">
-								a dehun
-							</h1>
+							<div className="flex justify-center">
+								<img
+									src="/assets/Logo/Group 37467.svg"
+									alt="logo"
+									className="w-10 h-10 object-cover"
+								/>
+							</div>
 							<div className="space-y-5 t ext-left md:text-center">
 								<h3 className="text-4xl md:text-5xl font-xcrow_smb text-white capitalize">
 									Contract Review

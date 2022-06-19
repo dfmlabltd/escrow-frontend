@@ -130,7 +130,7 @@ function DepositorRequirement() {
 							setError("Please enter a valid email");
 						} else if (!isNumeric(depositors[0].amount)) {
 							setError("Please enter a valid amount");
-						} else if (!isEthereumAddress(depositors[0].wallet_address)) {
+						} else if (depositors[0].wallet_address !== /^0x[a-fA-F0-9]{40}$/) {
 							setError("Please fill in a valid address");
 						}
 						setError("Please fill in the required fields");
@@ -153,7 +153,7 @@ function DepositorRequirement() {
 							return true;
 						} else if (!isNumeric(item.amount)) {
 							return true;
-						} else if (!isEthereumAddress(item.wallet_address)) {
+						} else if (item.wallet_address !== /^0x[a-fA-F0-9]{40}$/) {
 							return true;
 						}
 					});
@@ -255,18 +255,16 @@ function DepositorRequirement() {
 																		/>
 																	</div>
 																	<div className="absolute top-0 right-0">
-																		<div className="inline-block relative place-content-center">
-																			<select className="block appearance-none h-14 bg-xcrow_secondary border border-xcrow_secondary px-5 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base">
+																		<div
+																			className="inline-block relative place-content-center"
+																			style={{ marginRight: "4px" }}
+																		>
+																			<select className="block appearance-none h-12 mt-1 bg-xcrow_secondary border border-xcrow_secondary px-5 py-3 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base">
 																				<option>
 																					{coin !== undefined
 																						? coin?.name
 																						: "cUSD"}
 																				</option>
-																				<option>USD</option>
-																				<option>EUR</option>
-																				<option>YEN</option>
-
-																				<option>NGN</option>
 																			</select>
 																			<div
 																				className="pointer-events-none absolute inset-y-0 flex items-center text-white"

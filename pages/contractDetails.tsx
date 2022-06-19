@@ -31,9 +31,13 @@ function ContractDetails() {
 
 				<div className="container px-6 flex flex-col mx-auto pb-24">
 					<div className="max-w-md flex flex-col space-y-12 mx-auto mt-10">
-						<h1 className="text-2xl text-white font-xcrow_rg text-left md:text-center">
-							a dehun
-						</h1>
+						<div className="flex justify-center">
+							<img
+								src="/assets/Logo/Group 37467.svg"
+								alt="logo"
+								className="w-10 h-10 object-cover"
+							/>
+						</div>
 						<div className="space-y-5 text-left md:text-center">
 							<h3 className="text-4xl md:text-5xl font-xcrow_smb text-white capitalize">
 								Contract Details
