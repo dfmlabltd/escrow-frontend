@@ -213,13 +213,11 @@ contract Contract {
         _manager = ContractManager(msg.sender);
         _disputeWaitDay = disputeWaitDay;
 
-        
-        if(_depositorsCount == 0) {
+        if (_depositorsCount == 0) {
             _autoApprove = true;
         } else {
             _autoApprove = autoApprove;
         }
-
     }
 
     /****************************************************** MODIFIERS *********************************************************************************** */
@@ -267,9 +265,14 @@ contract Contract {
 
         _balance += amount;
 
-        _manager.deposit(address(this), msg.sender, amount);
+        _manager.deposit(
+            _depositorsCount - 1,
+            address(this),
+            msg.sender,
+            amount
+        );
     }
-
+,
     /// @notice Any body can deposit using the currency provided.
     /// You can deposit until you have reached the specified amount
     /// @dev FUNCTION NEEDS SERIOUS IMPROVEMENT
@@ -291,7 +294,12 @@ contract Contract {
 
         _balance += amount;
 
-        _manager.deposit(address(this), msg.sender, amount);
+        _manager.deposit(
+            _depositorsCount - 1,
+            address(this),
+            msg.sender,
+            amount
+        );
     }
 
     /// @notice Only a valid trustee can send withdrawal request
@@ -306,35 +314,39 @@ contract Contract {
         require(_balance >= amount, "INVALID");
         require(amount > 0, "INVALID");
 
+        uint256 _prevWithdrawalCount = _withdrawalCount;
+
         // send a new request
-        WithdrawalRequest storage withdrawal = _requests[++_withdrawalCount];
+        WithdrawalRequest storage withdrawal = _requests[_prevWithdrawalCount];
         withdrawal.wallet = msg.sender;
         withdrawal.description = description;
-
-        _manager.request(address(this), msg.sender, amount, description);
+        _withdrawalCount++;
 
         if (_autoApprove) {
             withdrawal.status = WithdrawalStatus.APPROVED;
             _manager.approval(
+                _prevWithdrawalCount,
                 address(this),
                 address(0),
                 msg.sender,
-                description,
                 amount
             );
         } else {
             withdrawal.status = WithdrawalStatus.PENDING;
         }
+        _manager.request(
+            _prevWithdrawalCount,
+            address(this),
+            msg.sender,
+            amount,
+            description
+        );
     }
 
     /// @notice Only a valid trustee can send withdrawal request
     /// @dev FUNCTION NEEDS SERIOUS IMPROVEMENT
     /// @param id the id of the withdrawal request
-    /// @param description description of the rejection
-    function reject(uint256 id, string memory description)
-        external
-        isDepositor
-    {
+    function reject(uint256 id) external isDepositor {
         WithdrawalRequest storage _request = _requests[id];
         require(
             _request.status == WithdrawalStatus.PENDING &&
@@ -353,23 +365,13 @@ contract Contract {
 
         _request.status = WithdrawalStatus.REJECTED;
 
-        _manager.reject(
-            address(this),
-            msg.sender,
-            _request.wallet,
-            description
-        );
+        _manager.reject(id, address(this), msg.sender, _request.wallet);
     }
 
     /// @notice Only a valid depositor can approve
     /// @dev FUNCTION NEEDS SERIOUS IMPROVEMENT
     /// @param id the id of the withdrawal request
-    /// @param description description of the rejection
-    function approve(uint256 id, string memory description)
-        external
-        isDepositor
-        returns (bool)
-    {
+    function approve(uint256 id) external isDepositor returns (bool) {
         WithdrawalRequest storage _request = _requests[id];
         require(_request.status == WithdrawalStatus.PENDING, "INVALID");
 
@@ -390,17 +392,17 @@ contract Contract {
 
             _depositors[msg.sender].balance -= remaingPoint;
             _manager.vote(
+                _depositorsCount - 1,
                 address(this),
                 _request.wallet,
                 msg.sender,
-                description,
                 remaingPoint
             );
             _manager.approval(
+                _depositorsCount - 1,
                 address(this),
                 _request.wallet,
                 msg.sender,
-                description,
                 remaingPoint
             );
 
@@ -411,10 +413,10 @@ contract Contract {
         _request.votes.push(WithdrawalRequestVote(msg.sender, balance));
         _depositors[msg.sender].balance = 0;
         _manager.vote(
+            _depositorsCount - 1,
             address(this),
             _request.wallet,
             msg.sender,
-            description,
             balance
         );
 
@@ -427,10 +429,7 @@ contract Contract {
         require(_request.status == WithdrawalStatus.APPROVED, "UNAUTHORIZED");
         require(_balance >= _request.amount, "INVALID");
 
-
-        _currency.transfer(_request.wallet,  _request.amount);
-
-
+        _currency.transfer(_request.wallet, _request.amount);
     }
 
     /************************************************************** FUNCTIONS END *************************************************************************** */

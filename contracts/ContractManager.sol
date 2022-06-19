@@ -13,13 +13,12 @@ import "./Contract.sol";
 pragma solidity ^0.8.4;
 
 contract ContractManager {
-    event Deposit(address, address, uint256);
-    event Request(address, address, uint256, string);
-    event Rejected(address, address, address, string);
-    event Vote(address, address, address, string, uint256);
-    event Approval(address, address, address, string, uint256);
-    event Withdrawal(address, address, uint256);
-
+    event Deposit(uint256 identifier, address contractAddress, address depositor, uint256 amount);
+    event Request(uint256 identifier, address contractAddress, address depositor, uint256 amount, string description);
+    event Rejected(uint256 identifier, address contractAddress, address depositor, address trustee);
+    event Vote(uint256 identifier, address contractAddress, address depositor, address trustee, uint256 amount);
+    event Withdrawal(uint256 identifier, address contractAddress, address trustee, uint256 amount);
+    event Approved(uint256 identifier, address contractAddress, address depositor, uint256 balance);
 
     mapping(uint256 => Contract) public _contracts;
 
@@ -41,63 +40,67 @@ contract ContractManager {
     }
 
     function deposit(
+        uint256 id,
         address contractAddress,
         address depositor,
         uint256 amount
     ) external isValidContract {
-        emit Deposit(contractAddress, depositor, amount);
+        emit Deposit(id, contractAddress, depositor, amount);
     }
 
     function request(
+        uint256 id,
         address contractAddress,
         address depositor,
         uint256 amount,
         string memory description
     ) external isValidContract {
-        emit Request(contractAddress, depositor, amount, description);
+        emit Request(id, contractAddress, depositor, amount, description);
     }
 
     function reject(
+        uint256 id,
         address contractAddress,
         address depositor,
-        address trustee,
-        string memory description
+        address trustee
     ) external isValidContract {
-        emit Rejected(contractAddress, depositor, trustee, description);
+        emit Rejected(id, contractAddress, depositor, trustee);
     }
 
     function vote(
+        uint256 id,
         address contractAddress,
         address depositor,
         address trustee,
-        string memory description,
         uint256 balance
     ) external isValidContract {
-        emit Vote(contractAddress, depositor, trustee, description, balance);
+        emit Vote(id, contractAddress, depositor, trustee, balance);
     }
 
     function approval(
+        uint256 id,
         address contractAddress,
         address depositor,
         address trustee,
-        string memory description,
         uint256 amount
     ) external isValidContract {
-        emit Approval(
+        emit Approved(
+            id,
             contractAddress,
             depositor,
             trustee,
-            description,
             amount
         );
     }
 
      function withdrawal(
+        uint256 id,
         address contractAddress,
         address trustee,
         uint256 amount
     ) external isValidContract {
         emit Withdrawal(
+            id,
             contractAddress,
             trustee,
             amount
