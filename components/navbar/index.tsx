@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 export default function Navbar() {
 	return (
@@ -6,15 +7,15 @@ export default function Navbar() {
 			<section id="header_section" className=" ">
 				<div className="border-b border-gray-500">
 					<nav className="container px-6 flex flex-row items-center justify-between mx-auto py-9">
-						<h1 className="text-2xl text-white font-xcrow_smb">Adehun</h1>
+						<img src="/assets/Logo/Logo.png" alt="" style={{ width: "10%" }} />
 						<div className="hidden font-xcrow_rg text-white flex flex-row space-x-6 text-sm md:block">
 							<a href="#">About Us</a>
 							<a href="#">How it Works</a>
 							<a href="#">Resolution Center</a>
 							<a href="#">FAQs</a>
-							<a href="#">My Contract</a>
+							<Link href={"contract_summary"}>My Contract</Link>
 							<a href="#" className="border border-gray-400 px-3 py-3 rounded">
-								Launch X_Crow App
+								Launch Adehun App
 							</a>
 						</div>
 

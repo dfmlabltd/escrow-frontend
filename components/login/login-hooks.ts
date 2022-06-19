@@ -46,7 +46,7 @@ export function useLoginHooks() {
 						password: password,
 					}
 				);
-				localStorage.setItem("user_token", JSON.stringify(res.data));
+				localStorage.setItem("access_token", JSON.stringify(res.data));
 				setSuccess("Logged in Successfully");
 				router.push("/");
 			} catch (e: any) {

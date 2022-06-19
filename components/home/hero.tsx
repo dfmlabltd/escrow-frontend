@@ -1,7 +1,13 @@
 import React from "react";
 import Navbar from "../navbar";
 import Link from "next/link";
-export default function Hero() {
+import { useStoreContext } from "../../pages/_app";
+import { observer } from "mobx-react-lite";
+function Hero() {
+	const {
+		ContractsStore: { user },
+	} = useStoreContext();
+	console.log(user);
 	return (
 		<section
 			id="header_section"
@@ -9,7 +15,7 @@ export default function Hero() {
 		>
 			<Navbar />
 			<div id="hero">
-				<div className="container mx-auto px-6 flex flex-col py-24 space-y-6 items-center justify-between md:flex-row md:space-y-0">
+				<div className="container mx-auto px-6 flex flex-col py-20 space-y-6 items-center justify-between md:flex-row md:space-y-0">
 					<div className="flex flex-col space-y-6 md:w-1/2">
 						<div id="slider_counter" className="flex flex-row space-x-1">
 							<span className="counter counter_open"></span>
@@ -33,17 +39,22 @@ export default function Hero() {
 									Create Contract
 								</button>
 							</Link>
-							<Link href="/login">
-								<button className="px-16 text-white text-sm py-4 border rounded">
-									Log In
-								</button>
-							</Link>
+							{user?.email === "" && (
+								<Link href="/login">
+									<button className="px-16 text-white text-sm py-4 border rounded">
+										Log In
+									</button>
+								</Link>
+							)}
 						</div>
 					</div>
 
-					<div className="w-1/3"></div>
+					<div className="flex flex-col items-center md:w-1/2 md:items-end">
+						<img src="assets/Hero.png" alt="Adehun" className="w-full" />
+					</div>
 				</div>
 			</div>
 		</section>
 	);
 }
+export default observer(Hero);

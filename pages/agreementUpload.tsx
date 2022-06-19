@@ -1,7 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
+import { useStoreContext } from "./_app";
+import { create } from "ipfs-http-client";
+import ScaleLoader from "react-spinners/ScaleLoader";
 import Backarrow from "../components/back-arrow";
+import { observer } from "mobx-react-lite";
 
-export default function AgreementUpload() {
+const client = create({
+	url: "https://ipfs.infura.io:5001/api/v0",
+});
+
+function AgreementUpload() {
+	const [agreement, setAgreement] = useState<any>("");
+	const [check, setCheck] = useState<boolean>(false);
+	const [uploading, setUploading] = useState<boolean>(false);
+	const [error, setError] = useState("");
+	const {
+		ContractsStore: { handleChange },
+	} = useStoreContext();
+
+	const router = useRouter();
+
+	const handleNext = async (e: any) => {
+		e.preventDefault();
+		setUploading(true);
+		if (!check) {
+			if (agreement === "") {
+				setError("Please upload your agreement");
+			} else {
+				try {
+					const addImages = await client.add(agreement, {
+						progress: (progress: any) => {
+							console.log("progress");
+						},
+					});
+
+					handleChange("agreement_contract", [
+						`https://ipfs.infura.io/ipfs/${addImages.path}`,
+					]);
+
+					setUploading(false);
+					router.push("contract_review");
+				} catch {}
+			}
+		} else {
+			setUploading(false);
+			router.push("contract_review");
+		}
+	};
+	const renderPreview = () => {
+		if (agreement !== "") {
+			return (
+				<div className="shadowed rad-10-im mb-4 p-2">
+					<div className="preview-space imh rad-5">
+						<img src={URL.createObjectURL(agreement)} alt="" />
+					</div>
+					<p className="text-center mb-0 mt-2 text-white">Preview Image</p>
+				</div>
+			);
+		} else {
+			return (
+				<div className="shadowed rad-10-im mb-4 p-2">
+					<div className="preview-space imh rad-5">
+						<img src="" alt="" />
+					</div>
+					<p className="text-center mb-0 mt-2 text-white">Preview Image</p>
+				</div>
+			);
+		}
+	};
+
 	return (
 		<section id="xcrow_contract">
 			<div className="w-full min-h-screen contract_bg">
@@ -9,7 +77,13 @@ export default function AgreementUpload() {
 
 				<div className="container px-6 flex flex-col mx-auto pb-24">
 					<div className="max-w-md flex flex-col space-y-12 mt-10">
-						<h1 className="text-2xl text-white font-xcrow_rg">a dehun</h1>
+						<div className="flex justify-center">
+							<img
+								src="/assets/Logo/Group 37467.svg"
+								alt="logo"
+								className="w-10 h-10 object-cover"
+							/>
+						</div>
 						<div className="space-y-5 ">
 							<h3 className="text-4xl md:text-5xl font-xcrow_smb text-white capitalize">
 								Upload Agreement file
@@ -29,7 +103,7 @@ export default function AgreementUpload() {
 							<input
 								type="checkbox"
 								className="w-4 h-4 border-0 rounded-md focus:ring-0"
-								checked
+								onChange={(e) => setCheck(e.target.checked)}
 							/>
 						</label>
 						<label htmlFor="milestone" className="text-white text-md">
@@ -70,9 +144,18 @@ export default function AgreementUpload() {
 															size 10MB
 														</p>
 													</div>
-													<input type="file" className="opacity-0" />
+													<input
+														type="file"
+														className="opacity-0"
+														onChange={(e) =>
+															setAgreement(
+																e.target.files !== null ? e.target.files[0] : {}
+															)
+														}
+													/>
 												</label>
 											</div>
+											{renderPreview()}
 										</div>
 									</div>
 
@@ -80,33 +163,30 @@ export default function AgreementUpload() {
 										<div className="md:m-4">
 											<div className="flex justify-center max-w-full px-4 py-4">
 												<label className="flex flex-col w-full border rounded-xl border-blue-200 border-dashed hover:bg-gray-900 hover:border-gray-300">
-													<div className="flex flex-col items-center justify-center px-4 pt-7 space-y-4">
+													<div className="flex flex-col items-center justify-center px-4 py-7 space-y-4">
 														<p className="pt-1 text-base tracking-wider text-gray-400 group-hover:text-gray-600">
-															Drag and drop to upload your file
+															Download Agreement Template Below
 														</p>
-														<div className="flex justify-center p-2 bg-xcrow_secondary px-4 text-white space-x-4 rounded-md items-center">
-															<svg
-																xmlns="http://www.w3.org/2000/svg"
-																className="w-7 h-7 text-white group-hover:text-gray-600"
-																fill="none"
-																viewBox="0 0 24 24"
-																stroke="currentColor"
-															>
-																<path
-																	stroke-linecap="round"
-																	stroke-linejoin="round"
-																	stroke-width="2"
-																	d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-																/>
-															</svg>
-															<p>Browse Files</p>
-														</div>
-														<p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-															File type supported PDF, JPG, PNG, doc, docx, Max
-															size 10MB
-														</p>
+														<a href="/template.pdf" download={"template.pdf"}>
+															<div className="flex justify-center p-2 bg-xcrow_secondary px-4 text-white space-x-4 rounded-md items-center my-3">
+																<svg
+																	xmlns="http://www.w3.org/2000/svg"
+																	className="w-7 h-7 text-white group-hover:text-gray-600"
+																	fill="none"
+																	viewBox="0 0 24 24"
+																	stroke="currentColor"
+																>
+																	<path
+																		stroke-linecap="round"
+																		stroke-linejoin="round"
+																		stroke-width="2"
+																		d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+																	/>
+																</svg>
+																<p>Download Template</p>
+															</div>
+														</a>
 													</div>
-													<input type="file" className="opacity-0" />
 												</label>
 											</div>
 										</div>
@@ -118,8 +198,11 @@ export default function AgreementUpload() {
 
 					<div className="max-w-md flex flex-col space-y-12 mt-10">
 						<div className="w-full flex flex-col pt-8">
-							<button className="uppercase bg-xcrow_secondary w-full px-4 py-4 rounded-xl text-white text-base">
-								Next
+							<button
+								onClick={handleNext}
+								className="uppercase bg-xcrow_secondary w-full px-4 py-4 rounded-xl text-white text-base"
+							>
+								{uploading ? <ScaleLoader /> : "Next"}
 							</button>
 						</div>
 					</div>
@@ -128,3 +211,4 @@ export default function AgreementUpload() {
 		</section>
 	);
 }
+export default observer(AgreementUpload);
