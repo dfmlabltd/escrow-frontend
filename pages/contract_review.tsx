@@ -1,23 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { observer } from "mobx-react-lite";
 import { useStoreContext } from "./_app";
+import ScaleLoader from "react-spinners/ScaleLoader";
+
+import { useRouter } from "next/router";
 import Backarrow from "../components/back-arrow";
 function ContractReview() {
 	const {
 		ContractsStore: { contractInfo, token },
 	} = useStoreContext();
+	const router = useRouter();
+	const [loading, setLoading] = useState(false);
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
-		const res: any = await axios.post(
-			`${process.env.BASE_URL}/api/contracts`,
-			contractInfo,
-			{
+		setLoading(true);
+		try {
+			const res: any = await fetch(`${process.env.BASE_URL}/contract/`, {
+				method: "POST",
+
 				headers: {
 					Authorizarion: `Bearer ${token.access}`,
+					"Content-Type": "application/json",
+					"Access-Control-Allow-Headers": "*",
 				},
-			}
-		);
+				body: JSON.stringify(contractInfo),
+			});
+			console.log(res);
+			router.push("/");
+			setLoading(false);
+		} catch (error) {
+			console.log(error);
+			setLoading(false);
+		}
 	};
 	return (
 		<div>
@@ -222,8 +237,11 @@ function ContractReview() {
 												</div>
 
 												<div className="relative flex flex-col pt-8">
-													<button className="uppercase bg-xcrow_secondary w-full px-4 py-4 rounded-xl text-white text-base">
-														Send Contract
+													<button
+														onClick={handleSubmit}
+														className="uppercase bg-xcrow_secondary w-full px-4 py-4 rounded-xl text-white text-base"
+													>
+														{loading ? <ScaleLoader /> : "Send Contract"}
 													</button>
 												</div>
 											</div>

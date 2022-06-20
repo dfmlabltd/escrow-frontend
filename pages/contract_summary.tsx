@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { useEffect, useCallback, useState } from "react";
 import axios from "axios";
+import Link from "next/link";
 import { useStoreContext } from "./_app";
 import React from "react";
 
@@ -28,20 +29,20 @@ function ContractSummary() {
 	useEffect(() => {
 		fetchContracts();
 	}, [fetchContracts]);
-	console.log(user);
+
 	return (
 		<div>
 			{" "}
 			<section id="header" className="bg-xcrow_default">
 				<div className="container px-6 flex flex-col mx-auto">
 					<nav className="flex flex-row space-x-5 items-center py-6">
-						<a href="#" className="outline-none">
+						<Link href="/" className="outline-none">
 							<img
 								src="/assets/Logo/Group 37467.svg"
 								alt="My Contract"
 								className="contract_header_logo"
 							/>
-						</a>
+						</Link>
 						<h4 className="text-base text-white font-xcrow_smb">My Contract</h4>
 					</nav>
 
@@ -51,7 +52,7 @@ function ContractSummary() {
 								{user?.email === "" ? "" : user !== null && user.email}
 							</h3>
 							<button className="text-sm bg-xcrow_secondary px-6 py-2 rounded text-white mt-2 md:mt-0 outline-none">
-								Add New Contract
+								<Link href="/contract_chain">Add New Contract</Link>
 							</button>
 						</div>
 						<div className="text-sm font-medium text-center text-gray-500">

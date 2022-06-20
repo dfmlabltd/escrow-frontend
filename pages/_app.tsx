@@ -36,7 +36,7 @@ const MyApp = (props: any) => {
 				refresh: getRefresh.refresh,
 				access: res.data?.access,
 			};
-			console.log(decod);
+
 			const resd: any = await axios.get(
 				`${process.env.BASE_URL}/user/profile/`,
 				{
@@ -48,7 +48,10 @@ const MyApp = (props: any) => {
 
 			localStorage.setItem("access_token", JSON.stringify(decod));
 			localStorage.setItem("user", JSON.stringify(resd.data));
-		} catch (error) {}
+		} catch (error) {
+			localStorage.setItem("access_token", JSON.stringify({}));
+			localStorage.setItem("user", JSON.stringify({ email: "" }));
+		}
 	}, []);
 
 	const getUserDetails = useCallback(async () => {
@@ -63,7 +66,9 @@ const MyApp = (props: any) => {
 			);
 
 			localStorage.setItem("user", JSON.stringify(res.data));
-		} catch (error) {}
+		} catch (error) {
+			localStorage.setItem("user", JSON.stringify({ email: "" }));
+		}
 	}, []);
 
 	useEffect(() => {

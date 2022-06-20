@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import { observer } from "mobx-react-lite";
+import { useStoreContext } from "../../pages/_app";
 
-export default function Navbar() {
+function Navbar() {
+	const {
+		ContractsStore: { user },
+	} = useStoreContext();
+	const [toggleMobile, setToggleMobile] = useState(false);
+	console.log(user);
 	return (
 		<>
 			<section id="header_section" className=" ">
@@ -13,7 +20,9 @@ export default function Navbar() {
 							<a href="#">How it Works</a>
 							<a href="#">Resolution Center</a>
 							<a href="#">FAQs</a>
-							<Link href={"contract_summary"}>My Contract</Link>
+							{user?.email.length > 0 && (
+								<Link href={"contract_summary"}>My Contract</Link>
+							)}
 							<a href="#" className="border border-gray-400 px-3 py-3 rounded">
 								Launch Adehun App
 							</a>
@@ -21,7 +30,12 @@ export default function Navbar() {
 
 						<button
 							id="menu-btn"
-							className="block hamburger md:hidden focus:outline-none"
+							onClick={() => setToggleMobile(!toggleMobile)}
+							className={
+								toggleMobile
+									? "block hamburger open md:hidden focus:outline-none"
+									: "block hamburger md:hidden focus:outline-none"
+							}
 						>
 							<span className="hamburger-top"></span>
 							<span className="hamburger-middle"></span>
@@ -33,13 +47,20 @@ export default function Navbar() {
 					<div className="md:hidden">
 						<div
 							id="menu"
-							className="absolute flex-col items-center hidden self-end py-8 space-y-6 font-bold bg-gray-100 sm:w-auto sm:self-center left-6 right-6 drop-shadow-md"
+							style={
+								toggleMobile
+									? { display: "flex", zIndex: 5 }
+									: { display: "none" }
+							}
+							className="absolute flex-col items-center self-end py-8 space-y-6 font-bold bg-gray-100 sm:w-auto sm:self-center left-6 right-6 drop-shadow-md"
 						>
 							<a href="#">About Us</a>
 							<a href="#">How it Works</a>
 							<a href="#">Resolution Center</a>
 							<a href="#">FAQs</a>
-							<a href="#">My Contract</a>
+							{user?.email.length > 0 && (
+								<Link href={"contract_summary"}>My Contract</Link>
+							)}
 							<a href="#" className="">
 								Launch X_Crow App
 							</a>
@@ -50,3 +71,4 @@ export default function Navbar() {
 		</>
 	);
 }
+export default observer(Navbar);

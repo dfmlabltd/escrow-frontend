@@ -39,7 +39,7 @@ function Hero() {
 									Create Contract
 								</button>
 							</Link>
-							{user?.email === "" && (
+							{(user?.email === undefined || user?.email === "") && (
 								<Link href="/login">
 									<button className="px-16 text-white text-sm py-4 border rounded">
 										Log In

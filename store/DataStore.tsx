@@ -82,6 +82,12 @@ export class ContractsStore {
 		this.user({ email: "" });
 	}
 
+	@action handleAuth = (data: any) => {
+		this.user = data;
+	};
+	@action handleToken = (data: any) => {
+		this.token = data;
+	};
 	@action handleChange = (field: string, data: any) => {
 		this.contractInfo[field] = data;
 	};

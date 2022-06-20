@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useStoreContext } from "./_app";
 import { create } from "ipfs-http-client";
 import ScaleLoader from "react-spinners/ScaleLoader";
+import { AiOutlineDownload } from "react-icons/ai";
 import Backarrow from "../components/back-arrow";
 import { observer } from "mobx-react-lite";
 
@@ -24,28 +25,25 @@ function AgreementUpload() {
 	const handleNext = async (e: any) => {
 		e.preventDefault();
 		setUploading(true);
-		if (!check) {
-			if (agreement === "") {
-				setError("Please upload your agreement");
-			} else {
-				try {
-					const addImages = await client.add(agreement, {
-						progress: (progress: any) => {
-							console.log("progress");
-						},
-					});
-
-					handleChange("agreement_contract", [
-						`https://ipfs.infura.io/ipfs/${addImages.path}`,
-					]);
-
-					setUploading(false);
-					router.push("contract_review");
-				} catch {}
-			}
-		} else {
-			setUploading(false);
+		if (agreement === "") {
 			router.push("contract_review");
+		} else {
+			try {
+				const addImages = await client.add(agreement, {
+					progress: (progress: any) => {
+						console.log("progress");
+					},
+				});
+
+				handleChange("agreement_contract", [
+					`https://ipfs.infura.io/ipfs/${addImages.path}`,
+				]);
+
+				setUploading(false);
+				router.push("contract_review");
+			} catch {
+				setError("Error uploading agreement");
+			}
 		}
 	};
 	const renderPreview = () => {
@@ -100,11 +98,11 @@ function AgreementUpload() {
 							htmlFor="default-toggle"
 							className="inline-flex relative items-center cursor-pointer"
 						>
-							<input
+							{/* <input
 								type="checkbox"
 								className="w-4 h-4 border-0 rounded-md focus:ring-0"
 								onChange={(e) => setCheck(e.target.checked)}
-							/>
+							/> */}
 						</label>
 						<label htmlFor="milestone" className="text-white text-md">
 							Agreement file (optionals)
@@ -169,20 +167,7 @@ function AgreementUpload() {
 														</p>
 														<a href="/template.pdf" download={"template.pdf"}>
 															<div className="flex justify-center p-2 bg-xcrow_secondary px-4 text-white space-x-4 rounded-md items-center my-3">
-																<svg
-																	xmlns="http://www.w3.org/2000/svg"
-																	className="w-7 h-7 text-white group-hover:text-gray-600"
-																	fill="none"
-																	viewBox="0 0 24 24"
-																	stroke="currentColor"
-																>
-																	<path
-																		stroke-linecap="round"
-																		stroke-linejoin="round"
-																		stroke-width="2"
-																		d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-																	/>
-																</svg>
+																<AiOutlineDownload size="20px" />
 																<p>Download Template</p>
 															</div>
 														</a>
