@@ -1,50 +1,104 @@
-import { observable } from "mobx";
+import { observable, action, makeAutoObservable } from "mobx";
 import { useStaticRendering } from "mobx-react";
 
 const isServer = typeof window === "undefined";
 // eslint-disable-next-line react-hooks/rules-of-hooks
 useStaticRendering(isServer);
 
-type ContractStore = {
+interface ContractStore {
 	depositors: [
 		{
-			user: string;
-			amount: number;
-			wallet_address: string;
+			email: string;
+			amount: any;
+			wallet_address?: any;
 		}
 	];
 	trustees: [
 		{
-			user: string;
-			amount: number;
-			wallet_address: string;
+			email: string;
+			amount: any;
+			wallet_address?: any;
 		}
 	];
 
-	amount: number | undefined;
-	token_address: string;
-	blockchain_network: string;
+	amount: string;
+	token: object;
+	coin: object;
+	wait_day: number;
+	auto_withdrawal: boolean;
 	title: string;
-};
+}
+const iSSERVER = typeof window === "undefined";
 
 export class ContractsStore {
-	@observable contractInfo: any;
+	@action
+	fetchAuthFromLocalStorage = () => {
+		const localStorageAuth = !iSSERVER && localStorage.getItem("user");
+		return localStorageAuth ? JSON.parse(localStorageAuth) : null;
+	};
+	@action
+	fetchTokenFromLocalStorage = () => {
+		const localStorageAuth = !iSSERVER && localStorage.getItem("access_token");
+		return localStorageAuth ? JSON.parse(localStorageAuth) : null;
+	};
+	@observable token: null | any = this.fetchTokenFromLocalStorage();
+	@observable
+	user: null | any | undefined = this.fetchAuthFromLocalStorage();
+	@observable contractInfo: any = {
+		depositors: [
+			{
+				email: "",
+				amount: "",
+				wallet_address: "",
+			},
+		],
+		trustees: [
+			{
+				email: "",
+				amount: "",
+				wallet_address: "",
+			},
+		],
+		amount: "",
+		token_address: "",
+		token: {},
+		agreement_contract: "",
+		auto_withdrawal: false,
+		wait_day: 2,
+		coin: {},
+		blockchain_network: "",
+		title: "",
+	};
+
+	@observable DepositorCheck: any = "";
+	constructor() {
+		makeAutoObservable(this);
+	}
 	@observable amount: any;
-
 	hydrate(contractStore: ContractStore) {
-		this.contractInfo = contractStore != null ? contractStore : "";
-		this.amount = contractStore.amount != null ? contractStore.amount : "";
+		if (!contractStore) return;
+		this.contractInfo(contractStore);
+		if (!this.user) return;
+		this.user({ email: "" });
 	}
 
-	handleAmount(e: string) {
-		this.amount = e;
-	}
-	handleContractInfo(data: object) {
+	@action handleChange = (field: string, data: any) => {
+		this.contractInfo[field] = data;
+	};
+	@action handleDepositorCheck = (data: any) => {
+		this.DepositorCheck = data;
+	};
+
+	@action handleTrusteesChange = (
+		field: string,
+		index: number,
+		data: any,
+		sub: string
+	) => {
+		this.contractInfo[field][index][sub] = data;
+	};
+	@action handleContractInfo(data: object) {
 		this.contractInfo = data;
 	}
 }
-
-export async function fetchInitialStoreState() {
-	// You can do anything to fetch initial store state
-	return {};
-}
+export const storeContract = new ContractsStore();

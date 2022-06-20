@@ -3,102 +3,106 @@ import Backarrow from "../components/back-arrow";
 import Notification from "../components/notification";
 import { useRouter } from "next/router";
 import isNumeric from "validator/lib/isNumeric";
+import { MdCancel } from "react-icons/md";
 import isEmail from "validator/lib/isEmail";
 import isEthereumAddress from "validator/lib/isEthereumAddress";
-import { RadioGroup } from "@headlessui/react";
+import { useStoreContext } from "./_app";
 import { useTrusteesHook } from "../components/trustees/trustees";
-const plans = [
-	{
-		name: "I'm the Depositor",
-	},
-	{
-		name: "Other People",
-	},
-	{
-		name: "Anyone can deposit",
-	},
-];
+import { observer } from "mobx-react";
+
 function Example({ check, setCheck }: any) {
-	console.log(check);
 	return (
-		<div className="w-full px-4 py-16 ">
-			<div className="mx-auto w-full ">
-				<RadioGroup value={check} onChange={setCheck}>
-					<div
-						className="space-y-2 d-flex mt-5"
-						style={{
-							display: "flex",
-							flexWrap: "wrap",
-							justifyContent: "space-between",
-							alignItems: "center",
-							width: "60%",
-						}}
-					>
-						{plans.map((plan) => (
-							<RadioGroup.Option
-								key={plan.name}
-								value={plan.name}
-								className={({ active, checked }) =>
-									`${
-										active
-											? "ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300"
-											: ""
-									}
-                  ${checked ? "bg-xcrow_secondary text-white" : "bg-white"}
-                    relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none`
-								}
+		<div className="w-full px-4 ">
+			<div
+				className="mx-auto w-full  "
+				style={{ display: "flex", marginTop: "10px" }}
+			>
+				<div className="d-flex flex">
+					<div className="d-flex flex">
+						<div
+							className="form-check"
+							style={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+							}}
+						>
+							<input
+								type="radio"
+								name="flexRadioDefault"
+								checked={check === "depositor"}
+								onChange={(e: any) => setCheck("depositor")}
+								id="flexRadioDefault1"
+							/>
+							<label
+								className="form-check-label inline-block text-white px-3"
+								htmlFor="flexRadioDefault1"
 							>
-								{({ active, checked }) => (
-									<>
-										<div className="flex w-full items-center justify-between">
-											<div className="flex items-center">
-												<div className="text-sm">
-													<RadioGroup.Label
-														as="p"
-														className={`font-medium  ${
-															checked ? "text-white" : "text-gray-800 font-bold"
-														}`}
-													>
-														{plan.name}
-													</RadioGroup.Label>
-												</div>
-											</div>
-											{checked && (
-												<div className="shrink-0 text-white">
-													<CheckIcon className="h-6 w-6" />
-												</div>
-											)}
-										</div>
-									</>
-								)}
-							</RadioGroup.Option>
-						))}
+								I'm the depositor
+							</label>
+						</div>
+						<div
+							className="form-check"
+							style={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+							}}
+						>
+							<input
+								type="radio"
+								name="flexRadioDefault"
+								checked={check === "others"}
+								onChange={(e: any) => setCheck("others")}
+								id="flexRadioDefault2"
+							/>
+							<label
+								className="form-check-label inline-block text-white px-3"
+								htmlFor="flexRadioDefault2"
+							>
+								Other People
+							</label>
+						</div>
+						<div
+							className="form-check"
+							style={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+							}}
+						>
+							<input
+								type="radio"
+								name="flexRadioDefault"
+								id="flexRadioDefault2"
+								checked={check === "anyone"}
+								onChange={(e: any) => setCheck("anyone")}
+							/>
+							<label
+								className="form-check-label inline-block text-white px-3"
+								htmlFor="flexRadioDefault2"
+							>
+								Anyone can deposit
+							</label>
+						</div>
 					</div>
-				</RadioGroup>
+				</div>
 			</div>
 		</div>
 	);
 }
 
-function CheckIcon(props: any) {
-	return (
-		<svg viewBox="0 0 24 24" fill="none" {...props}>
-			<circle cx={12} cy={12} r={12} fill="#fff" opacity="0.2" />
-			<path
-				d="M7 13l3 3 7-7"
-				stroke="#fff"
-				strokeWidth={1.5}
-				strokeLinecap="round"
-				strokeLinejoin="round"
-			/>
-		</svg>
-	);
-}
-export default function DepositorRequirement() {
+function DepositorRequirement() {
 	const [value, setValue] = useState<any>();
 	const [check, setCheck] = useState("depositor");
 	const [error, setError] = useState("");
-	console.log(check);
+	const {
+		ContractsStore: {
+			contractInfo: { depositors, coin },
+			handleDepositorCheck,
+			DepositorCheck,
+		},
+	} = useStoreContext();
 	const router = useRouter();
 	const {
 		trustees,
@@ -107,26 +111,26 @@ export default function DepositorRequirement() {
 		onChangeAmount,
 		onChangeWallet,
 		remove,
-	} = useTrusteesHook(setValue);
+	} = useTrusteesHook("depositors");
+
 	const handleSubmit = () => {
 		if (check !== "anyone") {
 			router.push("/contractDetails");
 		} else {
-			console.log(value);
-			if (value === undefined) {
+			if (depositors === undefined) {
 				setError("Please fill in fields");
 			} else {
-				if (value?.length === 1) {
+				if (depositors?.length === 1) {
 					if (
-						value[0].email === undefined ||
-						value[0].amount === undefined ||
-						value[0].wallet_address === undefined
+						depositors[0].email === undefined ||
+						depositors[0].amount === undefined ||
+						depositors[0].wallet_address === undefined
 					) {
-						if (!isEmail(value[0].email)) {
+						if (!isEmail(depositors[0].email)) {
 							setError("Please enter a valid email");
-						} else if (!isNumeric(value[0].amount)) {
+						} else if (!isNumeric(depositors[0].amount)) {
 							setError("Please enter a valid amount");
-						} else if (!isEthereumAddress(value[0].wallet_address)) {
+						} else if (depositors[0].wallet_address !== /^0x[a-fA-F0-9]{40}$/) {
 							setError("Please fill in a valid address");
 						}
 						setError("Please fill in the required fields");
@@ -135,7 +139,7 @@ export default function DepositorRequirement() {
 						router.push("/contractDetails");
 					}
 				} else {
-					const valueFilter = value?.filter(
+					const valueFilter = depositors?.filter(
 						(item: any) => item.email !== undefined || item.amount !== undefined
 					);
 					const res = valueFilter.map((item: any) => {
@@ -149,7 +153,7 @@ export default function DepositorRequirement() {
 							return true;
 						} else if (!isNumeric(item.amount)) {
 							return true;
-						} else if (!isEthereumAddress(item.wallet_address)) {
+						} else if (item.wallet_address !== /^0x[a-fA-F0-9]{40}$/) {
 							return true;
 						}
 					});
@@ -188,11 +192,22 @@ export default function DepositorRequirement() {
 										<Notification kind="error" message={error} />
 									</div>
 								)}
-								<Example check={check} setCheck={setCheck} />
-								{check === "Anyone can deposit" && (
+								<Example
+									check={DepositorCheck}
+									setCheck={handleDepositorCheck}
+								/>
+								{DepositorCheck === "anyone" && (
 									<>
 										{Array.from(trustees).map(([key, email], index) => (
 											<div className="flex flex-col pt-8" key={key}>
+												{Array.from(trustees).length >= 2 && (
+													<p
+														className="text-md  mb-8"
+														style={{ fontSize: "20px", color: "#cedede" }}
+													>
+														Trustee {index + 1}
+													</p>
+												)}
 												<form action="">
 													<div className="w-full flex flex-col space-y-10">
 														<div className="flex flex-col space-y-8 md:space-y-0 md:space-x-8 md:flex-row">
@@ -208,7 +223,7 @@ export default function DepositorRequirement() {
 																		<input
 																			type="text"
 																			name={key}
-																			value={email.email}
+																			value={depositors[index].email}
 																			key={key}
 																			id={key}
 																			onChange={(e) => onChangeEmail(e, key)}
@@ -231,13 +246,39 @@ export default function DepositorRequirement() {
 																		<input
 																			type="number"
 																			name={key}
-																			value={email.amount}
+																			value={depositors[index].amount}
 																			key={key}
 																			id={key}
 																			onChange={(e) => onChangeAmount(e, key)}
 																			placeholder="Amount"
 																			className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base pr-32"
 																		/>
+																	</div>
+																	<div className="absolute top-0 right-0">
+																		<div
+																			className="inline-block relative place-content-center"
+																			style={{ marginRight: "4px" }}
+																		>
+																			<select className="block appearance-none h-12 mt-1 bg-xcrow_secondary border border-xcrow_secondary px-5 py-3 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base">
+																				<option>
+																					{coin !== undefined
+																						? coin?.name
+																						: "cUSD"}
+																				</option>
+																			</select>
+																			<div
+																				className="pointer-events-none absolute inset-y-0 flex items-center text-white"
+																				style={{ right: "10px" }}
+																			>
+																				<svg
+																					className="fill-current h-5 w-5"
+																					xmlns="http://www.w3.org/2000/svg"
+																					viewBox="0 0 20 20"
+																				>
+																					<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+																				</svg>
+																			</div>
+																		</div>
 																	</div>
 																</div>
 															</div>
@@ -254,7 +295,7 @@ export default function DepositorRequirement() {
 																		<input
 																			type="text"
 																			name={key}
-																			value={email.wallet_address}
+																			value={depositors[index].wallet_address}
 																			key={key}
 																			id={key}
 																			onChange={(e) => onChangeWallet(e, key)}
@@ -277,7 +318,10 @@ export default function DepositorRequirement() {
 																		className="text-white text-md mt-8 cursor-pointer"
 																		onClick={() => remove(key)}
 																	>
-																		Remove
+																		<MdCancel
+																			size={"20px"}
+																			style={{ color: "red" }}
+																		/>
 																	</p>
 																</div>
 															)}
@@ -317,3 +361,4 @@ export default function DepositorRequirement() {
 		</section>
 	);
 }
+export default observer(DepositorRequirement);

@@ -3,14 +3,21 @@ import Backarrow from "../components/back-arrow";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Notification from "../components/notification";
+import { observer } from "mobx-react-lite";
+import { useStoreContext } from "./_app";
+import { MdCancel } from "react-icons/md";
 import { useTrusteesHook } from "../components/trustees/trustees";
 import isNumeric from "validator/lib/isNumeric";
 import isEmail from "validator/lib/isEmail";
-import isEthereumAddress from "validator/lib/isEthereumAddress";
 
-export default function TrusteeRequirement() {
-	const [value, setValue] = useState<any>();
+function TrusteeRequirement() {
 	const [error, setError] = useState("");
+	const {
+		ContractsStore: {
+			contractInfo: { trustees: trust, coin },
+		},
+	} = useStoreContext();
+
 	const router = useRouter();
 	const {
 		trustees,
@@ -19,24 +26,24 @@ export default function TrusteeRequirement() {
 		onChangeAmount,
 		onChangeWallet,
 		remove,
-	} = useTrusteesHook(setValue);
-	console.log(value);
+	} = useTrusteesHook("trustees");
+
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		if (value === undefined) {
+		if (trust === undefined) {
 			setError("Please fill in fields");
 		} else {
-			if (value?.length === 1) {
+			if (trust?.length === 1) {
 				if (
-					value[0].email === undefined ||
-					value[0].amount === undefined ||
-					value[0].wallet_address === undefined
+					trust[0].email === undefined ||
+					trust[0].amount === undefined ||
+					trust[0].wallet_address === undefined
 				) {
-					if (!isEmail(value[0].email)) {
+					if (!isEmail(trust[0].email)) {
 						setError("Please enter a valid email");
-					} else if (!isNumeric(value[0].amount)) {
+					} else if (!isNumeric(trust[0].amount)) {
 						setError("Please enter a valid amount");
-					} else if (!isEthereumAddress(value[0].wallet_address)) {
+					} else if (trust[0].wallet_address !== /^0x[a-fA-F0-9]{40}$/) {
 						setError("Please fill in a valid address");
 					}
 					setError("Please fill in the required fields");
@@ -45,9 +52,10 @@ export default function TrusteeRequirement() {
 					router.push("/depositorRequirement");
 				}
 			} else {
-				const valueFilter = value?.filter(
+				const valueFilter = trust?.filter(
 					(item: any) => item.email !== undefined || item.amount !== undefined
 				);
+
 				const res = valueFilter.map((item: any) => {
 					if (
 						item.email === undefined ||
@@ -59,19 +67,19 @@ export default function TrusteeRequirement() {
 						return true;
 					} else if (!isNumeric(item.amount)) {
 						return true;
-					} else if (!isEthereumAddress(item.wallet_address)) {
+					} else if (trust[0].wallet_address !== /^0x[a-fA-F0-9]{40}$/) {
 						return true;
 					}
 				});
 				if (res.includes(true)) {
-					console.log("yes");
 					setError("Please fill all required fields");
-				} else if (value?.length !== 1) {
+				} else if (trust?.length !== 1) {
 					router.push("/depositorRequirement");
 				}
 			}
 		}
 	};
+
 	return (
 		<section id="xcrow_contract">
 			<div className="w-full min-h-screen contract_bg">
@@ -79,7 +87,13 @@ export default function TrusteeRequirement() {
 
 				<div className="container px-6 flex flex-col mx-auto pb-24">
 					<div className="max-w-md flex flex-col space-y-12 mt-10">
-						<h1 className="text-2xl text-white font-xcrow_rg">a dehun</h1>
+						<div className="flex justify-center">
+							<img
+								src="/assets/Logo/Group 37467.svg"
+								alt="logo"
+								className="w-10 h-10 object-cover"
+							/>
+						</div>
 						<div className="space-y-5 ">
 							<h3 className="text-4xl md:text-5xl font-xcrow_smb text-white capitalize">
 								Trustee Requirement
@@ -95,14 +109,18 @@ export default function TrusteeRequirement() {
 							<Notification kind="error" message={error} />
 						</div>
 					)}
+					{/* {alert(Array.from(trustees).length)} */}
 					{Array.from(trustees).map(([key, email], index) => (
 						<div className="flex flex-col pt-8" key={key}>
-							<p
-								className="text-md  mb-8"
-								style={{ fontSize: "20px", color: "#cedede" }}
-							>
-								Trustee {index + 1}
-							</p>
+							{Array.from(trustees).length >= 2 && (
+								<p
+									className="text-md  mb-8"
+									style={{ fontSize: "20px", color: "#cedede" }}
+								>
+									Trustee {index + 1}
+								</p>
+							)}
+
 							<form action="">
 								<div className="w-full flex flex-col space-y-10">
 									<div className="flex flex-col space-y-8 md:space-y-0 md:space-x-8 md:flex-row">
@@ -118,10 +136,12 @@ export default function TrusteeRequirement() {
 													<input
 														type="text"
 														name={key}
-														value={email.email}
+														value={trust[index]?.email}
 														key={key}
 														id={key}
-														onChange={(e) => onChangeEmail(e, key)}
+														onChange={(e) => {
+															onChangeEmail(e, key);
+														}}
 														placeholder="Enter Trustee's Email Address"
 														className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base pr-32"
 													/>
@@ -138,13 +158,39 @@ export default function TrusteeRequirement() {
 													<input
 														type="number"
 														name={key}
-														value={email.amount}
+														value={trust[index]?.amount}
 														key={key}
 														id={key}
-														onChange={(e) => onChangeAmount(e, key)}
+														onChange={(e) => {
+															onChangeAmount(e, key);
+														}}
 														placeholder="Amount"
 														className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base pr-32"
 													/>
+												</div>
+												<div className="absolute top-0 right-0">
+													<div
+														className="inline-block relative place-content-center"
+														style={{ marginRight: "4px" }}
+													>
+														<select className="block appearance-none mt-1 h-12 bg-xcrow_secondary border border-xcrow_secondary px-5 py-3 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base">
+															<option>
+																{coin !== undefined ? coin.name : ""}
+															</option>
+														</select>
+														<div
+															className="pointer-events-none absolute inset-y-0 flex items-center text-white"
+															style={{ right: "10px" }}
+														>
+															<svg
+																className="fill-current h-5 w-5"
+																xmlns="http://www.w3.org/2000/svg"
+																viewBox="0 0 20 20"
+															>
+																<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+															</svg>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -158,10 +204,12 @@ export default function TrusteeRequirement() {
 													<input
 														type="text"
 														name={key}
-														value={email.wallet_address}
+														value={trust[index]?.wallet_address}
 														key={key}
 														id={key}
-														onChange={(e) => onChangeWallet(e, key)}
+														onChange={(e) => {
+															onChangeWallet(e, key);
+														}}
 														placeholder="Wallet Address"
 														className="px-5 py-2 h-14 border w-full bg-transparent border-gray-400 rounded-lg focus:outline-none focus:shadow-outline text-white text-base pr-32"
 													/>
@@ -179,9 +227,11 @@ export default function TrusteeRequirement() {
 											>
 												<p
 													className="text-white text-md mt-8 cursor-pointer"
-													onClick={() => remove(key)}
+													onClick={() => {
+														remove(key);
+													}}
 												>
-													Remove
+													<MdCancel style={{ color: "red" }} />
 												</p>
 											</div>
 										)}
@@ -216,3 +266,4 @@ export default function TrusteeRequirement() {
 		</section>
 	);
 }
+export default observer(TrusteeRequirement);
