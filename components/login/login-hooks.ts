@@ -1,72 +1,119 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useStoreContext } from "../../pages/_app";
 import isEmail from "validator/lib/isEmail";
 
 export function useLoginHooks() {
-	const [value, setValue] = useState("");
-	const [error, setError] = useState("");
-	const [success, setSuccess] = useState("");
-	const [password, setPassword] = useState("");
-	const router = useRouter();
-	const handleValue = (e: any) => {
-		setValue(e.target.value);
-	};
+  const [value, setValue] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const {
+    ContractsStore: { handleAuth, handleToken, token },
+  } = useStoreContext();
 
-	const handleGetOTP = async (e: any, mail?: any) => {
-		e.preventDefault();
-		if (!isEmail(value) && window.location.pathname === "/login") {
-			setError("Invalid Email");
-		} else {
-			try {
-				const res: any = await axios.post(
-					`${process.env.BASE_URL}/user/auth/`,
-					{
-						email: mail !== undefined ? mail : value,
-					}
-				);
-				localStorage.setItem("email", mail !== undefined ? mail : value);
-				if (res) router.push("/keyVerification");
-			} catch (e: any) {
-				setError(e.message);
-			}
-		}
-	};
+  const handleValue = (e: any) => {
+    setValue(e.target.value);
+  };
 
-	const handleLogin = async (e: any) => {
-		e.preventDefault();
-		if (password.trim().length === 0) {
-			setError("Please Provide OTP");
-		} else {
-			try {
-				const res: any = await axios.post(
-					`${process.env.BASE_URL}/user/auth/token/`,
-					{
-						email: localStorage.getItem("email"),
-						password: password,
-					}
-				);
-				localStorage.setItem("access_token", JSON.stringify(res.data));
-				setSuccess("Logged in Successfully");
-				router.push("/");
-			} catch (e: any) {
-				setError(e.data.data);
-			}
-		}
-	};
+  const handleGetOTP = async (e: any, mail?: any) => {
+    e.preventDefault();
+    if (!isEmail(value) && window.location.pathname === "/login") {
+      setError("Invalid Email");
+    } else {
+      try {
+        const res: any = await axios.post(
+          `${process.env.BASE_URL}/user/auth/`,
+          {
+            email: mail !== undefined ? mail : value,
+          }
+        );
+        localStorage.setItem("email", mail !== undefined ? mail : value);
+        if (res) router.push("/keyVerification");
+      } catch (e: any) {
+        setError(e.message);
+      }
+    }
+  };
+  const handleTokenRefresh = useCallback(async () => {
+    try {
+      const res: any = await axios.post(
+        `${process.env.BASE_URL}/user/auth/token/refresh/`,
+        {
+          refresh: token?.refresh,
+        }
+      );
+      const decod = {
+        refresh: token.refresh,
+        access: res.data?.access,
+      };
 
-	const handlePassword = (e: any) => {
-		setPassword(e.target.value);
-	};
+      localStorage.setItem("access_token", JSON.stringify(decod));
 
-	return {
-		handleValue,
-		password,
-		handleLogin,
-		handlePassword,
-		success,
-		handleGetOTP,
-		value,
-		error,
-	};
+      handleToken(decod);
+      return res.data;
+    } catch (error) {
+      localStorage.setItem("access_token", JSON.stringify({}));
+    }
+  }, []);
+
+  const getUserDetails = useCallback(async (token: any) => {
+    try {
+      const res: any = await axios.get(
+        `${process.env.BASE_URL}/user/profile/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setSuccess("Logged in Successfully");
+      localStorage.setItem("user", JSON.stringify(res.data));
+      handleAuth(res.data);
+      router.push("/");
+    } catch (error) {
+      localStorage.setItem("user", JSON.stringify({ email: "" }));
+    }
+  }, []);
+
+  const handleLogin = async (e: any) => {
+    e.preventDefault();
+    if (password.trim().length === 0) {
+      setError("Please Provide OTP");
+    } else {
+      try {
+        const res: any = await axios.post(
+          `${process.env.BASE_URL}/user/auth/token/`,
+          {
+            email: localStorage.getItem("email"),
+            password: password,
+          }
+        );
+        localStorage.setItem("access_token", JSON.stringify(res.data));
+        handleToken(res.data);
+
+        getUserDetails(res.data.access);
+      } catch (e: any) {
+        setError(e.message);
+      }
+    }
+  };
+
+  const handlePassword = (e: any) => {
+    setPassword(e.target.value);
+  };
+
+  return {
+    handleValue,
+    password,
+    handleLogin,
+    handlePassword,
+    handleTokenRefresh,
+    success,
+    handleGetOTP,
+    value,
+    error,
+  };
 }
