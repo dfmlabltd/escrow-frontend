@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Backarrow from "../components/back-arrow";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -16,7 +16,7 @@ function TrusteeRequirement() {
   const [error, setError] = useState("");
   const {
     ContractsStore: {
-      contractInfo: { trustees: trust, coin },
+      contractInfo: { trustees: trust, coin, amount },
     },
   } = useStoreContext();
 
@@ -80,7 +80,11 @@ function TrusteeRequirement() {
       }
     }
   };
-
+  useEffect(() => {
+    if (amount.trim() === "") {
+      router.push("/contract_chain");
+    }
+  }, []);
   return (
     <section id="xcrow_contract">
       <div className="w-full min-h-screen contract_bg">
@@ -174,23 +178,14 @@ function TrusteeRequirement() {
                             className="inline-block relative place-content-center"
                             style={{ marginRight: "4px" }}
                           >
-                            <select className="block appearance-none mt-1 h-12 bg-xcrow_secondary border border-xcrow_secondary px-5 py-3 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base">
+                            <select
+                              disabled
+                              className="block appearance-none mt-1 h-12 bg-xcrow_secondary border border-xcrow_secondary px-5 py-3 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline text-white text-base"
+                            >
                               <option>
                                 {coin !== undefined ? coin.name : ""}
                               </option>
                             </select>
-                            <div
-                              className="pointer-events-none absolute inset-y-0 flex items-center text-white"
-                              style={{ right: "10px" }}
-                            >
-                              <svg
-                                className="fill-current h-5 w-5"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20"
-                              >
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                              </svg>
-                            </div>
                           </div>
                         </div>
                       </div>

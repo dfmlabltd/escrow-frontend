@@ -219,7 +219,7 @@ function ContractReview() {
                             </div>
                             <div className="flex flex-col">
                               <span>
-                                {contractInfo.coin}
+                                {contractInfo.coin.name} &nbsp;
                                 {contractInfo.amount}
                               </span>
                             </div>
@@ -256,40 +256,52 @@ function ContractReview() {
                               Depositor Requirement
                             </h5>
                           </div>
-                          {contractInfo?.depositors.map(
-                            (item: any, index: any) => (
-                              <>
-                                <div className="text-white">
-                                  <h5 className="font-xcrow_smb text-sm">
-                                    Milestone {index + 1}
-                                  </h5>
-                                </div>
-                                <div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-                                  <div className="flex flex-col">
-                                    <h5>Amount</h5>
-                                  </div>
-                                  <div className="flex flex-col">
-                                    <span>${item.amount}</span>
-                                  </div>
-                                </div>
-                                <div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-                                  <div className="flex flex-col">
-                                    <h5>Wallet Address</h5>
-                                  </div>
-                                  <div className="flex flex-col">
-                                    <span>{item.wallet_address}</span>
-                                  </div>
-                                </div>
-                                <div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-                                  <div className="flex flex-col">
-                                    <h5>Email</h5>
-                                  </div>
-                                  <div className="flex flex-col">
-                                    <span>{item.email}</span>
-                                  </div>
-                                </div>
-                              </>
-                            )
+                          {DepositorCheck === "others" ? (
+                            <>
+                              {contractInfo?.depositors.map(
+                                (item: any, index: any) => (
+                                  <>
+                                    <div className="text-white">
+                                      <h5 className="font-xcrow_smb text-sm">
+                                        Milestone {index + 1}
+                                      </h5>
+                                    </div>
+                                    <div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
+                                      <div className="flex flex-col">
+                                        <h5>Amount</h5>
+                                      </div>
+                                      <div className="flex flex-col">
+                                        <span>${item.amount}</span>
+                                      </div>
+                                    </div>
+                                    <div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
+                                      <div className="flex flex-col">
+                                        <h5>Wallet Address</h5>
+                                      </div>
+                                      <div className="flex flex-col">
+                                        <span>{item.wallet_address}</span>
+                                      </div>
+                                    </div>
+                                    <div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
+                                      <div className="flex flex-col">
+                                        <h5>Email</h5>
+                                      </div>
+                                      <div className="flex flex-col">
+                                        <span>{item.email}</span>
+                                      </div>
+                                    </div>
+                                  </>
+                                )
+                              )}
+                            </>
+                          ) : DepositorCheck === "anyone" ? (
+                            <div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
+                              Anyone can Deposit
+                            </div>
+                          ) : (
+                            <div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
+                              I'm the depositor
+                            </div>
                           )}
                         </div>
 
@@ -364,22 +376,24 @@ function ContractReview() {
                             </div>
                           </div>
                         </div>
-                        <div className="border-b border-gray-600 py-5 space-y-3 overflow-hidden">
-                          <div className="text-xcrow_secondary">
-                            <h5 className="font-xcrow_smb text-sm">
-                              Agreement File
-                            </h5>
-                          </div>
-                          <div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-                            <div className="flex flex-col">
-                              <h5>upload</h5>
+                        {contractInfo?.agreement_contract !== "" && (
+                          <div className="border-b border-gray-600 py-5 space-y-3 overflow-hidden">
+                            <div className="text-xcrow_secondary">
+                              <h5 className="font-xcrow_smb text-sm">
+                                Agreement File
+                              </h5>
                             </div>
-                            <div className="flex flex-col">
-                              <span>{contractInfo?.agreement_contract[0]}</span>
-                              <p>{contractInfo?.agreement_contract[1]}</p>
+                            <div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
+                              <div className="flex flex-col">
+                                <h5>upload</h5>
+                              </div>
+                              <div className="flex flex-col">
+                                <span>{contractInfo?.agreement_contract}</span>
+                                <p>{contractInfo?.agreement_contract}</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        )}
 
                         <div className="relative flex flex-col pt-8">
                           <button

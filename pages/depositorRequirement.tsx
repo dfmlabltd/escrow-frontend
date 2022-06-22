@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Backarrow from "../components/back-arrow";
 import Notification from "../components/notification";
 import { useRouter } from "next/router";
@@ -100,7 +100,7 @@ function DepositorRequirement() {
   const [error, setError] = useState("");
   const {
     ContractsStore: {
-      contractInfo: { depositors, coin },
+      contractInfo: { depositors, coin, amount, trustees: trust },
       handleDepositorCheck,
       DepositorCheck,
     },
@@ -114,7 +114,11 @@ function DepositorRequirement() {
     onChangeWallet,
     remove,
   } = useTrusteesHook("depositors");
-
+  useEffect(() => {
+    if (amount.trim() === "" || trust[0].email === "") {
+      router.push("/contract_chain");
+    }
+  }, []);
   const handleSubmit = () => {
     if (check !== "anyone") {
       router.push("/contractDetails");
