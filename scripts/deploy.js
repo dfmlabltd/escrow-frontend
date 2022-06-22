@@ -15,7 +15,7 @@ async function main() {
 
   // We get the contract to deploy
   const ContractManager = await hre.ethers.getContractFactory("ContractManager");
-  const contractManager = await ContractManager.deploy("Hello, Hardhat!");
+  const contractManager = await ContractManager.deploy();
 
   await contractManager.deployed();
 

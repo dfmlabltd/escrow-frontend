@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: Unlicense
+//SPDX-License-Identifier: UNLICENSED
 // Adehun Ethereum Virtual Machine Compatible Smart Contract v0.0.1 (DAO.sol)
 
 /**

@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: Unlicense
+//SPDX-License-Identifier: UNLICENSED
 // Adehun Ethereum Virtual Machine Compatible Smart Contract v0.0.1 (Contract.sol)
 
 /**
@@ -272,7 +272,7 @@ contract Contract {
             amount
         );
     }
-,
+
     /// @notice Any body can deposit using the currency provided.
     /// You can deposit until you have reached the specified amount
     /// @dev FUNCTION NEEDS SERIOUS IMPROVEMENT

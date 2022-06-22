@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: Unlicense
+//SPDX-License-Identifier: UNLICENSED
 // Adehun Ethereum Virtual Machine Compatible Smart Contract v0.0.1 (ContractManager.sol)
 
 /**
@@ -18,7 +18,7 @@ contract ContractManager {
     event Rejected(uint256 identifier, address contractAddress, address depositor, address trustee);
     event Vote(uint256 identifier, address contractAddress, address depositor, address trustee, uint256 amount);
     event Withdrawal(uint256 identifier, address contractAddress, address trustee, uint256 amount);
-    event Approved(uint256 identifier, address contractAddress, address depositor, uint256 balance);
+    event Approved(uint256 identifier, address contractAddress, address depositor, address trustee, uint256 amount);
 
     mapping(uint256 => Contract) public _contracts;
 
