@@ -83,7 +83,7 @@ function ContractReview() {
           )
             .then((res) => res.json())
             .then((res) => {
-              window.location.assign("/");
+              window.location.assign("/contract_summary");
               setLoading(false);
             })
             .catch(() => setLoading(false));
