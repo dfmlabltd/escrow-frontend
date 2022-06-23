@@ -6,6 +6,7 @@ import Notification from "../components/notification";
 import { observer } from "mobx-react-lite";
 import { useStoreContext } from "./_app";
 import Web3 from "web3";
+import { toast } from "react-toastify";
 import { MdCancel } from "react-icons/md";
 import { useTrusteesHook } from "../components/trustees/trustees";
 import isNumeric from "validator/lib/isNumeric";
@@ -41,13 +42,15 @@ function TrusteeRequirement() {
           trust[0].amount === undefined ||
           trust[0].wallet_address === undefined
         ) {
-          setError("Please fill in the required fields");
+          toast("Please fill in the required fields");
         } else if (!isEmail(trust[0]?.user)) {
-          setError("Please enter a valid email");
+          toast("Please enter a valid email");
         } else if (!isNumeric(trust[0]?.amount)) {
-          setError("Please enter a valid amount");
+          toast("Please enter a valid amount");
+        } else if (trust[0]?.amount !== amount) {
+          toast("Trustee amount must be equal to total amount");
         } else if (web3.utils.isAddress(trust[0].wallet_address) === false) {
-          setError("Please fill in a valid address");
+          toast("Please fill in a valid address");
         } else {
           setError("");
           router.push("/depositorRequirement");
@@ -63,6 +66,7 @@ function TrusteeRequirement() {
             item.amount === undefined ||
             item.wallet_address === undefined
           ) {
+            console.log("gal");
             return true;
           } else if (!isEmail(item.user)) {
             return true;
@@ -72,10 +76,20 @@ function TrusteeRequirement() {
             return true;
           }
         });
-        if (res.includes(true)) {
-          setError("Please fill all required fields");
-        } else if (trust?.length !== 1) {
-          router.push("/depositorRequirement");
+        const filRes = valueFilter?.map((item: any) => parseInt(item.amount));
+        const reducFil =
+          filRes[0] !== undefined
+            ? filRes?.reduce((a: any, b: any) => a + b)
+            : "";
+        console.log(res, valueFilter, trust);
+        if (reducFil !== parseInt(amount)) {
+          toast("total trustee amount must  be equal to overall amount");
+        } else {
+          if (res.includes(true)) {
+            toast("Please fill all required fields");
+          } else if (trust?.length !== 1) {
+            router.push("/depositorRequirement");
+          }
         }
       }
     }
@@ -115,7 +129,7 @@ function TrusteeRequirement() {
             </div>
           )}
           {/* {alert(Array.from(trustees).length)} */}
-          {Array.from(trustees).map(([key, email], index) => (
+          {Array.from(trustees).map(([key, user], index) => (
             <div className="flex flex-col pt-8" key={key}>
               {Array.from(trustees).length >= 2 && (
                 <p
@@ -125,7 +139,6 @@ function TrusteeRequirement() {
                   Trustee {index + 1}
                 </p>
               )}
-
               <form action="">
                 <div className="w-full flex flex-col space-y-10">
                   <div className="flex flex-col space-y-8 md:space-y-0 md:space-x-8 md:flex-row">

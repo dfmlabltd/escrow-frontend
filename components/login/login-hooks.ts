@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 import { useStoreContext } from "../../pages/_app";
 import isEmail from "validator/lib/isEmail";
 
@@ -33,7 +34,7 @@ export function useLoginHooks() {
         localStorage.setItem("email", mail !== undefined ? mail : value);
         if (res) router.push("/keyVerification");
       } catch (e: any) {
-        setError(e.message);
+        toast(e.message);
       }
     }
   };
@@ -96,7 +97,7 @@ export function useLoginHooks() {
 
         getUserDetails(res.data.access);
       } catch (e: any) {
-        setError(e.message);
+        toast(e.message);
       }
     }
   };

@@ -70,7 +70,7 @@ export class ContractsStore {
     title: "",
   };
 
-  @observable DepositorCheck: any = "";
+  @observable DepositorCheck: any = "depositor";
   constructor() {
     makeAutoObservable(this);
   }

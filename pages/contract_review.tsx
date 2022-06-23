@@ -300,7 +300,31 @@ function ContractReview() {
                             </div>
                           ) : (
                             <div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
-                              I'm the depositor
+                              I'm the depositor :
+                              <div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
+                                <div className="flex flex-col">
+                                  <h5>Amount</h5>
+                                </div>
+                                <div className="flex flex-col">
+                                  <span>${contractInfo.amount}</span>
+                                </div>
+                              </div>
+                              <div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
+                                <div className="flex flex-col">
+                                  <h5>Wallet Address</h5>
+                                </div>
+                                <div className="flex flex-col">
+                                  <span>{user.wallet_address}</span>
+                                </div>
+                              </div>
+                              <div className="flex flex-col justify-between text-gray-400 text-sm md:flex-row md:space-y-2 md:space-x-4">
+                                <div className="flex flex-col">
+                                  <h5>Email</h5>
+                                </div>
+                                <div className="flex flex-col">
+                                  <span>{user.user}</span>
+                                </div>
+                              </div>
                             </div>
                           )}
                         </div>
@@ -389,7 +413,6 @@ function ContractReview() {
                               </div>
                               <div className="flex flex-col">
                                 <span>{contractInfo?.agreement_contract}</span>
-                                <p>{contractInfo?.agreement_contract}</p>
                               </div>
                             </div>
                           </div>

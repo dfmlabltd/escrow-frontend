@@ -3,7 +3,7 @@ import { useStoreContext } from "../../pages/_app";
 import nextId from "react-id-generator";
 
 interface Trustee {
-  email?: string;
+  user?: string;
   amount?: any;
   wallet_address?: any;
 }
@@ -33,7 +33,7 @@ function defaultTrustees(trustees?: any): Map<string, Trustee> {
     (trustees || []).map((trustee: any, index: number) => [
       nextId(`Trustee-id-${index + 1}`),
       {
-        email: trustee.email,
+        user: trustee.user,
         amount: trustee?.amount,
         wallet_address: trustee?.wallet_address,
       },
@@ -45,7 +45,7 @@ const initialState: ReducerState = {
 };
 type UpdateEmailAction = {
   type: ActionType.UPDATE_TRUSTEES;
-  payload: { email?: string; key: string };
+  payload: { user?: string; key: string };
 };
 type UpdateAmountAction = {
   type: ActionType.UPDATE_AMOUNT;
@@ -55,17 +55,17 @@ type UpdateWalletAction = {
   type: ActionType.UPDATE_WALLET;
   payload: { wallet_address?: string; key: string };
 };
-function updateTrustees({ trustees, key, email }: any): Map<string, Trustee> {
+function updateTrustees({ trustees, key, user }: any): Map<string, Trustee> {
   trustees.set(key, {
     ...trustees.get(key),
-    email,
+    user,
   });
 
   return new Map(trustees);
 }
 function addNewEmail(trustees: Map<string, Trustee>): Map<string, Trustee> {
   trustees.set(nextId(`trustees-id-${trustees.size + 1}`), {
-    email: undefined,
+    user: undefined,
     amount: undefined,
     wallet_address: undefined,
   });
@@ -75,7 +75,6 @@ function addNewEmail(trustees: Map<string, Trustee>): Map<string, Trustee> {
 function updateAmount({ trustees, key, amount }: any): Map<string, Trustee> {
   trustees.set(key, {
     ...trustees.get(key),
-
     amount,
   });
 
@@ -121,7 +120,7 @@ export const useTrusteesHook = (value: any) => {
           trustees: updateTrustees({
             trustees: state.trustees,
             key: action.payload.key,
-            email: action.payload?.email,
+            user: action.payload?.user,
           }),
         };
       case ActionType.UPDATE_AMOUNT:
@@ -161,66 +160,66 @@ export const useTrusteesHook = (value: any) => {
   const updateValue = useCallback(
     (type: string) => {
       if (value) {
-        if (type === "email") {
-          const trustees = Array.from(state.trustees).map(([key, email]) => ({
-            ...email,
-            email: email.email,
-            amount: email.amount,
-            wallet_address: email.wallet_address,
+        if (type === "user") {
+          const trustees = Array.from(state.trustees).map(([key, user]) => ({
+            ...user,
+            user: user.user,
+            amount: user.amount,
+            wallet_address: user.wallet_address,
           }));
 
           handleChange(
             value,
             trustees.map((item: any) => ({
-              email: item.email,
+              user: item.user,
               amount: item.amount,
               wallet_address: item.wallet_address,
             }))
           );
         } else if (type === "wallet") {
-          const trustees = Array.from(state.trustees).map(([key, email]) => ({
-            ...email,
-            email: email.email,
-            amount: email.amount,
-            wallet_address: email.wallet_address,
+          const trustees = Array.from(state.trustees).map(([key, user]) => ({
+            ...user,
+            user: user.user,
+            amount: user.amount,
+            wallet_address: user.wallet_address,
           }));
 
           handleChange(
             value,
             trustees.map((item: any) => ({
-              user: item.email,
+              user: item.user,
               amount: item.amount,
               wallet_address: item.wallet_address,
             }))
           );
         } else if (type === "amount") {
-          const trustees = Array.from(state.trustees).map(([key, email]) => ({
-            ...email,
-            email: email.email,
-            amount: email.amount,
-            wallet_address: email.wallet_address,
+          const trustees = Array.from(state.trustees).map(([key, user]) => ({
+            ...user,
+            user: user.user,
+            amount: user.amount,
+            wallet_address: user.wallet_address,
           }));
 
           handleChange(
             value,
             trustees.map((item: any) => ({
-              user: item.email,
+              user: item.user,
               amount: item.amount,
               wallet_address: item.wallet_address,
             }))
           );
         } else {
-          const trustees = Array.from(state.trustees).map(([key, email]) => ({
-            ...email,
-            email: email.email,
-            amount: email.amount,
-            wallet_address: email.wallet_address,
+          const trustees = Array.from(state.trustees).map(([key, user]) => ({
+            ...user,
+            user: user.user,
+            amount: user.amount,
+            wallet_address: user.wallet_address,
           }));
 
           handleChange(
             value,
             trustees.map((item: any) => ({
-              user: item.email,
+              user: item.user,
               amount: item.amount,
               wallet_address: item.wallet_address,
             }))
@@ -235,9 +234,9 @@ export const useTrusteesHook = (value: any) => {
       const { value } = e.target;
       await dispatch({
         type: ActionType.UPDATE_TRUSTEES,
-        payload: { email: value, key },
+        payload: { user: value, key },
       });
-      updateValue("email");
+      updateValue("user");
     },
     [updateValue]
   );
