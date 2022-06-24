@@ -51,9 +51,11 @@ Adehun is a flexible application that can be used and integrated with new and ex
 
 [Adehun Website dApp](https://adehun.com/)
 
-[Adehun Pitch Deck](https://youtu.be/WNPQGq-1Bek?list=PLKSLjocWI5ZMyLUej39wWxFI2LXjP-5e1)
+[Adehun Pitch Video](https://youtu.be/WNPQGq-1Bek?list=PLKSLjocWI5ZMyLUej39wWxFI2LXjP-5e1)
 
 [Animated Video](https://youtu.be/A5zyOBa9Qbw)
+
+[Animated Pitch Slide](https://www.canva.com/design/DAFDSyZ38IU/Jpyktcg3CAOjoq6Sk0lByQ/view?utm_content=DAFDSyZ38IU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 [Backend Repo](https://github.com/dfmlabltd/escrow-backend/)
 
