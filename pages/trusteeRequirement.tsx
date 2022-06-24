@@ -30,19 +30,19 @@ function TrusteeRequirement() {
     onChangeWallet,
     remove,
   } = useTrusteesHook("trustees");
-
+  console.log(trust);
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (trust === undefined) {
       setError("Please fill in fields");
     } else {
       if (trust?.length === 1) {
-        if (
-          trust[0].user === undefined ||
-          trust[0].amount === undefined ||
-          trust[0].wallet_address === undefined
-        ) {
-          toast("Please fill in the required fields");
+        if (trust[0].user === undefined) {
+          toast("Please fill in the email field");
+        } else if (trust[0].wallet_address === undefined) {
+          toast("Please fill in the wallet address fields");
+        } else if (trust[0].amount === undefined) {
+          toast("Please fill in the amount field");
         } else if (!isEmail(trust[0]?.user)) {
           toast("Please enter a valid email");
         } else if (!isNumeric(trust[0]?.amount)) {
@@ -56,37 +56,37 @@ function TrusteeRequirement() {
           router.push("/depositorRequirement");
         }
       } else {
-        const valueFilter = trust?.filter(
-          (item: any) => item.user !== undefined || item.amount !== undefined
-        );
-
-        const res = valueFilter.map((item: any) => {
-          if (
-            item.user === undefined ||
-            item.amount === undefined ||
-            item.wallet_address === undefined
-          ) {
-            console.log("gal");
+        const res = trust.map((item: any) => {
+          if (item.user === undefined) {
+            toast("Please ensure all email address are filled");
+            return true;
+          } else if (item.amount === undefined) {
+            toast("Please ensure all amount field are filled");
+            return true;
+          } else if (item.wallet_address === undefined) {
+            toast("Please ensure all wallet address are filled");
             return true;
           } else if (!isEmail(item.user)) {
+            toast("Please ensure all email address are valid");
             return true;
           } else if (!isNumeric(item.amount)) {
+            toast("Please ensure all amount are valid");
             return true;
           } else if (web3.utils.isAddress(item.wallet_address) === false) {
+            toast("Please ensure all wallet address are valid");
             return true;
           }
         });
-        const filRes = valueFilter?.map((item: any) => parseInt(item.amount));
+        const filRes = trust?.map((item: any) => parseInt(item.amount));
         const reducFil =
           filRes[0] !== undefined
             ? filRes?.reduce((a: any, b: any) => a + b)
             : "";
-        console.log(res, valueFilter, trust);
+
         if (reducFil !== parseInt(amount)) {
           toast("total trustee amount must  be equal to overall amount");
         } else {
           if (res.includes(true)) {
-            toast("Please fill all required fields");
           } else if (trust?.length !== 1) {
             router.push("/depositorRequirement");
           }

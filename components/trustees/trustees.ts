@@ -1,5 +1,7 @@
 import { useReducer, useCallback, useState, ChangeEvent } from "react";
+import { useRouter } from "next/router";
 import { useStoreContext } from "../../pages/_app";
+
 import nextId from "react-id-generator";
 
 interface Trustee {
@@ -28,9 +30,13 @@ function removeKey({ trustees, key }: IRemoveKeyProps): Map<string, Trustee> {
 
   return new Map(trustees);
 }
-function defaultTrustees(trustees?: any): Map<string, Trustee> {
+function defaultTrustees(value?: any): Map<string, Trustee> {
+  const {
+    ContractsStore: { contractInfo },
+  } = useStoreContext();
+  console.log(contractInfo[value]);
   return new Map(
-    (trustees || []).map((trustee: any, index: number) => [
+    (contractInfo[value] || []).map((trustee: any, index: number) => [
       nextId(`Trustee-id-${index + 1}`),
       {
         user: trustee.user,
@@ -152,8 +158,9 @@ export const useTrusteesHook = (value: any) => {
   }
   const [state, dispatch] = useReducer(trusteesReducer, {
     ...initialState,
-    trustees: defaultTrustees([""]),
+    trustees: defaultTrustees(value),
   });
+  console.log(state.trustees);
   const {
     ContractsStore: { handleChange },
   } = useStoreContext();

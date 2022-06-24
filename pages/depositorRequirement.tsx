@@ -4,6 +4,7 @@ import Notification from "../components/notification";
 import { useRouter } from "next/router";
 import isNumeric from "validator/lib/isNumeric";
 import { MdCancel } from "react-icons/md";
+import { toast } from "react-toastify";
 import isEmail from "validator/lib/isEmail";
 import { useStoreContext } from "./_app";
 import Web3 from "web3";
@@ -120,54 +121,68 @@ function DepositorRequirement() {
     }
   }, []);
   const handleSubmit = () => {
-    if (check !== "anyone") {
+    if (check !== "others") {
       router.push("/contractDetails");
     } else {
       if (depositors === undefined) {
         setError("Please fill in fields");
       } else {
         if (depositors?.length === 1) {
-          if (
-            depositors[0].user === undefined ||
-            depositors[0].amount === undefined ||
-            depositors[0].wallet_address === undefined
-          ) {
-            setError("Please fill in the required fields");
-          } else if (!isEmail(depositors[0].user)) {
-            setError("Please enter a valid email");
-          } else if (!isNumeric(depositors[0].amount)) {
-            setError("Please enter a valid amount");
+          if (depositors[0].user === undefined) {
+            toast("Please fill in the email field");
+          } else if (depositors[0].wallet_address === undefined) {
+            toast("Please fill in the wallet address fields");
+          } else if (depositors[0].amount === undefined) {
+            toast("Please fill in the amount field");
+          } else if (!isEmail(depositors[0]?.user)) {
+            toast("Please enter a valid email");
+          } else if (!isNumeric(depositors[0]?.amount)) {
+            toast("Please enter a valid amount");
+          } else if (depositors[0]?.amount !== amount) {
+            toast("Trustee amount must be equal to total amount");
           } else if (
             web3.utils.isAddress(depositors[0].wallet_address) === false
           ) {
-            setError("Please fill in a valid address");
+            toast("Please fill in a valid address");
           } else {
             setError("");
             router.push("/contractDetails");
           }
         } else {
-          const valueFilter = depositors?.filter(
-            (item: any) => item.user !== undefined || item.amount !== undefined
-          );
-          const res = valueFilter.map((item: any) => {
-            if (
-              item.user === undefined ||
-              item.amount === undefined ||
-              item.wallet_address === undefined
-            ) {
+          const res = depositors.map((item: any) => {
+            if (item.user === undefined) {
+              toast("Please ensure all email address are filled");
+              return true;
+            } else if (item.amount === undefined) {
+              toast("Please ensure all amount field are filled");
+              return true;
+            } else if (item.wallet_address === undefined) {
+              toast("Please ensure all wallet address are filled");
               return true;
             } else if (!isEmail(item.user)) {
+              toast("Please ensure all email address are valid");
               return true;
             } else if (!isNumeric(item.amount)) {
+              toast("Please ensure all amount are valid");
               return true;
             } else if (web3.utils.isAddress(item.wallet_address) === false) {
+              toast("Please ensure all wallet address are valid");
               return true;
             }
           });
-          if (res.includes(true)) {
-            setError("Please fill all required fields");
+          const filRes = depositors?.map((item: any) => parseInt(item.amount));
+          const reducFil =
+            filRes[0] !== undefined
+              ? filRes?.reduce((a: any, b: any) => a + b)
+              : "";
+
+          if (reducFil !== parseInt(amount)) {
+            toast("total depositors amount must  be equal to overall amount");
           } else {
-            router.push("/contractDetails");
+            if (res.includes(true)) {
+            } else if (depositors?.length !== 1) {
+              router.push("/contractDetails");
+            }
           }
         }
       }
@@ -236,7 +251,7 @@ function DepositorRequirement() {
                                     <input
                                       type="text"
                                       name={key}
-                                      value={depositors[index].user}
+                                      value={depositors[index]?.user}
                                       key={key}
                                       id={key}
                                       onChange={(e) => onChangeEmail(e, key)}
@@ -259,7 +274,7 @@ function DepositorRequirement() {
                                     <input
                                       type="number"
                                       name={key}
-                                      value={depositors[index].amount}
+                                      value={depositors[index]?.amount}
                                       key={key}
                                       id={key}
                                       onChange={(e) => onChangeAmount(e, key)}
@@ -299,7 +314,7 @@ function DepositorRequirement() {
                                     <input
                                       type="text"
                                       name={key}
-                                      value={depositors[index].wallet_address}
+                                      value={depositors[index]?.wallet_address}
                                       key={key}
                                       id={key}
                                       onChange={(e) => onChangeWallet(e, key)}
