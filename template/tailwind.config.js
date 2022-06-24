@@ -1,5 +1,9 @@
 module.exports = {
-  content: ["./*.html"],
+  content: [
+    "./*.html",
+    "./x_crow pages/*.html",
+    "./contract/*.html"
+  ],
   theme: {
     screens: {
       sm: '480px',
