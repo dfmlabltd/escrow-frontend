@@ -176,7 +176,7 @@ function AgreementUpload() {
                             </p>
                             <a href="/template.pdf" download={"template.pdf"}>
                               <div className="flex justify-center p-2 bg-xcrow_secondary px-4 text-white space-x-4 rounded-md items-center my-3">
-                                <AiOutlineDownload size="20px" />
+                                <AiOutlineCloudDownload size="20px" />
                                 <p>Download Template</p>
                               </div>
                             </a>
