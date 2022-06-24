@@ -29,7 +29,7 @@ function Hero() {
               <span>Of Any Third Party</span>
             </h2>
             <p className="text-white max-w-lg font-xcrow_rg">
-              <span className="font-bold">X_Crow</span> app provides and
+              <span className="font-bold">adehun</span> app provides and
               guarantees trust between two parties using smart contract and DAO
               for conflict resolution
             </p>

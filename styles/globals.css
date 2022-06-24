@@ -185,14 +185,14 @@ input[type="radio"]:checked::before {
 	background-color: #ffffff;
 	transition: all 0.65s !important;
 }
-.x_crow_img {
+.adehun_img {
 	width: 75px;
 	height: 75px;
 }
-.x_crow_benefit_img_li {
+.adehun_benefit_img_li {
 	width: 53%;
 }
-.x_crow_benefit_img_container {
+.adehun_benefit_img_container {
 	min-width: 70px;
 	min-height: 70px;
 	max-width: 70px !important;

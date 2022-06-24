@@ -62,7 +62,7 @@ function Navbar() {
 								<Link href={"contract_summary"}>My Contract</Link>
 							)}
 							<a href="#" className="">
-								Launch X_Crow App
+								Launch adehun App
 							</a>
 						</div>
 					</div>

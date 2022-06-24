@@ -14,7 +14,7 @@ export default function Purpose() {
 						<span className="text-lg font-xcrow_smb text-xcrow_secondary">
 							The Purpose
 						</span>
-						<h2 className="text-5xl font-xcrow_rg">What is X_crow ?</h2>
+						<h2 className="text-5xl font-xcrow_rg">What is adehun ?</h2>
 						<p className="purpose_wrapper text-base leading-7">
 							The application can be used with online marketplaces like
 							freelancing platforms, product selling platforms, service listing
@@ -29,7 +29,7 @@ export default function Purpose() {
 							href="#"
 							className="font-xcrow_smb text-base inline-block border-b-2 text-xcrow_secondary border-xcrow_secondary"
 						>
-							Learn more about X_Crow
+							Learn more about adehun
 						</a>
 					</div>
 				</div>
@@ -48,7 +48,7 @@ export default function Purpose() {
 							<img
 								src="assets/Group 11250.svg"
 								alt="Work Out A Contract"
-								className="x_crow_img mx-auto"
+								className="adehun_img mx-auto"
 							/>
 							<h4 className="text-x_base font-xcrow_rg group-hover:font-semibold">
 								Work Out A Contract
@@ -62,7 +62,7 @@ export default function Purpose() {
 							<img
 								src="assets/Group 11251.svg"
 								alt="Send Contract To Client"
-								className="x_crow_img mx-auto"
+								className="adehun_img mx-auto"
 							/>
 							<h4 className="text-x_base font-xcrow_rg group-hover:font-semibold">
 								Send Contract To Client
@@ -76,7 +76,7 @@ export default function Purpose() {
 							<img
 								src="assets/Group 11252.svg"
 								alt="Contract Get Funded By The Clien"
-								className="x_crow_img mx-auto"
+								className="adehun_img mx-auto"
 							/>
 							<h4 className="text-x_base font-xcrow_rg group-hover:font-semibold">
 								Contract Get Funded By The Client
@@ -90,7 +90,7 @@ export default function Purpose() {
 							<img
 								src="assets/Group 11254.png"
 								alt="Fund ls Locked Up in The Smart Contract"
-								className="x_crow_img mx-auto"
+								className="adehun_img mx-auto"
 							/>
 							<h4 className="text-x_base font-xcrow_rg group-hover:font-semibold">
 								Fund ls Locked Up in The Smart Contract
@@ -104,7 +104,7 @@ export default function Purpose() {
 							<img
 								src="assets/Group 11253.png"
 								alt="Fund Released After Reaching A Consensus"
-								className="x_crow_img mx-auto"
+								className="adehun_img mx-auto"
 							/>
 							<h4 className="text-x_base font-xcrow_rg group-hover:font-semibold">
 								Fund Released After Reaching A Consensus

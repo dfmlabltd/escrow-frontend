@@ -9,10 +9,10 @@ export default function CTA() {
 					<div className="px-6 py-14 md:max-w-2xl md:px-16">
 						<div className="space-y-4">
 							<h3 className="text-3xl text-white font-semibold">
-								X_Crow is your Reliable Decentralized Service provider
+								adehun is your Reliable Decentralized Service provider
 							</h3>
 							<p className="text-sm text-white">
-								X_Crow provides trust and confidence when creating a contract
+								adehun provides trust and confidence when creating a contract
 								with anonymous
 							</p>
 						</div>

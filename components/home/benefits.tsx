@@ -7,7 +7,7 @@ export default function Benefits() {
 				<div className="flex flex-col md:w-1/2">
 					<div className="bg-xcrow_secondary px-6 py-12 flex flex-col space-y-4 md:px-8">
 						<h3 className="text-xcrow_3xl font-xcrow_smb max-w-md text-white">
-							X_crow ls Your Reliable Decentralized X crow Service Provider
+							adehun ls Your Reliable Decentralized X crow Service Provider
 						</h3>
 						<p className="text-gray-200 max-w-lg text-sm leading-7">
 							X crow provides trust and confidence when purchasing on selling
@@ -34,11 +34,11 @@ export default function Benefits() {
 				<div className="flex flex-col md:w-1/2">
 					<div className="bg-xcrow_secondary h-full px-6 py-12 flex flex-col place-content-center space-y-12 md:px-8">
 						<div className="flex flex-col md:space-x-6 md:flex-row">
-							<div className="x_crow_benefit_img_container mb-6 md:mb-0">
+							<div className="adehun_benefit_img_container mb-6 md:mb-0">
 								<img
 									src="assets/Group 11255.png"
 									alt="Trustless Transactions"
-									className="x_crow_benefit_img_li"
+									className="adehun_benefit_img_li"
 								/>
 							</div>
 							<div className="flex flex-col space-y-2">
@@ -53,11 +53,11 @@ export default function Benefits() {
 							</div>
 						</div>
 						<div className="flex flex-col md:space-x-6 md:flex-row">
-							<div className="x_crow_benefit_img_container mb-6 md:mb-0">
+							<div className="adehun_benefit_img_container mb-6 md:mb-0">
 								<img
 									src="assets/Group 11256.png"
 									alt="Multichain And Payment Channels"
-									className="x_crow_benefit_img_li"
+									className="adehun_benefit_img_li"
 								/>
 							</div>
 							<div className="flex flex-col space-y-2">
@@ -72,11 +72,11 @@ export default function Benefits() {
 							</div>
 						</div>
 						<div className="flex flex-col md:space-x-6 md:flex-row">
-							<div className="x_crow_benefit_img_container mb-6 md:mb-0">
+							<div className="adehun_benefit_img_container mb-6 md:mb-0">
 								<img
 									src="assets/Group 11257.png"
 									alt="Easy Conflict Resolution"
-									className="x_crow_benefit_img_li"
+									className="adehun_benefit_img_li"
 								/>
 							</div>
 							<div className="flex flex-col space-y-2">

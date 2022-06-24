@@ -60,7 +60,7 @@ body{
     position: absolute;
     width: 100%;
     height: 550px;
-    background-image: url("../x_crow Asset/Group 30.png");
+    background-image: url("../adehun Asset/Group 30.png");
     background-repeat: no-repeat;
     background-size: 550px;
     background-position: -28% 0%;
@@ -87,7 +87,7 @@ body{
     position: absolute;
     width: 100%;
     height: 550px;
-    background-image: url("../x_crow Asset/Group 46.png");
+    background-image: url("../adehun Asset/Group 46.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: right;
@@ -115,14 +115,14 @@ body{
     background-color: #ffffff;
     transition: all 0.65s !important;
 }
-.x_crow_img{
+.adehun_img{
     width: 75px;
     height: 75px;
 }
-.x_crow_benefit_img_li{
+.adehun_benefit_img_li{
     width: 53%;
 }
-.x_crow_benefit_img_container{
+.adehun_benefit_img_container{
     min-width: 70px;
     min-height: 70px;
     max-width: 70px !important;
@@ -271,9 +271,9 @@ body{
 }
 .contract_bg{
     background: rgb(104,19,110);
-    background: -moz-linear-gradient(22deg, rgba(104,19,110,0.7959558823529411) 0%, rgba(48,27,113,0.8) 30%, rgba(48,27,113,0.8) 70%, rgba(104,19,110,0.8) 100%), url("../x_crow Asset/Background.png");
-    background: -webkit-linear-gradient(22deg, rgba(104,19,110,0.7959558823529411) 0%, rgba(48,27,113,0.8) 30%, rgba(48,27,113,0.8) 70%, rgba(104,19,110,0.8) 100%), url("../x_crow Asset/Background.png");
-    background: linear-gradient(22deg, rgba(104,19,110,0.7959558823529411) 0%, rgba(48,27,113,0.8) 30%, rgba(48,27,113,0.8) 70%, rgba(104,19,110,0.8) 100%), url("../x_crow Asset/Background.png");
+    background: -moz-linear-gradient(22deg, rgba(104,19,110,0.7959558823529411) 0%, rgba(48,27,113,0.8) 30%, rgba(48,27,113,0.8) 70%, rgba(104,19,110,0.8) 100%), url("../adehun Asset/Background.png");
+    background: -webkit-linear-gradient(22deg, rgba(104,19,110,0.7959558823529411) 0%, rgba(48,27,113,0.8) 30%, rgba(48,27,113,0.8) 70%, rgba(104,19,110,0.8) 100%), url("../adehun Asset/Background.png");
+    background: linear-gradient(22deg, rgba(104,19,110,0.7959558823529411) 0%, rgba(48,27,113,0.8) 30%, rgba(48,27,113,0.8) 70%, rgba(104,19,110,0.8) 100%), url("../adehun Asset/Background.png");
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#68136e",endColorstr="#68136e",GradientType=1);
 
     background-attachment: fixed;

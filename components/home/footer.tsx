@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="flex flex-col justify-between md:flex-row border-b-2 border-gray-100 pb-16">
           <div className="space-y-5 md:w-4/12">
             <h1 className="text-2xl font-xcrow_bold text-gray-800 text-black">
-              X_Crow
+              adehun
             </h1>
             <h3 className="text-3xl font-xcrow_rg font-semibold text-black">
               Our insight to your inbox.
@@ -61,7 +61,7 @@ export default function Footer() {
         </div>
         <div className="flex flex-col justify-between space-y-4 py-7 md:flex-row font-xcrow_rg md:space-y-0">
           <div>
-            <h5 className="text-sm">2022@x_crow</h5>
+            <h5 className="text-sm">2022@adehun</h5>
           </div>
           <div>
             <h5 className="text-sm">
