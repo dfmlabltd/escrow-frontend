@@ -35,7 +35,7 @@ function ContractSummary() {
       const res = await axios.get(
         `${process.env.BASE_URL}/contract/?${
           search === "" ? `page=${page}` : `search=${search}`
-        }`,
+        }&page_size=20`,
         {
           headers: {
             Authorization: `Bearer ${

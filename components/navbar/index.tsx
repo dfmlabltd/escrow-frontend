@@ -5,10 +5,10 @@ import { useStoreContext } from "../../pages/_app";
 
 function Navbar() {
 	const {
-		ContractsStore: { user },
+		ContractsStore: { user, clearAuth },
 	} = useStoreContext();
 	const [toggleMobile, setToggleMobile] = useState(false);
-	console.log(user);
+
 	return (
 		<>
 			<section id="header_section" className=" ">
@@ -26,6 +26,15 @@ function Navbar() {
 							<a href="#" className="border border-gray-400 px-3 py-3 rounded">
 								Launch Adehun App
 							</a>
+							{user?.email.length > 0 && (
+								<a
+									href="#"
+									className="border border-gray-400 px-3 py-3 rounded"
+									onClick={() => clearAuth()}
+								>
+									Log out
+								</a>
+							)}
 						</div>
 
 						<button
@@ -64,6 +73,11 @@ function Navbar() {
 							<a href="#" className="">
 								Launch adehun App
 							</a>
+							{user?.email.length > 0 && (
+								<a href="#" className="" onClick={() => clearAuth()}>
+									Log out
+								</a>
+							)}
 						</div>
 					</div>
 				</div>

@@ -17,7 +17,7 @@ export default function CTA() {
 							</p>
 						</div>
 						<div className="mt-10 relative">
-							<Link href={"/contract"}>
+							<Link href={"/contract_chain"}>
 								<button className="px-6 text-white text-sm py-4 bg-xcrow_secondary rounded md:px-16">
 									Create Contract
 								</button>
