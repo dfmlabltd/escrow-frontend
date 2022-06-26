@@ -47,11 +47,13 @@ Adehun is a flexible application that can be used and integrated with new and ex
 4. Crowdfunding campaign protection
 5. Payment protecton for product marketplace
 
-# Contract Address
+# Contract Addresses
 
 ContractManager [0xf39f81E21f9aCD0C6759860F56E8545734802282](https://alfajores-blockscout.celo-testnet.org/address/0xf39f81E21f9aCD0C6759860F56E8545734802282/transactions)
 
 Contract [0xD44ccF5765DF0a1a2a16703d5475F896dd6E75eb](https://alfajores-blockscout.celo-testnet.org/address/0xD44ccF5765DF0a1a2a16703d5475F896dd6E75eb/transactions)
+
+DAO [0x7a890C63C1cb9B26c8bc903B65877DD9E7548295](https://alfajores-blockscout.celo-testnet.org/address/0x7a890C63C1cb9B26c8bc903B65877DD9E7548295/transactions)
 
 # Demo and Pitch Deck
 
