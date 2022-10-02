@@ -1,3 +1,72 @@
+# Adehun
+
+Adehun is a Yoruba word for Agreement.
+
+Team Name: DFMlab
+
+Pitch: Payment protection for web 3.0
+
+Description
+
+The problem
+Over $7.8 billion was stolen from victims in 2021 alone through scams, stolen funds, and other means. This will only worsen as we see more crypto adoption driven by DeFi applications. The increasing rate of cryptocurrency adoption was highlighted in a report by chainlink, which showed that crypto transaction volume increased to around $15.8 trillion in 2021, up 567% from the previous year. (Source: chainanalysis.com)
+With such rapid growth, we should see an increase in transactions involving peer-to-peer transactions, such as service rendering, product sales, and crowdfunding, among other things.
+In summary, due to an increase in crypto-related fraudulent activities, trust is a major issue between two parties exchanging values on the internet.
+In another report, over 40 billion dollars worth of crypto funds is locked up or lost forever on the blockchain after the death of the owner.
+From the same report, it was shown that about 89% of investors are worried about what will happen to their crypto when they die (source: www.cremationinstitute.com).
+
+The Solution
+1. The solution to reducing fraudulent activities involving an exchange of cryptocurrency between two parties sharing values is to develop a decentralised payment protection system that can be used with both new and existing platforms.
+2. The application should be simple to use and easily integrated with existing applications/platforms.
+Conflict resolution should be built into the system to ensure that disputes between parties involved in a transaction are resolved quickly and fairly.
+3. The solution should allow the deceased's relatives or close friends to inherit the deceased's crypto assets.
+To avoid bias and ensure that issues are addressed as soon as possible, the conflict resolution system will also be fully decentralised.
+
+The Product
+Adehun is a platform that offers payment protection for transactions involving crypto exchange. We provide a smart contract that acts as an escrow, allowing funds to be sent, locked, and withdrawn once an agreement is reached. The escrow application can be used to protect marketplace transactions, clients and service providers, and even crowdfunding campaigns.
+
+The key elements of adehun are:
+1. Stable coin support for crypto payments
+2. A contract creator who creates the agreement and terms for funding a contract
+3. A depositor who funds the escrow wallet
+4. A trustee who can withdraw money from the escrow wallet
+5. A DAO whose only purpose is to settle disputes involving breach of agreement between two parties involved in a contract
+
+# Adehun DAO
+AdehunDAO is a decentralised autonomous organisation whose primary purpose is to resolve conflict between two parties in a contractual agreement. The DAO will include members who are mostly legal practitioners. Once there is a dispute, the DAO is involved and the issue is moved to the mediation stage. If both parties don't agree to the consensus by the DAO, the dispute is moved to the arbitration stage, after which a decision is made to either refund or release the fund.
+The DAO function can be summarised as follows:
+1. Conflict resolution
+2. Crypto asset disposal in the case of a user will
+To join the DAO, an individual will need to go through the application process, get approval from existing members and participate in decision making on cases by staking the DAO token. Members also earn tokens from charges on dispute resolution.
+
+Use Cases
+Adehun is a flexible application that can be used and integrated with new and existing platforms. Some of the use cases is highlighted below:
+1. Crypto asset protection
+2. Escrow protection for freelancers and clients
+3. Asset Inheritance protection
+4. Crowdfunding campaign protection
+5. Payment protecton for product marketplace
+
+# Contract Addresses
+
+ContractManager [0xf39f81E21f9aCD0C6759860F56E8545734802282](https://alfajores-blockscout.celo-testnet.org/address/0xf39f81E21f9aCD0C6759860F56E8545734802282/transactions)
+
+Contract [0xD44ccF5765DF0a1a2a16703d5475F896dd6E75eb](https://alfajores-blockscout.celo-testnet.org/address/0xD44ccF5765DF0a1a2a16703d5475F896dd6E75eb/transactions)
+
+DAO [0x7a890C63C1cb9B26c8bc903B65877DD9E7548295](https://alfajores-blockscout.celo-testnet.org/address/0x7a890C63C1cb9B26c8bc903B65877DD9E7548295/transactions)
+
+# Demo and Pitch Deck
+
+[Adehun Website dApp](https://adehun.com/)
+
+[Adehun Pitch Video](https://youtu.be/WNPQGq-1Bek?list=PLKSLjocWI5ZMyLUej39wWxFI2LXjP-5e1)
+
+[Animated Video](https://youtu.be/A5zyOBa9Qbw)
+
+[Animated Pitch Slide](https://www.canva.com/design/DAFDSyZ38IU/Jpyktcg3CAOjoq6Sk0lByQ/view?utm_content=DAFDSyZ38IU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+[Backend Repo](https://github.com/dfmlabltd/escrow-backend/)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
