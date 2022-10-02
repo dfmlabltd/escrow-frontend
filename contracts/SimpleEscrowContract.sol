@@ -208,15 +208,30 @@ contract SimpleEscrowContract {
         _setFee(fee);
     }
 
+    /**
+     * @notice this method is  used in setting the amount
+     * @param amount the amount to set
+     **/
+
     function _setAmount(uint256 amount) internal {
         require(amount > 0, "amount must be greater than 0");
         _amount = amount;
     }
 
+    /**
+     * @notice this method is  used in setting the token
+     * @param token the token should be a valid erc20 token
+     **/
+
     function _setToken(address token) internal {
         require(token.isContract(), "token address is not a contract");
         _token = IERC20(token);
     }
+
+    /**
+     * @notice this method is  used in setting the depositor
+     * @param depositor the address to send token from
+     **/
 
     function _setDepositor(address depositor) internal {
         require(
@@ -226,6 +241,11 @@ contract SimpleEscrowContract {
         _depositor = depositor;
     }
 
+    /**
+     * @notice this method is  used in setting the beneficiary
+     * @param depositor the address to claim the token
+     **/
+
     function _setBeneficiary(address beneficiary) internal {
         require(
             beneficiary != address(0),
@@ -234,10 +254,20 @@ contract SimpleEscrowContract {
         _beneficiary = beneficiary;
     }
 
+    /**
+     * @notice this method is  used in setting the decentralized legal system
+     * @param dls the address of the dls
+     **/
+
     function _setDLS(address dls) internal {
         require(dls.isContract(), "dls address is not a contract");
         _dls = dls;
     }
+
+    /**
+     * @notice this method sets the manager (controller) of the contract
+     * @param manager the address of the manager
+     **/
 
     function _setManager(address manager) internal {
         require(manager.isContract(), "manager address is not a contract");
