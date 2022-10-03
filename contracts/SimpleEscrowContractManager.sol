@@ -49,24 +49,8 @@ contract SimpleEscrowContractManager is Ownable {
 
     /*  *************************** END OF EVENT  ********************************  */
 
-    /**
-     * @notice this method sets the fees
-     * @dev in percentage
-     * @param manager the fee per deposit
-     **/
-
-    function _setFee(uint8 fee) public onlyOwner {
-        _fee = fee;
-    }
-
-    /**
-     * @notice this method is  used in setting the decentralized legal system
-     * @param dls the address of the dls
-     **/
-
-    function _setDLS(address dls) public onlyOwner {
-        require(dls.isContract(), "dls address is not a contract");
-        _dls = dls;
+    modifier isEscrowContract(address contractAddress) {
+        require(_escrows[contractAddress], "address is not a escrow contract");
     }
 
     /**
@@ -94,8 +78,59 @@ contract SimpleEscrowContractManager is Ownable {
             beneficiary,
             address(this)
         );
-        _escrows[escrow] = true;
+        _escrows[address(escrow)] = true;
 
         emit EscrowCreated(amount, token, msg.sender, beneficiary, reference, address(escrow));
     }
+
+    function depositEvent(
+        address contractAddress, 
+        address depositor, 
+        uint256 amount
+    ) internal isEscrowContract(msg.sender) {
+        emit Deposit(
+            contractAddress, 
+            depositor, 
+            amount
+        );
+    }
+
+    function withdrawEvent(
+        address contractAddress, 
+        address depositor,
+        address beneficiary,
+        uint256 amount,
+        uint256 nonce
+    ) internal isEscrowContract(msg.sender) {
+        emit Withdrawal(
+            contractAddress,
+            depositor, 
+            beneficiary,
+            amount,
+            nonce,
+            requestHash,
+            signature,
+        );
+    }
+
+    /**
+     * @notice this method sets the fees
+     * @dev in percentage
+     * @param manager the fee per deposit
+     **/
+
+    function _setFee(uint8 fee) public onlyOwner {
+        _fee = fee;
+    }
+
+    /**
+     * @notice this method is  used in setting the decentralized legal system
+     * @param dls the address of the dls
+     **/
+
+    function _setDLS(address dls) public onlyOwner {
+        require(dls.isContract(), "dls address is not a contract");
+        _dls = dls;
+    }
+
 }

@@ -240,8 +240,7 @@ contract SimpleEscrowContract {
         _incrementBalance(amount);
         _incrementDepositAmount(amount);
 
-        // TODO: notify the manager of a deposit...
-        emit Deposit(address(this), msg.sender, amount);
+        _manager.depositEvent(address(this), msg.sender, amount);
     }
 
     /**
@@ -288,8 +287,10 @@ contract SimpleEscrowContract {
 
         _incrementNonce();
 
-        // TODO: send withdrawal event to the manager...
-        emit Withdrawal(address(this), _beneficiary, msg.sender, amount);
+        _manager.withdrawEvent(
+            address(this), msg.sender, _beneficiary, amount, nonce, requestHash, signature
+        );
+
     }
 
     function _withdraw(uint256 amount) private {
