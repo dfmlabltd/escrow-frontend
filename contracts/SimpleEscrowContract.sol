@@ -17,13 +17,6 @@ contract SimpleEscrowContract {
     uint256 private _nonce;
 
     /**
-     * @notice the amount to be deducted from each deposit
-     * @dev in percentage fee
-     */
-
-    uint8 private _fee;
-
-    /**
      * @notice stores the maximum amount that can be deposited
      */
 
@@ -62,14 +55,6 @@ contract SimpleEscrowContract {
      */
 
     address private _beneficiary;
-
-    /**
-     * @notice stores the address of the decentralised legal system.
-     * The DLS is responsible for dispute resolution and mediation.
-     * @dev only this address should be allowed to withdraw from the contract, raise dispute etc.
-     */
-
-    address private _dls;
 
     /**
      * @notice stores the address of the manager
@@ -159,19 +144,6 @@ contract SimpleEscrowContract {
 
     /*  *************************** END OF MODIFIER  ********************************  */
 
-    /*  *************************** START EVENT  ********************************  */
-
-    event Deposit(address contractAddress, address depositor, uint256 amount);
-
-    event Withdrawal(
-        address contractAddress,
-        address beneficiary,
-        address depositor,
-        uint256 amount
-    );
-
-    /*  *************************** END OF EVENT  ********************************  */
-
     // this will run when you deploy the contract
 
     // adds contract checking functionality to the address
@@ -185,7 +157,6 @@ contract SimpleEscrowContract {
      * @param amount the maximum amount that can be deposited into the contract
      * @param depositor the address to authorize transactions
      * @param beneficiary the beneficiary adddress will be the recepient of the fund
-     * @param dls decentralized legal system for on-chain dispute resolution
      * @param manager the manager controls the smart contract
      * @param nonce the nonce to check
      **/
@@ -194,17 +165,13 @@ contract SimpleEscrowContract {
         address token,
         address depositor,
         address beneficiary,
-        address dls,
         address manager,
-        uint8 fee
     ) {
         _setAmount(amount);
         _setToken(token);
         _setDepositor(depositor);
         _setBeneficiary(beneficiary);
-        _setDLS(dls);
         _setManager(manager);
-        _setFee(fee);
     }
 
     /**
@@ -254,16 +221,6 @@ contract SimpleEscrowContract {
     }
 
     /**
-     * @notice this method is  used in setting the decentralized legal system
-     * @param dls the address of the dls
-     **/
-
-    function _setDLS(address dls) internal {
-        require(dls.isContract(), "dls address is not a contract");
-        _dls = dls;
-    }
-
-    /**
      * @notice this method sets the manager (controller) of the contract
      * @param manager the address of the manager
      **/
@@ -271,16 +228,6 @@ contract SimpleEscrowContract {
     function _setManager(address manager) internal {
         require(manager.isContract(), "manager address is not a contract");
         _manager = SimpleEscrowManager(manager);
-    }
-
-    /**
-     * @notice this method sets the fees
-     * @dev in percentage
-     * @param manager the fee per deposit
-     **/
-
-    function _setFee(uint8 fee) internal {
-        _fee = fee;
     }
 
     function deposit(uint256 amount)
@@ -293,6 +240,7 @@ contract SimpleEscrowContract {
         _incrementBalance(amount);
         _incrementDepositAmount(amount);
 
+        // TODO: notify the manager of a deposit...
         emit Deposit(address(this), msg.sender, amount);
     }
 
@@ -302,7 +250,7 @@ contract SimpleEscrowContract {
      * @param amount the amount to deduct from the user account
      **/
     function _deposit(uint256 amount) private {
-        uint256 fee = ((amount * _fee) / 100);
+        uint256 fee = ((amount * _manager.getFee()) / 100);
         _token.transferFrom(msg.sender, address(this), amount + fee);
         _token.transfer(_manager, fee);
     }
@@ -340,6 +288,7 @@ contract SimpleEscrowContract {
 
         _incrementNonce();
 
+        // TODO: send withdrawal event to the manager...
         emit Withdrawal(address(this), _beneficiary, msg.sender, amount);
     }
 
