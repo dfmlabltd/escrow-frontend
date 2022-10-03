@@ -18,8 +18,7 @@ contract SimpleEscrowContract {
 
     /**
      * @notice the amount to be deducted from each deposit
-     * @dev not in percentage fee 100% = 0, 50% = 2, 25% = 4, 5% = 20, 1% = 100
-     * still figuring the little math? LOL!
+     * @dev in percentage fee
      */
 
     uint8 private _fee;
@@ -274,12 +273,18 @@ contract SimpleEscrowContract {
         _manager = SimpleEscrowManager(manager);
     }
 
+    /**
+     * @notice this method sets the fees
+     * @dev in percentage
+     * @param manager the fee per deposit
+     **/
+
     function _setFee(uint8 fee) internal {
         _fee = fee;
     }
 
     function deposit(uint256 amount)
-        external
+        internal
         isDepositor
         isNonZeroAmount(amount)
         canDeposit(amount)
@@ -291,10 +296,15 @@ contract SimpleEscrowContract {
         emit Deposit(address(this), msg.sender, amount);
     }
 
-    // double appoval?????? more gas
+    /**
+     * @notice this is an helper method for deposit()
+     * @dev to avoid need for double approval this function first use transferFrom the transfer
+     * @param amount the amount to deduct from the user account
+     **/
     function _deposit(uint256 amount) private {
-        _token.transferFrom(msg.sender, address(this), amount);
-        _token.transferFrom(msg.sender, _manager, amount - (amount / _fee));
+        uint256 fee = ((amount * _fee) / 100);
+        _token.transferFrom(msg.sender, address(this), amount + fee);
+        _token.transfer(_manager, fee);
     }
 
     // TODO: refactor all code and add comment
@@ -318,7 +328,7 @@ contract SimpleEscrowContract {
         uint256 nonce,
         bytes memory signature,
         bytes32 requestHash
-    ) external isDepositor isNonZeroAmount(amount) isEnoughBalance(amount) {
+    ) internal isDepositor isNonZeroAmount(amount) isEnoughBalance(amount) {
         bytes32 _requestHash = getRequestHash(amount, nonce);
         require(requestHash == _requestHash, "invalid request hash");
         require(_checkSignature(requestHash, signature), "unknown signature");
