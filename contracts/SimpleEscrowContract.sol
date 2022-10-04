@@ -2,7 +2,7 @@
 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Address.sol";
-import "github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.5/contracts/utils/cryptography/ECDSA.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.5/contracts/utils/cryptography/ECDSA.sol";
 import "./SimpleEscrowManager.sol";
 
 pragma solidity ^0.8.3;
@@ -165,7 +165,7 @@ contract SimpleEscrowContract {
         address token,
         address depositor,
         address beneficiary,
-        address manager,
+        address manager
     ) {
         _setAmount(amount);
         _setToken(token);
