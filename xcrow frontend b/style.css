@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @layer base {
+  @font-face {
+    font-family: "wasset-reg";
+    src: url("../assets/ReemKufiFun-Regular.ttf");
+  }
+  @font-face {
+    font-family: "wasset-bold";
+    src: url("../assets/ReemKufiFun-Bold.ttf");
+  }
+} */
+body {
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: "wasset-reg";
+}
