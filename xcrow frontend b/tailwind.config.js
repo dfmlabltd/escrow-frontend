@@ -20,13 +20,14 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: "#1B0444",
-        secondary: "#5341CD",
-        dark: "#2E0673",
+        primary: "#6413F1",
+        secondary: "#ab006f",
+        dark: "#010910",
+        // dark: "#021022",
       },
       fontFamily: {
-        wassetreg: ["wasset-reg", "sans-serif"],
-        wassetbold: ["wasset-bold", "sans-serif"],
+        adreg: ["adreg", "sans-serif"],
+        adbold: ["adbold", "sans-serif"],
       },
     },
   },
