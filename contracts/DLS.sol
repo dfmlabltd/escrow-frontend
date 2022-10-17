@@ -10,6 +10,8 @@ contract DLS is Ownable {
     // TODO: adding dispute resolution feature
     // TODO: add external interface to let people verify wether a  user is a member of our
 
+    // ref is a reference to the user documents
+
     enum MemberStatus {
         REMOVED,
         ACTIVE
@@ -165,10 +167,11 @@ contract DLS is Ownable {
 
         _proposals.proposalExecuted = true;
 
-        if(_proposals.nay >= _proposals.yea) {
+        if (_proposals.nay >= _proposals.yea) {
             return;
         }
 
+        // it was proposed to add the user
         if (_proposal.action) {
             _members[_membersCount] = Member(
                 _proposal.proposedMember,
@@ -177,8 +180,38 @@ contract DLS is Ownable {
             return;
         }
 
+        // remove user
+
         uint256 ID = _getMemberIDByAddress(_proposal.proposedMember);
 
         _members[ID].status = MemberStatus.REMOVED;
+    }
+
+    function decisionHash(
+        address contractAddress,
+        bool decision,
+        uint25 caseId
+    ) external {
+        return
+            keccak256(
+                abi.encodePacked(
+                    address(this),
+                    contractAddress,
+                    decision,
+                    caseId
+                )
+            );
+    }
+
+    function _checkMemberSignature(
+        bytes32 decisionHash,
+        bytes memory signature,
+        address account
+    ) external view returns (bool) {
+        bytes32 signedDecisionHash = decisionHash.toEthSignedMessageHash();
+        address signer = signedDecisionHash.recover(signature);
+        require(isActiveMember(account), "invalid signature");
+
+        return true;
     }
 }

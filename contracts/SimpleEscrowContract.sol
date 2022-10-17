@@ -70,6 +70,8 @@ contract SimpleEscrowContract {
 
     mapping(bytes32 => bool) public _requests;
 
+    uint256 public _disputesCount;
+
     /*  *************************** END OF STATE DEFINITION  ********************************  */
 
     /*  *************************** MODIFIER  ********************************  */
@@ -288,9 +290,23 @@ contract SimpleEscrowContract {
         _incrementNonce();
 
         _manager.withdrawEvent(
-            address(this), msg.sender, _beneficiary, amount, nonce, requestHash, signature
+            address(this),
+            msg.sender,
+            _beneficiary,
+            amount,
+            nonce,
+            requestHash,
+            signature
         );
+    }
 
+    function raiseDispute(uint256 amount, string memory url) public {
+        require(
+            msg.sender == _beneficiary || 
+            msg.sender == _depositor,
+            "address does not belong to a beneficiary or depositor"
+        );
+        return keccak256(abi.encodePacked(address(this), msg.sender, amount, _disputesCount, url));
     }
 
     function _withdraw(uint256 amount) private {

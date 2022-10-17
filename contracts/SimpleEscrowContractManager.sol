@@ -3,6 +3,7 @@
 import "./SimpleEscrowContract.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol";
 
+
 pragma solidity ^0.8.3;
 
 contract SimpleEscrowContractManager is Ownable {
@@ -30,7 +31,7 @@ contract SimpleEscrowContractManager is Ownable {
         address tokenAddress, 
         address depositor, 
         address beneficiary, 
-        string memory reference, 
+        string ref, 
         address contractAddress
     );
     
@@ -69,7 +70,7 @@ contract SimpleEscrowContractManager is Ownable {
         uint256 amount,
         address token,
         address beneficiary,
-        string memory reference
+        string memory ref
     ) external {
         SimpleEscrowContract escrow = new SimpleEscrowContract(
             amount,
@@ -80,7 +81,7 @@ contract SimpleEscrowContractManager is Ownable {
         );
         _escrows[address(escrow)] = true;
 
-        emit EscrowCreated(amount, token, msg.sender, beneficiary, reference, address(escrow));
+        emit EscrowCreated(amount, token, msg.sender, beneficiary, ref, address(escrow));
     }
 
     function depositEvent(
@@ -109,7 +110,7 @@ contract SimpleEscrowContractManager is Ownable {
             amount,
             nonce,
             requestHash,
-            signature,
+            signature
         );
     }
 
@@ -132,5 +133,7 @@ contract SimpleEscrowContractManager is Ownable {
         require(dls.isContract(), "dls address is not a contract");
         _dls = dls;
     }
+
+    
 
 }
