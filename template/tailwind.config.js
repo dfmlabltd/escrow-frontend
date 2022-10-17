@@ -1,44 +1,35 @@
 module.exports = {
-  content: [
-    "./*.html",
-    "./x_crow pages/*.html",
-    "./contract/*.html"
-  ],
+  content: ["./*.html"],
   theme: {
     screens: {
-      sm: '480px',
-      md: '768px',
-      lg: '976px',
-      xl: '1440px',
+      sm: "480px",
+      md: "768px",
+      lg: "992px",
+      xl: "1199px",
+      "2xl": "1440px",
+    },
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "2rem",
+        sm: "2rem",
+        lg: "2rem",
+        xl: "4rem",
+        "2xl": "6rem",
+      },
     },
     extend: {
-      borderWidth: {
-        6: '6px',
-      },
-      maxWidth: {
-        'x_crow': '18rem',
-        'x_crow_wrapper': '70rem',
-      },
-      width: {
-        'x_18': '18rem',
-      },
-      fontSize: {
-        'x_base': '1.29rem',
-        'xcrow_3xl': ['1.75rem', '2.25rem'],
+      colors: {
+        primary: "#6413F1",
+        secondary: "#ab006f",
+        dark: "#010910",
+        // dark: "#021022",
       },
       fontFamily: {
-        'xcrow_lgt': ['xcrowfontlgt', 'consolas'],
-        'xcrow_md': ['xcrowfontmd', 'consolas'],
-        'xcrow_rg': ['xcrowfontrg', 'consolas'],
-        'xcrow_smb': ['xcrowfontsmb', 'consolas'],
-        'xcrow_bold': ['xcrowfontbold', 'consolas'],
-      },
-      colors: {
-        xcrow_default: '#301B71',
-        xcrow_secondary: '#6C5DD3',
-        xcrow_primary: '#68136E',
+        adreg: ["adreg", "sans-serif"],
+        adbold: ["adbold", "sans-serif"],
       },
     },
   },
   plugins: [],
-}
+};

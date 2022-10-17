@@ -1,451 +1,753 @@
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adehun</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <!-- hero section  -->
-    <section id="header_section" class="h-auto xcrow_theme_bg md:min-h-screen">
-        <!-- navigation -->
-        <div class="border-b border-gray-500">
-            <nav class="container px-6 flex flex-row items-center justify-between mx-auto py-9">
-                <img src="x_crow Asset/Logo/Logo 1.png" alt="" class="w-24">
-                <div class="hidden font-xcrow_rg text-white md:flex flex-row items-center space-x-6 text-sm md:block">
-                    <a href="#">About Us</a>
-                    <a href="#">How it Works</a>
-                    <a href="#">Resolution Center</a>
-                    <a href="#">FAQs</a>
-                    <a href="#">My Contract</a>
-                    <a href="#" class="border border-gray-400 px-3 py-3 rounded">Launch X_Crow App</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./public/style/style.css" />
+    <title>ADEHUN</title>
+  </head>
+  <body>
+    <!-- Section Container -->
+    <div class="relative font-adreg">
+      <!-- Header Section starts here -->
+      <header class="relative" id="header">
+        <section id="heroSection" class="font-adreg">
+          <!-- Header section container -->
+          <div class="min-h-screen bg-dark">
+            <!-- NavBar Section -->
+            <div class="container" aria-labelledby="Header">
+              <!-- Navbar starts here -->
+              <nav
+                id="NavBar"
+                class="flex justify-between items-center gap-4 py-8 text-sm"
+                aria-labelledby="Navbar"
+              >
+                <!-- Nav Logo starts here -->
+                <div class="w-8 flex items-center">
+                  <!-- Logo -->
+                  <img
+                    src="./public/assets/Logo/Group 37467.png"
+                    alt="Adehun logo"
+                    class="w-full h-full object-contain"
+                  />
                 </div>
-
-                <!-- Hamburger Icon -->
-                <button
-                    id="menu-btn"
-                    class="block hamburger md:hidden focus:outline-none">
-                    <span class="hamburger-top"></span>
-                    <span class="hamburger-middle"></span>
-                    <span class="hamburger-bottom"></span>
-                </button>   
-                
-            </nav>
-        </div>
-        <div class="container mx-auto p-6 absolute">
-            <!-- Mobile Menu -->
-            <div class="md:hidden">
-                <div id="menu"
-                class="absolute flex-col items-center hidden self-end py-8 space-y-6 font-bold bg-gray-100 sm:w-auto sm:self-center left-6 right-6 drop-shadow-md">
-                    <a href="#">About Us</a>
-                    <a href="#">How it Works</a>
-                    <a href="#">Resolution Center</a>
-                    <a href="#">FAQs</a>
-                    <a href="#">My Contract</a>
-                    <a href="#" class="">Launch X_Crow App</a>
-                </div>
-            </div>
-        </div>
-        <!-- hero -->
-        <div id="hero">
-            <div class="container mx-auto px-6 flex flex-col py-24  space-y-6 items-center justify-between md:flex-row md:space-y-0 md:space-x-6">
-                <div class="flex flex-col space-y-6 md:w-1/2">
-                    <!-- slider counter -->
-                    <div id="slider_counter" class="flex flex-row space-x-1">
-                        <span class="counter counter_open"></span>
-                        <span class="counter"></span>
-                        <span class="counter"></span>
-                    </div>
-                    <!-- Hero Header text -->
-                    <h2 class="text-4xl md:text-5xl font-xcrow_smb text-white">
-                        <span>Remove</span> 
-                        <span class="block">The Involvement</span> 
-                        <span>Of Any Third Party</span>
-                    </h2>
-                    <p class="text-white max-w-lg font-xcrow_rg">
-                        <span class="font-bold">X_Crow</span> app provides and guarantees trust between two parties using smart contract and DAO for conflict resolution
-                    </p>
-                    <div class="flex flex-col space-y-6 space-x-0 pt-10 relative md:flex-row md:space-y-0 md:space-x-6">
-                        <button class="px-16 text-white text-sm py-4 bg-xcrow_secondary rounded">Create Contract</button>
-                        <button class="px-16 text-white text-sm py-4 border rounded">Log In</button>
-                    </div>
-                </div>
-                <!-- Hero image -->
-                <div class="flex flex-col items-center md:w-1/2 md:items-end">
-                    <img src="x_crow Asset/Hero image.png" alt="Adehun" class="w-full">
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- hero section ends here  -->  
-
-    <!-- X_Crow Purpose -->
-    <section id="xcrow_purpose">
-        <div class="container mx-auto px-6 py-24 flex flex-col">
-            <div class="space-y-5 max-w-4xl border-l-4 border-xcrow_secondary relative pl-6">
-                <span class="text-lg font-xcrow_smb text-xcrow_secondary">The Purpose</span>
-                <h2 class="text-4xl font-xcrow_rg">What is X_crow ?</h2>
-                <p class="purpose_wrapper text-base leading-7">
-                    The application can be used with online marketplaces like freelancing platforms, product selling platforms, service listing platforms, crowdfunding platforms and a direct contract between two individuals. The application can be used by buyers and
-                    sellers engaging in sales of a particular product, service providers like freelancers offering professional service to a client far
-                    away, or a young innovator building a smart solution to solve Africa's energy problems but need to raise funds through
-                    crowdfunding.
-                </p>
-                <a href="#" class="font-xcrow_smb text-base inline-block border-b-2 text-xcrow_secondary border-xcrow_secondary">Learn more about X_Crow</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- X_Crow Purpose -->
-    <section id="howItWorks">
-        <div class="container mx-auto px-6 py-12 flex flex-col">
-            <div class="flex flex-col justify-center space-y-6 mx-auto text-center">
-                <h2 class="text-4xl font-xcrow_rg md:text-5xl">How It Works</h2>
-                <p class="text-base font-xcrow_rg max-w-lg leading-7">
-                    The app is used for protecting all forms of online </br>
-                    transactions involving money transfers using cryptocurrency.
-                </p>
-            </div>
-            <div class="flex flex-col flex-wrap justify-center md:flex-row md:space-x-5">
-                <div class="bg-white flex flex-col justify-center space-y-6 mt-14 text-center px-10 py-7 md:w-x_18 rounded border-2 border-gray-100 hover:shadow-xl hover:border-white group">
-                    <img src="x_crow Asset/Group 11250.svg" alt="Work Out A Contract" class="x_crow_img mx-auto">
-                    <h4 class="text-x_base font-xcrow_rg group-hover:font-semibold">Work Out A Contract</h4>
-                    <p class="text-sm pb-6">
-                        The app is used for protecting all
-                        forms of online transactions
-                        involving.
-                    </p>
-                </div>
-                <div class="bg-white flex flex-col justify-center space-y-6 mt-14 text-center px-10 py-7 md:w-x_18 rounded border-2 border-gray-100 hover:shadow-xl hover:border-white group">
-                    <img src="x_crow Asset/Group 11251.svg" alt="Send Contract To Client" class="x_crow_img mx-auto">
-                    <h4 class="text-x_base font-xcrow_rg group-hover:font-semibold">Send Contract To Client</h4>
-                    <p class="text-sm pb-6">
-                        The app is used for protecting all
-                        forms of online transactions
-                        involving.
-                    </p>
-                </div>
-                <div class="bg-white flex flex-col justify-center space-y-6 mt-14 text-center px-10 py-7 md:w-x_18 rounded border-2 border-gray-100 hover:shadow-xl hover:border-white group group">
-                    <img src="x_crow Asset/Group 11252.svg" alt="Contract Get Funded By The Clien" class="x_crow_img mx-auto">
-                    <h4 class="text-x_base font-xcrow_rg group-hover:font-semibold">Contract Get Funded By The Client</h4>
-                    <p class="text-sm pb-6">
-                        The app is used for protecting all
-                        forms of online transactions
-                        involving.
-                    </p>
-                </div>
-                <div class="bg-white flex flex-col justify-center space-y-6 mt-14 text-center px-10 py-7 md:w-x_18 rounded border-2 border-gray-100 hover:shadow-xl hover:border-white group">
-                    <img src="x_crow Asset/Group 11254.png" alt="Fund ls Locked Up in The Smart Contract" class="x_crow_img mx-auto">
-                    <h4 class="text-x_base font-xcrow_rg group-hover:font-semibold">Fund ls Locked Up in The Smart Contract</h4>
-                    <p class="text-sm pb-6">
-                        The app is used for protecting all
-                        forms of online transactions
-                        involving.
-                    </p>
-                </div>
-                <div class="bg-white flex flex-col justify-center space-y-6 mt-14 text-center px-10 py-7 md:w-x_18 rounded border-2 border-gray-100 hover:shadow-xl hover:border-white group">
-                    <img src="x_crow Asset/Group 11253.png" alt="Fund Released After Reaching A Consensus" class="x_crow_img mx-auto">
-                    <h4 class="text-x_base font-xcrow_rg group-hover:font-semibold">Fund Released After Reaching A Consensus</h4>
-                    <p class="text-sm pb-6">
-                        The app is used for protecting all
-                        forms of online transactions
-                        involving.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="howitwork_bg_wrapper">
-            <div class="relative"></div>
-        </div>
-    </section>
-
-    <!-- X_Crow benefit -->
-    <section id="benefits">
-        <div class="container mx-auto px-6 py-12 flex flex-col md:flex-row">
-            <div class="flex flex-col md:w-1/2">
-                <div class="bg-xcrow_secondary px-6 py-12 flex flex-col space-y-4 md:px-8">
-                    <h3 class="text-xcrow_3xl font-xcrow_smb max-w-md text-white">
-                        X_crow ls Your Reliable
-                        Decentralized X crow Service
-                        Provider
-                    </h3>
-                    <p class="text-gray-200 max-w-lg text-sm leading-7">
-                        X crow provides trust and confidence when purchasing on selling with
-                        an anonymous person by assuring that your money le sefe et all times.
-                    </p>
-                </div>
-                <div class="bg-white px-6 py-12 space-y-4 md:px-8">
-                    <h3 class="text-xcrow_3xl font-xcrow_smb max-w-md text-black">
-                        Secure Every Part Of Your
-                        Business With Smart Contract
-                    </h3>
-                    <p class="text-gray-700 max-w-lg text-sm leading-7">
-                        The app is uged for protecting all forms of online
-                        transactions Involving money transfers using cryptocurrency.
-                    </p>
-                    <a href="#" class="font-medium text-base inline-block border-b-2 text-xcrow_secondary border-xcrow_secondary pt-6">Learn more about our unique benefit</a>
-                </div>
-            </div>
-            <div class="flex flex-col md:w-1/2">
-                <div class="bg-xcrow_secondary h-full px-6 py-12 flex flex-col place-content-center space-y-12 md:px-8">
-                    <div class="flex flex-col md:space-x-6 md:flex-row">
-                        <div class="x_crow_benefit_img_container mb-6 md:mb-0">
-                            <img src="x_crow Asset/Group 11255.png" alt="Trustless Transactions" class="x_crow_benefit_img_li">
-                        </div>
-                        <div class="flex flex-col space-y-2">
-                            <h4 class="text-2xl font-xcrow_smb text-white">Trustless Transactions</h4>
-                            <p class="text-sm leading-7 text-gray-300">
-                                Because everything is decontralized and autonomous you will
-                                never have to disclose your data or worry about your funds being
-                                safe with us.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col md:space-x-6 md:flex-row">
-                        <div class="x_crow_benefit_img_container mb-6 md:mb-0">
-                            <img src="x_crow Asset/Group 11256.png" alt="Multichain And Payment Channels" class="x_crow_benefit_img_li">
-                        </div>
-                        <div class="flex flex-col space-y-2">
-                            <h4 class="text-2xl font-xcrow_smb text-white">Multichain And Payment Channels</h4>
-                            <p class="text-sm leading-7 text-gray-300">
-                                We support traditional payment methods such es direct deposit
-                                to a local bank, stipe, and Pay Pal, as well as multiple blockchain
-                                network liko Ethercum, Solana etc.
-
-                            </p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col md:space-x-6 md:flex-row">
-                        <div class="x_crow_benefit_img_container mb-6 md:mb-0">
-                            <img src="x_crow Asset/Group 11257.png" alt="Easy Conflict Resolution" class="x_crow_benefit_img_li">
-                        </div>
-                        <div class="flex flex-col space-y-2">
-                            <h4 class="text-2xl font-xcrow_smb text-white">Easy Conflict Resolution</h4>
-                            <p class="text-sm leading-7 text-gray-300">
-                                We offen a community-based mediation service that lowers
-                                dispute resolution costs and ensures that both parties reach an Agreement as quick as possible
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="benefit_bg_wrapper">
-            <div class="relative"></div>
-        </div>
-    </section>
-
-    <!-- X_Crow Customer Review -->
-    <section id="customersReview">
-        <div class="container mx-auto px-6 py-12 flex flex-col">
-            <div class="flex flex-col justify-center mx-auto text-center">
-                <h2 class="text-4xl font-xcrow_rg capitalize max-w-xl md:text-5xl">see what our customer are saying about us</h2>
-            </div>
-            <!-- customerReview slider card -->
-            <div class="flex flex-col justify-between items-center py-12 md:flex-row md:space-x-16">
-                <div class="hidden py-8 px-6 border-2 rounded hover:border-0 hover:bg-white hover:shadow-xl border-gray-100 space-y-10 md:w-1/2 md:px-10 md:block relative">
-                    <p class="text-sm leading-7 w-11/12">
-                        "We have been waiting on this produot and now that we
-                        have installed a few, We think it wil make the industry by
-                        storm"
-                    </p>
-                    <div class="flex flex-col space-y-2">
-                        <span class="text-lg text-xcrow_secondary font-xcrow_smb">J.Godspower</span>
-                        <span class="text-sm">Software Engineer</span>
-                    </div>
-                    <div class="customer_quote">
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke="none">
-                                <path d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.89 2.89 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292zm-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.89 2.89 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292z"></path>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="py-8 px-6 border-2 border-white rounded bg-white shadow-2xl space-y-10 md:w-1/2 hover:shadow-xl md:px-10 relative">
-                    <p class="text-sm leading-7 w-11/12">
-                        "We have been waiting on this product and now that we
-                        have installed a few, We think it will make the industry by
-                        stonm." "We have been walting on this product and now
-                        that we have installed a few. We think it will make the
-                        Industry by storm"
-                    </p>
-                    <div class="flex flex-col space-y-2">
-                        <span class="text-lg font-xcrow_smb">J.Godspower</span>
-                        <span class="text-sm">Software Engineer</span>
-                    </div>
-                    <div class="customer_quote">
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke="none">
-                                <path d="M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.89 2.89 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292zm-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.89 2.89 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292z"></path>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-row space-x-4 justify-center mt-2">
-                <span class="review_counter"></span>
-                <span class="review_counter"></span>
-                <span class="review_counter review_active"></span>
-                <span class="review_counter"></span>
-            </div>
-        </div>
-    </section>
-
-    <!-- X_Crow FAQs -->
-    <section id="faqs">
-        <div class="container mx-auto px-6 py-12 flex flex-col">
-            <div class="flex flex-col justify-center mx-auto text-center">
-                <h2 class="text-4xl font-xcrow_rg capitalize max-w-2xl md:text-5xl">frequently Asked Questions</h2>
-            </div>
-
-            <div class="py-10">
-                <dl class="mt-8 mx-auto max-w-screen-md flex flex-col space-y-5 lg:flex-row lg:flex-wrap">
-                    <div class="w-full">
-                        <div class="question-and-answer select-none cursor-pointer border-2 border-gray-100 px-6 py-6 rounded-lg text-sm group md:px-10">
-                            <dt class="question">
-                                <div class="flex justify-between items-start space-x-6">
-                                    <div class="text-gray-800 font-semibold">
-                                        <h4 class="text-md md:text-xl">What to do if i cant't make a transaction with my wallet</h4>
-                                    </div>
-                                    <div class="faq_line">
-                                        <span class="faq_line1"></span>
-                                        <span class="faq_line2"></span>
-                                    </div>
-                                </div>
-                            </dt>
-                            <dd class="text-sm answer hidden mt-4 leading-7 max-w-xl text-gray-700">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab mollitia, sequi reiciendis iure libero quis voluptatem expedita, nihil modi doloribus nemo distinctio quaerat beatae veniam possimus cumque alias sunt architecto.
-                            </dd>
-                        </div>
-                    </div>
-    
-                    <div class="w-full">
-                        <div class="question-and-answer select-none cursor-pointer border-2 border-gray-100 px-6 py-6 rounded-lg text-sm group md:px-10">
-                            <dt class="question">
-                                <div class="flex justify-between items-start space-x-6">
-                                    <div class="text-gray-800 font-semibold faq_active">
-                                        <h4 class="text-md md:text-xl">What to do if i cant't make a transaction with my wallet</h4>
-                                    </div>
-                                    <div class="faq_line faq_active">
-                                        <span class="faq_line1"></span>
-                                        <span class="faq_line2"></span>
-                                    </div>
-                                </div>
-                            </dt>
-                            <dd class="text-sm answer mt-4 leading-7 max-w-xl text-gray-700">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab mollitia, sequi reiciendis iure libero quis voluptatem expedita, nihil modi doloribus nemo distinctio quaerat beatae veniam possimus cumque alias sunt architecto.
-                            </dd>
-                        </div>
-                    </div>
-    
-                    <div class="w-full">
-                        <div class="question-and-answer select-none cursor-pointer border-2 border-gray-100 px-6 py-6 rounded-lg text-sm group md:px-10">
-                            <dt class="question">
-                                <div class="flex justify-between items-start space-x-6">
-                                    <div class="text-gray-800 font-semibold">
-                                        <h4 class="text-md md:text-xl">What to do if i cant't make a transaction with my wallet</h4>
-                                    </div>
-                                    <div class="faq_line">
-                                        <span class="faq_line1"></span>
-                                        <span class="faq_line2"></span>
-                                    </div>
-                                </div>
-                            </dt>
-                            <dd class="text-sm answer hidden mt-4 leading-7 max-w-xl text-gray-700">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab mollitia, sequi reiciendis iure libero quis voluptatem expedita, nihil modi doloribus nemo distinctio quaerat beatae veniam possimus cumque alias sunt architecto.
-                            </dd>
-                        </div>
-                    </div>
-                </dl>
-            </div>
-        </div> 
-    </section>
-
-    <!-- X_Crow CTA -->
-    <section id="cta">
-        <div class="container mx-auto px-6 py-12 flex flex-col relative">
-            <div class="w-full flex flex-col justify-between xcrow_theme_bg_2 md:flex-row">
-                <div class="px-6 py-14 md:max-w-2xl md:px-16">
-                    <div class="space-y-4">
-                        <h3 class="text-3xl text-white font-semibold">X_Crow is your Reliable Decentralized Service provider</h3>
-                        <p class="text-sm text-white">X_Crow provides trust and confidence when creating a contract with anonymous</p>
-                    </div>
-                    <div class="mt-10 relative">
-                        <button class="px-6 text-white text-sm py-4 bg-xcrow_secondary rounded md:px-16">Create Contract</button>
-                    </div>
-                </div>
+                <!-- Nav Links starts here -->
+                <ul
+                  class="flex justify-between items-center text-white gap-3 h-[52px] bg-gray-400/5 px-2 border-none py-2 box-border navlinks"
+                  aria-labelledby="Menu-bar"
+                >
+                  <!-- Links -->
+                  <a href="#"><li>Developer</li></a>
+                  <a href="#">
+                    <li class="flex flex-row items-center gap-2">
+                      Solution
+                      <p
+                        class="bg-white flex items-center justify-center rounded-full"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          style="fill: rgba(0, 0, 0, 1)"
+                        >
+                          <path
+                            d="m18.707 12.707-1.414-1.414L13 15.586V6h-2v9.586l-4.293-4.293-1.414 1.414L12 19.414z"
+                          ></path>
+                        </svg>
+                      </p>
+                    </li>
+                  </a>
+                  <a href="#">
+                    <li class="flex flex-row items-center gap-2">
+                      Use Cases
+                      <p
+                        class="bg-white flex items-center justify-center rounded-full"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          style="fill: rgba(0, 0, 0, 1)"
+                        >
+                          <path
+                            d="m18.707 12.707-1.414-1.414L13 15.586V6h-2v9.586l-4.293-4.293-1.414 1.414L12 19.414z"
+                          ></path>
+                        </svg>
+                      </p>
+                    </li>
+                  </a>
+                  <a href="#"><li>DAO</li></a>
+                </ul>
+                <!-- Navbar Button starts here -->
                 <div>
-                    <div class="xcrow_cta_img">
-                        <img src="x_crow Asset/Group 11261.png" alt="">
-                    </div> 
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- X_Crow footer -->
-    <footer id="footer">
-        <div class="container mx-auto px-6 pt-12 flex flex-col">
-            <div class="flex flex-col justify-between md:flex-row border-b-2 border-gray-100 pb-6">
-                <div class="space-y-5 md:w-4/12">
-                    <img src="x_crow Asset/Logo/Logo 2.png" alt="" class="w-24">
-                    <h3 class="text-3xl font-xcrow_rg font-semibold text-black">Our insight to your inbox.</h3>
-                    <form action="">
-                        <div class="flex flex-row">
-                            <input type="text" class="appearance-none border border-gray-300 rounded-xl w-full py-5 px-6 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Your email address">
-                            <button class="-ml-6 rounded-xl bg-xcrow_secondary text-white py-2 px-3 relative xcrow_icon">
-                                <i class='bx bx-chevron-right text-4xl inline-block relative'></i>
-                            </button>
-                        </div>
-                    </form>
-                    <div class="flex flex-col py-3">
-                        <ul class="flex flex-row space-x-1">
-                            <li class="bg-black w-5 h-5 text-sm text-center text-white rounded-full box-content p-1"><i class='bx bxl-linkedin inline-block align-middle'></i></li>
-                            <li class="bg-black w-5 h-5 text-sm text-center text-white rounded-full box-content p-1"><i class='bx bxl-instagram inline-block align-middle'></i></li>
-                            <li class="bg-black w-5 h-5 text-sm text-center text-white rounded-full box-content p-1"><i class='bx bxl-facebook inline-block align-middle'></i></li>
-                            <li class="bg-black w-5 h-5 text-sm text-center text-white rounded-full box-content p-1"><i class='bx bxl-twitter inline-block align-middle'></i></li>
-                        </ul>
+                  <!-- Create Contract btn with icon starts here -->
+                  <button
+                    class="bg-gray-400/5 h-[52px] pl-4 pr-2 flex items-center flex-row py-4 rounded-[40px] text-white justify-center gap-4 box-border navBtnIcon"
+                    aria-label="Create Contract"
+                    >Create Contract
+                    <!-- Button Icon -->
+                    <div
+                      class="bg-gray-400/10 rounded-full box-border w-[40px] h-[40px] flex justify-center items-center btnIconInner"
+                    >
+                      <div class="w-4 bg-white rounded-full">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="inherit"
+                          height="inherit"
+                          viewBox="0 0 24 24"
+                          style="fill: rgba(0, 0, 0, 1)"
+                        >
+                          <path
+                            d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
+                          ></path>
+                        </svg>
+                      </div>
                     </div>
+                  </button>
                 </div>
-                <div class="md:w-6/12">
-                    <div class="flex flex-col justify-between space-y-10 mt-10 md:flex-row md:space-y-0 md:mt-0">
-                        <div class="flex flex-col space-y-6">
-                            <h3 class="text-xl font-xcrow_rg text-black font-semibold">Features</h3>
-                            <ul class="space-y-4 text-gray-700 text-sm md:text-base">
-                                <li>Contract</li>
-                                <li>Payment</li>
-                                <li>Resolution Center</li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-col space-y-6">
-                            <h3 class="text-xl font-xcrow_rg text-black font-semibold">Company</h3>
-                            <ul class="space-y-4 text-gray-700 text-sm md:text-base">
-                                <li>Blog</li>
-                                <li>Career</li>
-                                <li>About Us</li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-col space-y-6">
-                            <h3 class="text-xl font-xcrow_rg text-black font-semibold">Help</h3>
-                            <ul class="space-y-4 text-gray-700 text-sm md:text-base">
-                                <li>FAQs</li>
-                                <li>Contact Us</li>
-                                <li>Terms Of Service</li>
-                            </ul>
-                        </div>
-                    </div> 
+              </nav>
+              <!-- Hero Section starts here -->
+              <div
+                class="relative pt-32"
+                id="HeroSection"
+                aria-labelledby="Hero Section"
+              >
+                <!-- Hero Section Wrapper -->
+                <div class="grid grid-cols-2">
+                  <!-- Hero Section Content -->
+                  <div class="text-white flex flex-col gap-6 max-w-md">
+                    <!-- Title content -->
+                    <h1
+                      class="text-7xl font-extrabold leading-[5rem] tracking-wider"
+                    >
+                      Decentralized <br />
+                      Escrow For <br />
+                      Web3
+                    </h1>
+                    <!-- Paragraph content -->
+                    <p class="text-sm leading-normal">
+                      Adehun is a decentralized payment protection system for
+                      Web3 that allows parties to establish trust while using
+                      peer-to-peer crypto payments.
+                    </p>
+                    <!-- Hero Button starts here -->
+                    <p class="text-sm flex flex-row gap-2 mt-6 heroBtn">
+                      <!-- Hero Button -->
+                      <button
+                        class="bg-gray-400/5 px-6 flex items-center py-4 rounded-[40px] text-white justify-center box-border"
+                        >Create An Account</button
+                      >
+                      <!-- Hero Button -->
+                      <button
+                        class="bg-none px-6 flex items-center py-4 rounded-[40px] text-white justify-center box-border"
+                        >Create Contract</button
+                      >
+                    </p>
+                  </div>
+                  <!-- Hero Section Image -->
+                  <div class="relative w-[630px] -top-7">
+                    <img
+                      src="./public/assets/fluid_like_shape_1809.png"
+                      alt="Adehun Fluid picture"
+                      class="w-full h-full object-contain"
+                    />
+                  </div>
                 </div>
+              </div>
             </div>
-            <div class="flex flex-col justify-between space-y-4 py-7 md:flex-row font-xcrow_rg md:space-y-0">
-                <div><h5 class="text-sm">2022@x_crow</h5></div>
-                <div><h5 class="text-sm">Developed by <span class="text-xcrow_default font-xcrow_bold tracking-wider">DFMlab</span></h5></div>
+            <!-- Hero Section base starts here -->
+            <div
+              class="relative pt-16 pb-24"
+              id="HeroSectionBase"
+              aria-labelledby="Hero Section"
+            >
+              <div class="container z-50">
+                <!-- Hero Section Base Wrapper -->
+                <div class="grid grid-cols-2 items-center">
+                  <!-- Hero Section Base Content -->
+                  <div class="text-white flex flex-col gap-6 max-w-md">
+                    <!-- Title content -->
+                    <h2 class="text-4xl font-bold tracking-wider"
+                      >A trustless escrow experience</h2
+                    >
+                    <!-- Paragraph content -->
+                    <p class="text-sm leading-normal">
+                      A decentralized approach to protect freelancers, shoppers
+                      and business in web3.
+                    </p>
+                    <!-- Hero Base Button starts here -->
+                    <p class="text-sm flex flex-row gap-2 mt-6 heroBtn">
+                      <!-- Hero Button -->
+                      <button
+                        class="bg-gray-400/5 px-6 flex items-center py-4 rounded-[40px] text-white justify-center box-border"
+                        >Create An Account</button
+                      >
+                    </p>
+                  </div>
+                  <!-- Hero Section Base Image -->
+                  <div class="flex justify-end">
+                    <img
+                      src="./public/assets/image 127.png"
+                      alt="Trustless experience"
+                      class="w-[500px] h-full object-contain"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- Hero Background -->
+              <div class="w-full absolute bottom-16">
+                <img
+                  src="./public/assets/Group 38644.png"
+                  alt=""
+                  class="w-full h-fit object-contain"
+                />
+              </div>
             </div>
-        </div> 
-    </footer>
-    <!-- script -->
-    <script src="js/script.js"></script>
-</body>
+          </div>
+        </section>
+      </header>
+      <!-- Header Section ends here -->
+      <!-- Main Section starts here -->
+      <main class="relative" id="main">
+        <!-- Feature Section starts here -->
+        <section id="features" aria-labelledby="Features">
+          <!-- Features Body -->
+          <div class="bg-secondary py-20 relative">
+            <!-- Features Container -->
+            <div class="container">
+              <!-- Feature Wrapper -->
+              <div class="grid grid-cols-10">
+                <!-- Feature Main -->
+                <div
+                  class="col-span-3 flex flex-col"
+                  aria-labelledby="Leveraging blockchain"
+                >
+                  <div class="max-w-sm flex flex-col gap-4">
+                    <!-- Feature Title -->
+                    <h2 class="text-4xl font-bold tracking-wider text-white"
+                      >Leveraging blockchain for payment & dispute reolution</h2
+                    >
+                    <!-- Button starts here -->
+                    <p class="text-sm flex flex-row gap-2 mt-8 featureBtn">
+                      <!-- Explore Feature Button -->
+                      <button
+                        class="bg-transparent px-12 flex items-center py-3 rounded-[40px] text-white justify-center box-border border border-white"
+                        aria-label="Explore Feature"
+                        >Explore All</button
+                      >
+                    </p>
+                  </div>
+                </div>
+                <!-- Features List card wrapper -->
+                <div class="col-span-6 col-start-5 text-white">
+                  <div class="grid grid-cols-2 gap-x-16 gap-y-32 featureList">
+                    <!-- Features list card -->
+                    <div
+                      class="w-11/12 flex flex-col gap-3"
+                      aria-labelledby="Simple Escrow"
+                    >
+                      <!-- Image -->
+                      <img
+                        src="./public/assets/blockchain (2) 1.png"
+                        alt="Simple Escrow"
+                        class="w-12 h-12 object-contain"
+                      />
+                      <!-- Title -->
+                      <h4 class="text-lg">Simple Escrow</h4>
+                      <!-- Paragraph -->
+                      <p class="text-sm leading-loose">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Voluptate beatae ex optio provident, esse quaerat
+                      </p>
+                    </div>
+                    <!-- Features list card -->
+                    <div
+                      class="w-11/12 flex flex-col gap-3"
+                      aria-labelledby="Multi Client Escrow"
+                    >
+                      <!-- Image -->
+                      <img
+                        src="./public/assets/blockchain (2) 1.png"
+                        alt="Simple Escrow"
+                        class="w-12 h-12 object-contain"
+                      />
+                      <!-- Title -->
+                      <h4 class="text-lg">Multi-client Escrow</h4>
+                      <!-- Paragraph -->
+                      <p class="text-sm leading-loose">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Voluptate beatae ex optio provident, esse quaerat
+                      </p>
+                    </div>
+                    <!-- Features list card -->
+                    <div
+                      class="w-11/12 flex flex-col gap-3"
+                      aria-labelledby="Multi Contractor Escrow"
+                    >
+                      <!-- Image -->
+                      <img
+                        src="./public/assets/blockchain (2) 1.png"
+                        alt="Simple Escrow"
+                        class="w-12 h-12 object-contain"
+                      />
+                      <!-- Title -->
+                      <h4 class="text-lg">Multi-contractor Escrow</h4>
+                      <!-- Paragraph -->
+                      <p class="text-sm leading-loose">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Voluptate beatae ex optio provident, esse quaerat
+                      </p>
+                    </div>
+                    <!-- Features list card -->
+                    <div
+                      class="w-11/12 flex flex-col gap-3"
+                      aria-labelledby="Decentralized Legal System"
+                    >
+                      <!-- Image -->
+                      <img
+                        src="./public/assets/blockchain (2) 1.png"
+                        alt="Simple Escrow"
+                        class="w-12 h-12 object-contain"
+                      />
+                      <!-- Title -->
+                      <h4 class="text-lg">Decentralized Legal System</h4>
+                      <!-- Paragraph -->
+                      <p class="text-sm leading-loose">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Voluptate beatae ex optio provident, esse quaerat
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Developers tools starts here -->
+        <section id="developerTools" aria-labelledby="Developers Tools">
+          <!-- Developers tools -->
+          <div class="bg-dark pt-20 pb-32 relative">
+            <!-- Developers tools Container -->
+            <div class="container">
+              <div class="grid grid-cols-2 items-center">
+                <!-- Developers tools Content -->
+                <div class="text-white flex flex-col gap-6 max-w-md">
+                  <!-- Base -->
+                  <div class="text-xs font-bold"
+                    ><span class="text-secondary uppercase"
+                      >Developers Tools</span
+                    ></div
+                  >
+                  <!-- Title -->
+                  <h2 class="text-4xl font-bold tracking-wider"
+                    >Integrate adehun into your apps</h2
+                  >
+                  <!-- Paragraph -->
+                  <p class="text-sm leading-loose">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Placeat quisquam voluptas aliquam atque. Similique aperiam
+                    magnam ipsa repellendus nam natus quo sint? Ipsa totam quos
+                    consectetur consequatur natus. Dignissimos, soluta.
+                  </p>
+                </div>
+                <!-- Developers tools Image -->
+                <div class="flex justify-end">
+                  <img
+                    src="./public/assets/image 125.png"
+                    alt="Developers Tool"
+                    class="w-11/12"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Use Cases starts here -->
+        <section id="useCases">
+          <!-- Use Cases-->
+          <div class="bg-dark py-20 relative">
+            <!-- Use Cases Container -->
+            <div class="container">
+              <div class="grid grid-cols-2 items-center">
+                <!-- Use Cases Image -->
+                <div class="flex justify-start">
+                  <img
+                    src="./public/assets/image 125.png"
+                    alt="Developers Tool"
+                    class="w-11/12"
+                  />
+                </div>
+                <!-- Use Cases Scroll Text -->
+                <div
+                  class="relative w-full h-full flex items-center justify-end"
+                >
+                  <div class="flex flex-col max-h-[190px] overflow-y-auto">
+                    <div class="text-white flex flex-col gap-4 max-w-md">
+                      <!-- Icon -->
+                      <div></div>
+                      <!-- Title -->
+                      <h2 class="text-4xl font-bold tracking-wider"
+                        >Escrow Payment</h2
+                      >
+                      <!-- Paragraph -->
+                      <p class="text-sm leading-loose">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Placeat quisquam voluptas aliquam atque. Similique
+                        aperiam magnam ipsa repellendus nam natus quo sint? Ipsa
+                        totam quos consectetur consequatur natus. Dignissimos,
+                        soluta.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Chain support starts here -->
+        <section id="chainSupport" aria-labelledby="Suppoted Chain">
+          <!-- Supported Chain -->
+          <div class="bg-dark pt-20 relative">
+            <!-- Supported Chain Container -->
+            <div class="container">
+              <div
+                class="grid grid-cols-2 items-center pb-28 border-b border-gray-50/10"
+              >
+                <!-- Supported Chain Content -->
+                <div class="text-white flex flex-col gap-6 max-w-md">
+                  <!-- Title -->
+                  <h2 class="text-4xl font-bold tracking-wider"
+                    >The Largest Choice to fit perfectly with your web3
+                    business</h2
+                  >
+                  <!-- Paragraph -->
+                  <p class="text-sm leading-loose"
+                    >Supports Stable And Non-stable coins, CUSD, CEUR, CELO,
+                    USDT, BNB, BUSD, MATIC Etc.</p
+                  >
+                </div>
+                <!-- Developers tools Image -->
+                <div class="flex justify-end">
+                  <img
+                    src="./public/assets/image 125.png"
+                    alt="Developers Tool"
+                    class="w-11/12"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Trusted Partner starts here -->
+        <section id="trustedPartner" aria-labelledby="Trusted Partner">
+          <!-- Trusted Partner -->
+          <div class="flex flex-col py-16 bg-dark">
+            <!-- Trusted Partner container -->
+            <div class="container">
+              <!-- Section title -->
+              <div class="text-white flex flex-col justify-center text-center">
+                <h2 class="text-4xl font-bold tracking-wider"
+                  >Trusted by exclusive partner</h2
+                >
+              </div>
+              <!-- Trusted partner image wrapper -->
+              <div class="overflow-x-auto" id="trustedPartnerWrapper">
+                <div
+                  class="flex flex-row flex-nowrap gap-14 justify-between place-content-center items-center mt-10"
+                  aria-labelledby="Adehun Trusted Partners"
+                >
+                  <!-- Trusted partner image -->
+                  <img
+                    src="./public/assets/image 115.png"
+                    alt="Opolo"
+                    class="w-[120px] h-14 object-contain hover:opacity-50 transition-all"
+                  />
+                  <!-- Trusted partner image -->
+                  <img
+                    src="./public/assets/DFMlabWhite@150x.png"
+                    alt="DFMLab"
+                    class="w-[120px] h-14 object-contain hover:opacity-50 transition-all"
+                  />
+                  <!-- Trusted partner image -->
+                  <img
+                    src="./public/assets/image 117.png"
+                    alt="EduFund"
+                    class="w-[120px] h-14 object-contain hover:opacity-50 transition-all"
+                  />
+                  <!-- Trusted partner image -->
+                  <img
+                    src="./public/assets/image 118.png"
+                    alt="Celo"
+                    class="w-[120px] h-14 object-contain hover:opacity-50 transition-all"
+                  />
+                  <!-- Trusted partner image -->
+                  <img
+                    src="./public/assets/image 119.png"
+                    alt="Ari"
+                    class="w-[120px] h-14 object-contain hover:opacity-50 transition-all"
+                  />
+                  <!-- Trusted partner image -->
+                  <img
+                    src="./public/assets/DFMlabWhite@150x.png"
+                    alt="DFMLab"
+                    class="w-[120px] h-14 object-contain hover:opacity-50 transition-all"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Review starts here -->
+        <section id="review" aria-labelledby="Review">
+          <!-- Review -->
+          <div class="flex flex-col pt-16 pb-32 bg-white">
+            <!-- Review container -->
+            <div class="container">
+              <div class="relative py-5">
+                <!-- Review title -->
+                <div class="flex flex-col items-center text-center">
+                  <div
+                    class="text-dark flex flex-col justify-center text-center"
+                  >
+                    <!-- title -->
+                    <h2 class="text-4xl font-bold tracking-wider"
+                      >Why users love adehun</h2
+                    >
+                  </div>
+                </div>
+                <!-- Review card wrapper -->
+                <div
+                  class="flex flex-col justify-between items-center py-4 md:flex-row md:space-x-8"
+                >
+                  <!-- Review card -->
+                  <div
+                    class="py-12 px-12 bg-white shadow_primary rounded-3xl space-y-10 md:w-1/2 relative md:block"
+                  >
+                    <div class="max-w-sm">
+                      <!-- Review text -->
+                      <p class="text-sm text-dark leading-7">
+                        "We have been waiting on this produot and now that we
+                        have installed a few, We think it wil make the industry
+                        by storm"
+                      </p>
+                      <!-- Review user -->
+                      <div class="flex flex-col space-y-1 mt-10">
+                        <span class="text-lg font-extrabold">J.Godspower</span>
+                        <span class="text-sm">Software Engineer</span>
+                      </div>
+                      <!-- Review image -->
+                      <div class="customer_quote">
+                        <img src="./public/assets/Group 38645.png" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Review card -->
+                  <div
+                    class="py-12 px-12 bg-white shadow_primary rounded-3xl space-y-10 md:w-1/2 relative md:block"
+                  >
+                    <div class="max-w-sm">
+                      <!-- Review text -->
+                      <p class="text-sm text-dark leading-7">
+                        "We have been waiting on this produot and now that we
+                        have installed a few, We think it wil make the industry
+                        by storm"
+                      </p>
+                      <!-- Review user -->
+                      <div class="flex flex-col space-y-1 mt-10">
+                        <span class="text-lg font-extrabold">J.Godspower</span>
+                        <span class="text-sm">Software Engineer</span>
+                      </div>
+                      <!-- Review image -->
+                      <div class="customer_quote">
+                        <img src="./public/assets/Group 38645.png" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex flex-row space-x-4 justify-center pt-10">
+                  <span
+                    class="w-3 h-3 bg-secondary/50 rounded-full transition-all"
+                  ></span>
+                  <span
+                    class="w-3 h-3 bg-secondary rounded-full transition-all"
+                  ></span>
+                  <span
+                    class="w-3 h-3 bg-secondary/50 rounded-full transition-all"
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Newsletter starts here -->
+        <section id="newsletter" aria-labelledby="Newsletter">
+          <!-- Newsletter -->
+          <div class="flex flex-col bg-dark relative">
+            <!-- Newsletter container -->
+            <div class="container">
+              <!-- Newsletter wrapper -->
+              <div
+                class="bg-secondary px-20 py-16 rounded-[2rem] relative -top-20"
+              >
+                <!-- Newsletter -->
+                <div
+                  class="grid md:grid-cols-5 gap-y-10 md:gap-y-0 items-center"
+                >
+                  <div
+                    class="flex flex-col md:col-span-3 text-white max-w-sm gap-y-4"
+                  >
+                    <!-- text -->
+                    <h3
+                      class="text-2xl tracking-wide leading-[1.8] font-semibold"
+                      >Let's make your smart contract and increase the efficency
+                      of your businees. lorem</h3
+                    >
+                  </div>
+                  <div class="flex flex-col md:col-span-2">
+                    <!-- newsletter input -->
+                    <!-- text -->
+                    <h2 class="text-lg font-normal tracking-wide text-white"
+                      >Subscribe to mailing list</h2
+                    >
+                    <!-- input -->
+                    <div class="flex flex-row mt-6 relative">
+                      <input
+                        type="text"
+                        class="text-sm flex-1 bg-transparent border h-[52px] py-4 border-gray-200/40 rounded-full px-8 outline-none text-white"
+                        placeholder="Enter your email address"
+                      />
+                      <button
+                        class="bg-dark w-18 h-[52px] pl-4 pr-2 flex items-center flex-row py-4 rounded-[40px] text-white justify-center gap-4 box-border absolute right-0"
+                        aria-label="Create Contract"
+                        >Submit
+                        <!-- Button Icon -->
+                        <div
+                          class="bg-gray-400/10 rounded-full box-border w-[40px] h-[40px] flex justify-center items-center btnIconInner"
+                        >
+                          <div class="w-4 bg-white rounded-full">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="inherit"
+                              height="inherit"
+                              viewBox="0 0 24 24"
+                              style="fill: rgba(0, 0, 0, 1)"
+                            >
+                              <path
+                                d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
+                              ></path>
+                            </svg>
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <!-- main Section ends here -->
+      <!-- footer starts here -->
+      <footer class="relative" id="header">
+        <!-- footer -->
+        <section id="footer" aria-labelledby="Footer">
+          <div class="flex flex-col bg-dark relative pb-12">
+            <!-- footer cobntainer -->
+            <div class="container">
+              <!-- footer wrapper -->
+              <div class="relative">
+                <div class="grid grid-cols-4 space-x-16">
+                  <!-- footer column -->
+                  <div class="flex flex-col gap-6 text-white">
+                    <!-- footer logo -->
+                    <img
+                      src="./public/assets/Logo/Group 37467.png"
+                      alt="Adehun footer logo"
+                      class="w-8 object-contain"
+                    />
+                    <p class="text-sm"
+                      >if you have a question, please contact at
+                      <span class="underline">hello@adehun.com</span></p
+                    >
+                    <div>
+                      <span class="text-base">Follow Us On</span>
+                      <div class="flex flex-row gap-x-3 mt-2">
+                        <img
+                          src="./public/assets/F.png"
+                          alt="Twitter"
+                          class="w-6 h-6 object-contain"
+                        />
+                        <img
+                          src="./public/assets/L.png"
+                          alt="Twitter"
+                          class="w-6 h-6 object-contain"
+                        />
+                        <img
+                          src="./public/assets/T.png"
+                          alt="Twitter"
+                          class="w-6 h-6 object-contain"
+                        />
+                        <img
+                          src="./public/assets/R.png"
+                          alt="Twitter"
+                          class="w-6 h-6 object-contain"
+                        />
+                        <img
+                          src="./public/assets/I.png"
+                          alt="Twitter"
+                          class="w-6 h-6 object-contain"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- footer column -->
+                  <div class="flex flex-col gap-y-4 text-sm text-white">
+                    <h4 class="ffont-medium text-base">Company</h4>
+                    <ul
+                      class="flex flex-col list-none gap-y-4 leading-relaxed mt-3 text-gray-400"
+                    >
+                      <a href="#"><li>Support</li></a>
+                      <a href="#"><li>Privacy Policy</li></a>
+                      <a href="#"><li>Terms and Condition</li></a>
+                      <a href="#"><li>LearningHub</li></a>
+                    </ul>
+                  </div>
+                  <!-- footer column -->
+                  <div class="flex flex-col gap-y-4 text-sm text-white">
+                    <h4 class="font-medium text-base">Use cases</h4>
+                    <ul
+                      class="flex flex-col list-none gap-y-4 leading-relaxed mt-3 text-gray-400"
+                    >
+                      <a href="#"><li>Market</li></a>
+                      <a href="#"><li>Personal Saving</li></a>
+                      <a href="#"><li>Assets Inheritance</li></a>
+                      <a href="#"><li>Crypto assets protection</li></a>
+                      <a href="#"><li>Crypto assets protection</li></a>
+                    </ul>
+                  </div>
+                  <!-- footer column -->
+                  <div class="flex flex-col gap-y-4 text-sm text-white">
+                    <h4 class="ffont-medium text-base">System external</h4>
+                    <ul
+                      class="flex flex-col list-none gap-y-4 leading-relaxed mt-3 text-gray-400"
+                    >
+                      <a href="#"><li>Developer</li></a>
+                      <a href="#"><li>Freelancer</li></a>
+                      <a href="#"><li>DAO member</li></a>
+                      <a href="#"><li>DAO Third Party System</li></a>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </footer>
+      <!-- Footer starts ends here -->
+    </div>
+  </body>
 </html>
