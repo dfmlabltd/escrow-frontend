@@ -2,7 +2,7 @@ import { TOKEN_UPDATED } from "./constants";
 
 const tokenUpdated = (payload: Object): Object => {
   return {
-    type: TOKEN_UPDATED,
+    action: TOKEN_UPDATED,
     payload: payload,
   };
 };

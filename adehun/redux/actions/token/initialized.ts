@@ -2,7 +2,7 @@ import { TOKEN_INITIALIZED } from "./constants";
 
 const tokenInitialized = (payload: Object): Object => {
   return {
-    type: TOKEN_INITIALIZED,
+    action: TOKEN_INITIALIZED,
     payload: payload,
   };
 };
