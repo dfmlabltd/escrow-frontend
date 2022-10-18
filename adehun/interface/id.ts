@@ -1,5 +1,3 @@
-import { utils } from "ethers";
-import truncateAddress from "truncate-eth-address";
 import assert from "assert";
 
 export interface IIdentifier {
