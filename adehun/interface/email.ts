@@ -8,12 +8,14 @@ export interface IEmail {
 export class Email implements IEmail {
   private email: string = "";
 
-  constructor(email: string) {
-    this.fromString(email);
+  constructor(email: string = "", empty: boolean = false) {
+    if (!empty) {
+      this.fromString(email);
+    }
   }
 
   private fromString = (email: string): void => {
-    assert(validateEmail(email), "invalid email address")
+    assert(validateEmail(email), "invalid email address");
     this.email = email;
   };
 

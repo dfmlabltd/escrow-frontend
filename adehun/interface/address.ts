@@ -10,8 +10,10 @@ export interface IAddress {
 export class Address implements IAddress {
   private address: string = "";
 
-  constructor(address: string) {
-    this.fromString(address);
+  constructor(address: string, empty: boolean = false) {
+    if (!empty) {
+      this.fromString(address);
+    }
   }
 
   private fromString = (address: string): void => {
