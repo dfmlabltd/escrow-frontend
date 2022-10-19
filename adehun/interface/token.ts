@@ -6,31 +6,21 @@ import {
 } from "../utils/helpers";
 
 export interface IToken {
-  getRefreshToken(): string | null;
-  getAccessToken(): string | null;
+  getToken(): string | null;
 }
 
 export class Token implements IToken {
-  constructor(access: string, refresh?: string) {
-    if (refresh != undefined && refresh) {
-      this.setRefreshToken(refresh);
+  constructor(token: string | null) {
+    if (token && token.length > 0) {
+      this.setToken(token);
     }
-    this.setAccessToken(access);
   }
 
-  private setAccessToken = (token: string): void => {
+  private setToken = (token: string): void => {
     setAccessToken(token);
   };
 
-  private setRefreshToken = (token: string): void => {
-    setRefreshToken(token);
-  };
-
-  getAccessToken = (): string | null => {
-    return getAccessToken();
-  };
-
-  getRefreshToken = (): string | null => {
+  getToken = (): string | null => {
     return getRefreshToken();
   };
 }
