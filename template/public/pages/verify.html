@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <!-- ===============================================-->
+    <!--  Favicons  -->
+    <!-- ===============================================-->
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="assets/img/favicons/favicon.png"
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <!-- ===============================================-->
+    <!--  Stylesheets  -->
+    <!-- ===============================================-->
+    <link rel="stylesheet" href="../style/style.css" />
+    <!-- ===============================================-->
+    <!--  Title  -->
+    <!-- ===============================================-->
+    <title>Adehun - Login</title>
+  </head>
+  <body>
+    <!-- container -->
+    <div class="relative auth-wrapper font-adreg" id="authLogin">
+      <!-- Header -->
+      <header class="relative" aria-labelledby="Header">
+        <div class="container">
+          <!-- Logo -->
+          <div class="flex justify-center py-4">
+            <img
+              src="../assets/Logo/Group 37470.png"
+              alt="Adehun Logo"
+              class="w-16 object-contain"
+            />
+          </div>
+        </div>
+      </header>
+      <!-- Main -->
+      <main class="relative pt-8" aria-labelledby="Login Section">
+        <!-- container -->
+        <div class="container">
+          <!-- wrapper -->
+          <div class="relative w-full flex justify-center">
+            <div class="relative w-[30em] p-4">
+              <div class="w-full">
+                <!-- auth title -->
+                <div
+                  class="relative flex flex-col text-center gap-1.5 text-white"
+                  aria-labelledby="Header text"
+                >
+                  <!-- title -->
+                  <h1 class="text-4xl font-semibold">Verify Your Email</h1>
+                  <!-- base -->
+                  <!-- <p class="text-sm md:text-base">We've sent verification code to <span class="underline">test@gmail.com</span></p> -->
+                </div>
+                <!-- input -->
+                <div class="flex flex-col gap-4 pt-12 w-full">
+                  <div class="flex flex-col space-y-1">
+                    <label
+                      for="email"
+                      class="hidden mb-2 text-base font-medium text-white"
+                      aria-labelledby="Email Address"
+                      >Email Address</label
+                    >
+                    <input
+                      type="email"
+                      id="email"
+                      aria-describedby="helper-text-explanation"
+                      class="bg-gray-800/40 focus:border text-white text-base rounded-md outline-none focus:ring-secondary focus:border-secondary block w-full px-6 py-5"
+                      placeholder="Email Address"
+                    />
+                  </div>
+                  <div class="text-center py-3">
+                    <button
+                      class="bg-secondary focus:border text-white text-base rounded-md outline-none block w-full p-4"
+                      aria-label="Login"
+                    >
+                      Login
+                    </button>
+                  </div>
+                </div>
+                <!-- divider -->
+                <div class="relative w-full py-1">
+                  <div
+                    class="flex justify-center items-center h-12 authDivider"
+                  >
+                    <div class="h-full flex">
+                      <p
+                        class="w-12 rounded-full flex items-center justify-center text-center bg-gray-800 z-50"
+                      >
+                        <span class="text-white text-sm">or</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- alternative auth -->
+                <div
+                  class="flex flex-col space-y-1"
+                  aria-labelledby="Alternative Sign In"
+                >
+                  <!-- alternative option -->
+                  <div></div>
+                  <!-- wallet auth button -->
+                  <div class="text-center py-3">
+                    <button
+                      class="buttonAuth border text-white rounded-md outline-none block w-full p-4"
+                      aria-label="Sign in with your wallet"
+                    >
+                      <span class="text-base">Sign in with your wallet</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <!-- Footer -->
+      <footer class="relative pt-24" aria-labelledby="Footer">
+        <div class="container">
+          <!-- footer wrapper -->
+          <div
+            class="flex flex-col md:flex-row justify-between items-center gap-5"
+          >
+            <!-- Adehun Contact -->
+            <div
+              class="text-white text-sm flex flex-col gap-1 relative"
+              aria-labelledby="Contact"
+            >
+              <h4>Need help? Contact</h4>
+              <p class="text-secondary underline">hello@adehun.com</p>
+            </div>
+            <!-- copyright -->
+            <div class="text-sm">
+              <span class="text-white"
+                >2022. Adehun. All rights are reserved.</span
+              >
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -58,3 +58,23 @@ body {
   height: 80px;
   opacity: 0.8;
 }
+.auth-wrapper{
+  @apply bg-dark min-h-screen py-20;
+}
+/* .buttonAuth  */
+/* .{
+  border-image: linear-gradient(180deg, #6413F1, #ab006f) 1;
+} */
+.buttonAuth {
+  background: linear-gradient(#010910, #010910) padding-box,
+              linear-gradient(180deg, #6413F1, #ab006f) border-box;
+  border: 1px solid transparent;
+  @apply rounded-md;
+}
+.authDivider::before{
+  content: "";
+  width: 100%;
+  position: absolute;
+  z-index: 9;
+  @apply border border-gray-800/80;
+}
