@@ -1,13 +1,14 @@
-import { PropsChildren } from "../interface/app";
+import { PropsWithChildren } from "../interface/prop";
 import AuthHeader from "../widgets/Headers/Auth";
 import AuthFooter from "../widgets/Footers/Auth";
+import "./css/Auth.module.css";
 
-interface PropsHeader {
+interface AuthLayoutProps {
   title: string;
   subtitle?: string;
 }
 
-const AuthLayout: React.FC<PropsChildren<PropsHeader>> = ({
+const AuthLayout: React.FC<PropsWithChildren<AuthLayoutProps>> = ({
   children,
   title,
   subtitle,
@@ -31,13 +32,12 @@ const AuthLayout: React.FC<PropsChildren<PropsHeader>> = ({
                     ""
                   )}
                 </div>
+                {children}
               </div>
             </div>
-            {children}
           </div>
         </div>
       </main>
-      {children}
       <AuthFooter />
     </div>
   );
