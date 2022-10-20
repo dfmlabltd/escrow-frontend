@@ -1,44 +1,17 @@
-import { utils } from 'ethers'
+import { IAddress } from "./address";
+import { IEmail } from "./email";
+import { IIdentifier } from "./id";
+import { IName } from "./name";
 
-interface IAnonymousUser {
-  email?: string;
-  address?: string;
+export interface IAnonymousUser {
+  readonly email?: IEmail;
+  readonly address?: IAddress;
 }
 
-interface Address {
-    
-}
-
-interface IUser extends IAnonymousUser {
-  id: number;
-  is_active: boolean;
-  first_name?: string;
-  last_name?: string;
-  wallet_addresses?: string[];
-}
-
-class User implements IUser {
-  set id(value: number) {
-    this.id = value;
-  }
-  set is_active(value: boolean) {
-    this.is_active = value;
-  }
-  set first_name(value: string) {
-    this.first_name = value;
-  }
-  set last_name(value: string) {
-    this.last_name = value;
-  }
-  set email(value: string) {
-    this.email = value;
-  }
-  set wallet_addresses(values: string[]) {
-    values.map()
-    this.wallet_addresses = values;
-  }
-
-  const validate_wallet_address = (address: string) => {
-    if(utils.isAddress(address)) {}
-  }
+export interface IUser extends IAnonymousUser {
+  readonly id: IIdentifier;
+  readonly is_active: boolean;
+  readonly first_name?: IName;
+  readonly last_name?: IName;
+  readonly wallet_addresses?: IAddress[];
 }

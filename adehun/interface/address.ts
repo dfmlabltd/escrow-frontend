@@ -1,26 +1,31 @@
 import { utils } from "ethers";
+import truncateAddress from "truncate-eth-address";
+import assert from "assert";
 
-interface IAddress {
+export interface IAddress {
   toString(): string;
+  toTruncatedString(): string;
 }
 
-class Address implements IAddress {
+export class Address implements IAddress {
   private address: string = "";
 
-  constructor(address: string) {
-    this.fromString(address);
+  constructor(address: string, empty: boolean = false) {
+    if (!empty) {
+      this.fromString(address);
+    }
   }
 
   private fromString = (address: string): void => {
-    if (!utils.isAddress(address)) {
-      throw new Error("invalid address");
-    }
+    assert(utils.isAddress(address), "invalid address");
     this.address = address;
   };
 
   toString = (): string => {
-    return this.address;
+    return utils.getAddress(this.address);
+  };
+
+  toTruncatedString = (): string => {
+    return truncateAddress(this.address);
   };
 }
-
-const address: IAddress = new Address("ahhahhahhaha")
