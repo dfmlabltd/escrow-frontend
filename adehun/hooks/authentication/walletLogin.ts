@@ -6,8 +6,9 @@ import {
   API_ENDPOINT,
   LOGIN_WITH_WALLET_ENDPOINT,
 } from "../../utils/constants";
+import { setAccessToken, setRefreshToken } from "../../utils/helpers";
 
-export const useWalletLogin = () => {
+const useWalletLogin = () => {
   const [address, setAddress] = useState<IAddress>(new Address("", true));
 
   const [error, setError] = useState<string>("");
@@ -16,23 +17,27 @@ export const useWalletLogin = () => {
 
   const handleLogin = useCallback(async () => {
     try {
-      let response = await axios.post(
-        API_ENDPOINT + LOGIN_WITH_WALLET_ENDPOINT,
-        {
-          address: address.toString(),
-        }
-      );
+      const getSecret = await axios.post(LOGIN_WITH_WALLET_ENDPOINT, {
+        address: address.toString(),
+      });
 
-      const secret: string = response.data.secret;
+      const { secret } = getSecret.data;
 
       // do metamask signature here
 
       const signature: string = "";
 
-      response = await axios.post(API_ENDPOINT + LOGIN_WITH_WALLET_ENDPOINT, {
-        secret,
-        signature,
-      });
+      const getToken = await axios.post(
+        API_ENDPOINT + LOGIN_WITH_WALLET_ENDPOINT,
+        {
+          secret,
+          signature,
+        }
+      );
+
+      const { access_token, refresh_token } = getToken.data;
+      setAccessToken(access_token);
+      setRefreshToken(refresh_token);
 
       router.push("/dashboard/");
     } catch (e: any) {
@@ -49,5 +54,7 @@ export const useWalletLogin = () => {
     }
   };
 
-  return [address.toString, error, handleAddress, handleLogin];
+  return { address: address.toString(), error, handleAddress, handleLogin };
 };
+
+export default useWalletLogin;
