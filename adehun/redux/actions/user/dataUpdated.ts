@@ -4,7 +4,7 @@ import IUserAction from "./interface";
 
 const userDataUpdated = (payload: IUser): IUserAction => {
   return {
-    action: USER_DATA_UPDATED,
+    type: USER_DATA_UPDATED,
     payload: payload,
   };
 };

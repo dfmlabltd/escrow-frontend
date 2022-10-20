@@ -1,6 +1,7 @@
+import { AnyAction } from "@reduxjs/toolkit";
 import { IUser } from "../../../interface/user";
 
-export default interface IUserAction {
+export default interface IUserAction extends AnyAction {
   payload: IUser;
-  action: string;
+  type: string;
 }

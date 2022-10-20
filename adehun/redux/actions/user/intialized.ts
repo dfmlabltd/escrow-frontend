@@ -4,7 +4,7 @@ import IUserAction from "./interface";
 
 const userInitialized = (payload: IUser): IUserAction => {
   return {
-    action: USER_INITIALIZED,
+    type: USER_INITIALIZED,
     payload: payload,
   };
 };

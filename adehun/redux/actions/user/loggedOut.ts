@@ -4,7 +4,7 @@ import IUserAction from "./interface";
 
 const userLoggedOut = (payload: IUser): IUserAction => {
   return {
-    action: USER_LOGGED_OUT,
+    type: USER_LOGGED_OUT,
     payload: payload,
   };
 };

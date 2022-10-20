@@ -4,7 +4,7 @@ import IUserAction from "./interface";
 
 const userEmailVerified = (payload: IUser): IUserAction => {
   return {
-    action: USER_EMAIL_VERIFIED,
+    type: USER_EMAIL_VERIFIED,
     payload: payload,
   };
 };
