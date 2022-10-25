@@ -4,9 +4,26 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Stylesheet -->
+    <meta
+      name="viewport"
+      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <!-- ===============================================-->
+    <!--  Favicons  -->
+    <!-- ===============================================-->
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="assets/img/favicons/favicon.png"
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <!-- ===============================================-->
+    <!--  Stylesheets  -->
+    <!-- ===============================================-->
     <link rel="stylesheet" href="./public/style/style.css" />
-    <!-- Tittle -->
+    <!-- ===============================================-->
+    <!--  Title  -->
+    <!-- ===============================================-->
     <title>ADEHUN</title>
   </head>
   <body>
@@ -36,7 +53,7 @@
                 </div>
                 <!-- Nav Links starts here -->
                 <ul
-                  class="flex justify-between items-center text-white gap-3 h-[52px] bg-gray-400/5 px-2 border-none py-2 box-border navlinks"
+                  class="hidden md:flex justify-between items-center text-white gap-3 h-[52px] bg-gray-400/5 px-2 border-none py-2 box-border navlinks"
                   aria-labelledby="Menu-bar"
                 >
                   <!-- Links -->
@@ -89,7 +106,8 @@
                   <button
                     class="bg-gray-400/5 h-[52px] pl-4 pr-2 flex items-center flex-row py-4 rounded-[40px] text-white justify-center gap-4 box-border navBtnIcon"
                     aria-label="Create Contract"
-                    >Create Contract
+                  >
+                    Create Contract
                     <!-- Button Icon -->
                     <div
                       class="bg-gray-400/10 rounded-full box-border w-[40px] h-[40px] flex justify-center items-center btnIconInner"
@@ -118,12 +136,12 @@
                 aria-labelledby="Hero Section"
               >
                 <!-- Hero Section Wrapper -->
-                <div class="grid grid-cols-2">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-24 md:gap-y-0 gap-x-0 md:gap-x-8">
                   <!-- Hero Section Content -->
                   <div class="text-white flex flex-col gap-6 max-w-md">
                     <!-- Title content -->
                     <h1
-                      class="text-7xl font-extrabold leading-[5rem] tracking-wider"
+                      class="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-loose md:leading-[5rem] tracking-wider"
                     >
                       Decentralized <br />
                       Escrow For <br />
@@ -136,21 +154,23 @@
                       peer-to-peer crypto payments.
                     </p>
                     <!-- Hero Button starts here -->
-                    <p class="text-sm flex flex-row gap-2 mt-6 heroBtn">
+                    <p class="text-sm flex flex-col md:flex-row gap-2 mt-6 heroBtn">
                       <!-- Hero Button -->
                       <button
                         class="bg-gray-400/5 px-6 flex items-center py-4 rounded-[40px] text-white justify-center box-border"
-                        >Create An Account</button
                       >
+                        Create An Account
+                      </button>
                       <!-- Hero Button -->
                       <button
                         class="bg-none px-6 flex items-center py-4 rounded-[40px] text-white justify-center box-border"
-                        >Create Contract</button
                       >
+                        Create Contract
+                      </button>
                     </p>
                   </div>
                   <!-- Hero Section Image -->
-                  <div class="relative w-[630px] -top-7">
+                  <div class="relative w-full md:w-[630px] -top-7">
                     <img
                       src="./public/assets/fluid_like_shape_1809.png"
                       alt="Adehun Fluid picture"
@@ -168,13 +188,13 @@
             >
               <div class="container z-50">
                 <!-- Hero Section Base Wrapper -->
-                <div class="grid grid-cols-2 items-center">
+                <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-y-24 md:gap-y-0 gap-x-0 md:gap-x-8">
                   <!-- Hero Section Base Content -->
                   <div class="text-white flex flex-col gap-6 max-w-md">
                     <!-- Title content -->
-                    <h2 class="text-4xl font-bold tracking-wider"
-                      >A trustless escrow experience</h2
-                    >
+                    <h2 class="text-4xl font-bold tracking-wider">
+                      A trustless escrow experience
+                    </h2>
                     <!-- Paragraph content -->
                     <p class="text-sm leading-normal">
                       A decentralized approach to protect freelancers, shoppers
@@ -185,12 +205,13 @@
                       <!-- Hero Button -->
                       <button
                         class="bg-gray-400/5 px-6 flex items-center py-4 rounded-[40px] text-white justify-center box-border"
-                        >Create An Account</button
                       >
+                        Create An Account
+                      </button>
                     </p>
                   </div>
                   <!-- Hero Section Base Image -->
-                  <div class="flex justify-end">
+                  <div class="flex md:justify-center justify-end">
                     <img
                       src="./public/assets/image 127.png"
                       alt="Trustless experience"
@@ -200,12 +221,14 @@
                 </div>
               </div>
               <!-- Hero Background -->
-              <div class="w-full absolute bottom-16">
-                <img
-                  src="./public/assets/Group 38644.png"
-                  alt=""
-                  class="w-full h-fit object-contain"
-                />
+              <div class="w-full absolute bottom-0">
+                <div class="relative">
+                  <img
+                    src="./public/assets/Group 38644.png"
+                    alt=""
+                    class="w-full relative bottom-8 object-contain z-0"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -221,34 +244,35 @@
             <!-- Features Container -->
             <div class="container">
               <!-- Feature Wrapper -->
-              <div class="grid grid-cols-10">
+              <div class="grid grid-cols-1 md:grid-cols-10 gap-y-24 md:gap-y-0">
                 <!-- Feature Main -->
                 <div
-                  class="col-span-3 flex flex-col"
+                  class="col-span-1 md:col-span-3 flex flex-col"
                   aria-labelledby="Leveraging blockchain"
                 >
                   <div class="max-w-sm flex flex-col gap-4">
                     <!-- Feature Title -->
-                    <h2 class="text-4xl font-bold tracking-wider text-white"
-                      >Leveraging blockchain for payment & dispute reolution</h2
-                    >
+                    <h2 class="text-4xl font-bold tracking-wider text-white">
+                      Leveraging blockchain for payment & dispute reolution
+                    </h2>
                     <!-- Button starts here -->
                     <p class="text-sm flex flex-row gap-2 mt-8 featureBtn">
                       <!-- Explore Feature Button -->
                       <button
                         class="bg-transparent px-12 flex items-center py-3 rounded-[40px] text-white justify-center box-border border border-white"
                         aria-label="Explore Feature"
-                        >Explore All</button
                       >
+                        Explore All
+                      </button>
                     </p>
                   </div>
                 </div>
                 <!-- Features List card wrapper -->
-                <div class="col-span-6 col-start-5 text-white">
-                  <div class="grid grid-cols-2 gap-x-16 gap-y-32 featureList">
+                <div class="col-span-1 md:col-span-6 md:col-start-5 text-white">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-16 gap-y-32 featureList">
                     <!-- Features list card -->
                     <div
-                      class="w-11/12 flex flex-col gap-3"
+                      class="w-full md:w-11/12 flex flex-col gap-3"
                       aria-labelledby="Simple Escrow"
                     >
                       <!-- Image -->
@@ -267,7 +291,7 @@
                     </div>
                     <!-- Features list card -->
                     <div
-                      class="w-11/12 flex flex-col gap-3"
+                      class="w-full md:w-11/12 flex flex-col gap-3"
                       aria-labelledby="Multi Client Escrow"
                     >
                       <!-- Image -->
@@ -286,7 +310,7 @@
                     </div>
                     <!-- Features list card -->
                     <div
-                      class="w-11/12 flex flex-col gap-3"
+                      class="w-full md:w-11/12 flex flex-col gap-3"
                       aria-labelledby="Multi Contractor Escrow"
                     >
                       <!-- Image -->
@@ -305,7 +329,7 @@
                     </div>
                     <!-- Features list card -->
                     <div
-                      class="w-11/12 flex flex-col gap-3"
+                      class="w-full md:w-11/12 flex flex-col gap-3"
                       aria-labelledby="Decentralized Legal System"
                     >
                       <!-- Image -->
@@ -334,19 +358,19 @@
           <div class="bg-dark pt-20 pb-32 relative">
             <!-- Developers tools Container -->
             <div class="container">
-              <div class="grid grid-cols-2 items-center">
+              <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-y-24 md:gap-y-0 md:gap-x-6">
                 <!-- Developers tools Content -->
                 <div class="text-white flex flex-col gap-6 max-w-md">
                   <!-- Base -->
-                  <div class="text-xs font-bold"
-                    ><span class="text-secondary uppercase"
+                  <div class="text-xs font-bold">
+                    <span class="text-secondary uppercase"
                       >Developers Tools</span
-                    ></div
-                  >
+                    >
+                  </div>
                   <!-- Title -->
-                  <h2 class="text-4xl font-bold tracking-wider"
-                    >Integrate adehun into your apps</h2
-                  >
+                  <h2 class="text-4xl font-bold tracking-wider">
+                    Integrate adehun into your apps
+                  </h2>
                   <!-- Paragraph -->
                   <p class="text-sm leading-loose">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -356,7 +380,7 @@
                   </p>
                 </div>
                 <!-- Developers tools Image -->
-                <div class="flex justify-end">
+                <div class="flex justify-center md:justify-end">
                   <img
                     src="./public/assets/image 125.png"
                     alt="Developers Tool"
@@ -373,9 +397,9 @@
           <div class="bg-dark py-20 relative">
             <!-- Use Cases Container -->
             <div class="container">
-              <div class="grid grid-cols-2 items-center">
+              <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-y-24 md:gap-y-0 md:gap-x-6">
                 <!-- Use Cases Image -->
-                <div class="flex justify-start">
+                <div class="flex justify-center md:justify-start order-last md:order-first">
                   <img
                     src="./public/assets/image 125.png"
                     alt="Developers Tool"
@@ -384,16 +408,16 @@
                 </div>
                 <!-- Use Cases Scroll Text -->
                 <div
-                  class="relative w-full h-full flex items-center justify-end"
+                  class="relative w-full h-full flex items-center justify-start md:justify-end"
                 >
                   <div class="flex flex-col max-h-[190px] overflow-y-auto">
                     <div class="text-white flex flex-col gap-4 max-w-md">
                       <!-- Icon -->
                       <div></div>
                       <!-- Title -->
-                      <h2 class="text-4xl font-bold tracking-wider"
-                        >Escrow Payment</h2
-                      >
+                      <h2 class="text-4xl font-bold tracking-wider">
+                        Escrow Payment
+                      </h2>
                       <!-- Paragraph -->
                       <p class="text-sm leading-loose">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -416,23 +440,22 @@
             <!-- Supported Chain Container -->
             <div class="container">
               <div
-                class="grid grid-cols-2 items-center pb-28 border-b border-gray-50/10"
+                class="grid grid-cols-1 md:grid-cols-2 items-center pb-28 border-b border-gray-50/10 gap-y-24 md:gap-y-0 md:gap-x-6"
               >
                 <!-- Supported Chain Content -->
                 <div class="text-white flex flex-col gap-6 max-w-md">
                   <!-- Title -->
-                  <h2 class="text-4xl font-bold tracking-wider"
-                    >The Largest Choice to fit perfectly with your web3
-                    business</h2
-                  >
+                  <h2 class="text-4xl font-bold tracking-wider">
+                    The Largest Choice to fit perfectly with your web3 business
+                  </h2>
                   <!-- Paragraph -->
-                  <p class="text-sm leading-loose"
-                    >Supports Stable And Non-stable coins, CUSD, CEUR, CELO,
-                    USDT, BNB, BUSD, MATIC Etc.</p
-                  >
+                  <p class="text-sm leading-loose">
+                    Supports Stable And Non-stable coins, CUSD, CEUR, CELO,
+                    USDT, BNB, BUSD, MATIC Etc.
+                  </p>
                 </div>
                 <!-- Developers tools Image -->
-                <div class="flex justify-end">
+                <div class="flex justify-center md:justify-end">
                   <img
                     src="./public/assets/image 125.png"
                     alt="Developers Tool"
@@ -451,9 +474,9 @@
             <div class="container">
               <!-- Section title -->
               <div class="text-white flex flex-col justify-center text-center">
-                <h2 class="text-4xl font-bold tracking-wider"
-                  >Trusted by exclusive partner</h2
-                >
+                <h2 class="text-4xl font-bold tracking-wider">
+                  Trusted by exclusive partner
+                </h2>
               </div>
               <!-- Trusted partner image wrapper -->
               <div class="overflow-x-auto" id="trustedPartnerWrapper">
@@ -515,14 +538,14 @@
                     class="text-dark flex flex-col justify-center text-center"
                   >
                     <!-- title -->
-                    <h2 class="text-4xl font-bold tracking-wider"
-                      >Why users love adehun</h2
-                    >
+                    <h2 class="text-4xl font-bold tracking-wider">
+                      Why users love adehun
+                    </h2>
                   </div>
                 </div>
                 <!-- Review card wrapper -->
                 <div
-                  class="flex flex-col justify-between items-center py-4 md:flex-row md:space-x-8"
+                  class="flex flex-col justify-between items-center py-4 md:flex-row space-x-0 gap-y-6 md:space-y-0 md:space-x-8"
                 >
                   <!-- Review card -->
                   <div
@@ -592,39 +615,41 @@
             <div class="container">
               <!-- Newsletter wrapper -->
               <div
-                class="bg-secondary px-20 py-16 rounded-[2rem] relative -top-20"
+                class="bg-secondary px-6 md:px-20 py-16 rounded-[2rem] relative -top-20"
               >
                 <!-- Newsletter -->
                 <div
-                  class="grid md:grid-cols-5 gap-y-10 md:gap-y-0 items-center"
+                  class="grid grid-cols-1 md:grid-cols-5 gap-y-10 md:gap-y-0 md:gap-x-4 items-center"
                 >
                   <div
-                    class="flex flex-col md:col-span-3 text-white max-w-sm gap-y-4"
+                    class="flex flex-col col-span-1 md:col-span-3 text-white max-w-sm gap-y-4"
                   >
                     <!-- text -->
                     <h3
                       class="text-2xl tracking-wide leading-[1.8] font-semibold"
-                      >Let's make your smart contract and increase the efficency
-                      of your businees. lorem</h3
                     >
+                      Let's make your smart contract and increase the efficency
+                      of your businees. lorem
+                    </h3>
                   </div>
-                  <div class="flex flex-col md:col-span-2">
+                  <div class="flex flex-col col-span-1 md:col-span-2">
                     <!-- newsletter input -->
                     <!-- text -->
-                    <h2 class="text-lg font-normal tracking-wide text-white"
-                      >Subscribe to mailing list</h2
-                    >
+                    <h2 class="text-lg font-normal tracking-wide text-white">
+                      Subscribe to mailing list
+                    </h2>
                     <!-- input -->
                     <div class="flex flex-row mt-6 relative">
                       <input
                         type="text"
-                        class="text-sm flex-1 bg-transparent border h-[52px] py-4 border-gray-200/40 rounded-full px-8 outline-none text-white"
+                        class="text-sm flex-1 max-w-full bg-transparent border h-[52px] py-4 border-gray-200/40 rounded-full px-8 outline-none text-white"
                         placeholder="Enter your email address"
                       />
                       <button
                         class="bg-dark w-18 h-[52px] pl-4 pr-2 flex items-center flex-row py-4 rounded-[40px] text-white justify-center gap-4 box-border absolute right-0"
                         aria-label="Create Contract"
-                        >Submit
+                      >
+                        Submit
                         <!-- Button Icon -->
                         <div
                           class="bg-gray-400/10 rounded-full box-border w-[40px] h-[40px] flex justify-center items-center btnIconInner"
@@ -662,19 +687,19 @@
             <div class="container">
               <!-- footer wrapper -->
               <div class="relative">
-                <div class="grid grid-cols-4 space-x-16">
+                <div class="grid sm:grid-cols-2 md:grid-cols-4 space-x-0 space-y-16 md:space-y-0 md:space-x-16">
                   <!-- footer column -->
-                  <div class="flex flex-col gap-6 text-white">
+                  <div class="flex flex-col gap-6 text-white sm:col-span-2 md:col-span-1">
                     <!-- footer logo -->
                     <img
                       src="./public/assets/Logo/Group 37467.png"
                       alt="Adehun footer logo"
                       class="w-8 object-contain"
                     />
-                    <p class="text-sm"
-                      >if you have a question, please contact at
-                      <span class="underline">hello@adehun.com</span></p
-                    >
+                    <p class="text-sm">
+                      if you have a question, please contact at
+                      <span class="underline">hello@adehun.com</span>
+                    </p>
                     <div>
                       <span class="text-base">Follow Us On</span>
                       <div class="flex flex-row gap-x-3 mt-2">

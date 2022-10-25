@@ -34,8 +34,10 @@ body {
 .heroBtn > button:hover {
   @apply bg-secondary transition duration-150 ease-out hover:ease-in;
 }
-.featureList > div:nth-child(even) {
-  margin-left: 8.333333%;
+@media (min-width: 480px) {
+  .featureList > div:nth-child(even) {
+    margin-left: 8.333333%;
+  }
 }
 .shadow_primary {
   box-shadow: rgba(50, 50, 93, 0.1) 0px 50px 100px -20px,
