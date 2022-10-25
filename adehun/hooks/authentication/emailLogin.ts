@@ -22,6 +22,7 @@ export const useEmailLogin = () => {
         email: email.toString(),
       });
       sessionStorage.setItem(CURRENT_USER_EMAIL, email.toString());
+      setError("");
       router.push("/email/verify/");
     } catch (e: any) {
       setError(e.response.data.details);
@@ -31,12 +32,13 @@ export const useEmailLogin = () => {
   const handleEmail = (email: string): void => {
     try {
       setEmail(new Email(email));
+      setError("");
     } catch (error) {
       setError("invalid email address");
     }
   };
 
-  return [email.toString, error, handleEmail, handleLogin];
+  return { email: email, error, handleEmail, handleLogin };
 };
 
 export const useEmailLoginVerify = () => {
@@ -56,6 +58,7 @@ export const useEmailLoginVerify = () => {
       const { access_token, refresh_token } = getToken.data;
       setAccessToken(access_token);
       setRefreshToken(refresh_token);
+      setError("");
 
       router.push("/dashboard/");
     } catch (e: any) {
