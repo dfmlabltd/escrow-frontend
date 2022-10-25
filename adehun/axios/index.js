@@ -1,3 +1,4 @@
 import interceptor from "./interceptors";
 import axios from "axios";
-interceptor(axios);
+const customAxios = interceptor(axios.create());
+export default customAxios;
