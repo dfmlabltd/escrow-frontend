@@ -7,10 +7,7 @@ import axios, {
   AxiosResponse,
 } from "axios";
 import { refreshAccessToken } from "../../utils/helpers";
-
-interface CustomAxiosRequestConfig extends Omit<AxiosRequestConfig, "headers"> {
-  headers?: any;
-}
+import { CustomAxiosRequestConfig } from "../interceptors";
 
 interface CustomRetryAxiosRequestConfig
   extends Omit<AxiosRequestConfig, "headers"> {
@@ -20,8 +17,10 @@ interface CustomRetryAxiosRequestConfig
 
 const onRequest = (config: CustomAxiosRequestConfig): AxiosRequestConfig => {
   config.baseURL = API_ENDPOINT;
-  config.headers.common["Accept"] = "application/json";
-  config.headers.common["Content-Type"] = "application/json";
+  config.headers = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
   return config;
 };
 
@@ -45,11 +44,13 @@ const onResponseError = async (error: AxiosError): Promise<AxiosError> => {
   }
   originalRequest._retry = true;
   const access_token: string = await refreshAccessToken();
-  originalRequest.headers.common["Authorization"] = "Bearer " + access_token;
+  originalRequest.headers["Authorization"] = "Bearer " + access_token;
   return axios(originalRequest);
 };
 
-export default function interceptor(axiosInstance: AxiosInstance): AxiosInstance {
+export default function interceptor(
+  axiosInstance: AxiosInstance
+): AxiosInstance {
   axiosInstance.interceptors.request.use(onRequest, onRequestError);
   axiosInstance.interceptors.response.use(onResponse, onResponseError);
   return axiosInstance;

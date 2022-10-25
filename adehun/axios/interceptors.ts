@@ -7,20 +7,17 @@ import {
   AxiosResponse,
 } from "axios";
 
-interface CustomAxiosRequestConfig extends Omit<AxiosRequestConfig, "headers"> {
-  headers?: any;
-}
-
-interface CustomRetryAxiosRequestConfig
+export interface CustomAxiosRequestConfig
   extends Omit<AxiosRequestConfig, "headers"> {
-  _retry?: boolean;
   headers?: any;
 }
 
 const onRequest = (config: CustomAxiosRequestConfig): AxiosRequestConfig => {
   config.baseURL = API_ENDPOINT;
-  config.headers.common["Accept"] = "application/json";
-  config.headers.common["Content-Type"] = "application/json";
+  config.headers = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
   return config;
 };
 
