@@ -1,6 +1,6 @@
 export const AUTH_ACCESS_TOKEN: string = "auth_access_token";
 export const AUTH_REFRESH_TOKEN: string = "auth_refresh_token";
-export const TOKEN_REFRESH_INTERVAL: number = 60 * 5; // 5 minutes
+export const TOKEN_REFRESH_INTERVAL: number = 60 * 5 * 1000; // 5 minutes
 export const CURRENT_USER_EMAIL: string = "current_user_email";
 // endpoints
 export const API_ENDPOINT: string = "http://localhost:8000";

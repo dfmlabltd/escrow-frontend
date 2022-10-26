@@ -1,60 +1,95 @@
-import axios from "axios";
 import { useRouter } from "next/router";
-import { useCallback, useState } from "react";
-import { IAddress, Address } from "../../interface/address";
+import { useCallback, useEffect, useState } from "react";
+import { useSignMessage, useAccount } from "wagmi";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+
 import {
+  ACCESS_TOKEN_ENDPOINT,
   API_ENDPOINT,
   LOGIN_WITH_WALLET_ENDPOINT,
 } from "../../utils/constants";
 import { setAccessToken, setRefreshToken } from "../../utils/helpers";
+import customAxios from "../../axios";
 
 const useWalletLogin = () => {
-  const [address, setAddress] = useState<IAddress>(new Address("", true));
+  const { address, isConnected } = useAccount();
 
   const [error, setError] = useState<string>("");
 
+  const { openConnectModal } = useConnectModal();
+
+  const [secretCache, setSecretCache] = useState<string>("");
+
   const router = useRouter();
 
-  const handleLogin = useCallback(async () => {
+  const { data, signMessage, isSuccess } = useSignMessage({
+    message: secretCache,
+  });
+
+  const [isSignatureReady, setSignatureReady] = useState<boolean>(false);
+
+  const [isReady, setIsReady] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isReady && isConnected) {
+      handleSignHelper();
+      setIsReady(() => false);
+    }
+  }, [isReady, isConnected]);
+
+  useEffect(() => {
+    if (isSignatureReady && isSuccess) {
+      handleLoginHelper();
+      setSignatureReady(() => false);
+    }
+  }, [isSignatureReady, isSuccess]);
+
+  useEffect(() => {
+    if (secretCache != "") {
+      signMessage();
+      setSignatureReady(true);
+    }
+  }, [secretCache]);
+
+  const handleSignHelper = useCallback(async () => {
     try {
-      const getSecret = await axios.post(LOGIN_WITH_WALLET_ENDPOINT, {
-        address: address.toString(),
-      });
-
-      const { secret } = getSecret.data;
-
-      // do metamask signature here
-
-      const signature: string = "";
-
-      const getToken = await axios.post(
-        API_ENDPOINT + LOGIN_WITH_WALLET_ENDPOINT,
-        {
-          secret,
-          signature,
-        }
-      );
-
-      const { access_token, refresh_token } = getToken.data;
-      setAccessToken(access_token);
-      setRefreshToken(refresh_token);
-
-      router.push("/dashboard/");
+      customAxios
+        .post(LOGIN_WITH_WALLET_ENDPOINT, {
+          address,
+        })
+        .then((response) => {
+          const { secret } = response.data;
+          setSecretCache(secret);
+        });
     } catch (e: any) {
-      setError(e.response.data.details);
+      setError(e.message);
       return;
     }
-  }, [address]);
+  }, [address, signMessage]);
 
-  const handleAddress = (address: string): void => {
-    try {
-      setAddress(new Address(address));
-    } catch (error) {
-      setError("invalid email address");
+  const handleLoginHelper = useCallback(() => {
+    customAxios
+      .post(ACCESS_TOKEN_ENDPOINT, {
+        email: data,
+        password: secretCache,
+      })
+      .then((response) => {
+        const { access, refresh } = response.data;
+        setAccessToken(access);
+        setRefreshToken(refresh);
+        router.push("/dashboard/");
+      });
+  }, [data, secretCache]);
+
+  const handleLogin = useCallback(() => {
+    console.log("attempting to login");
+    if (!isConnected) {
+      openConnectModal?.();
     }
-  };
+    setIsReady(true);
+  }, [isConnected, openConnectModal]);
 
-  return { address: address.toString(), error, handleAddress, handleLogin };
+  return { address, error, handleLogin };
 };
 
 export default useWalletLogin;

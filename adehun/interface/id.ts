@@ -1,7 +1,7 @@
 import assert from "assert";
 
 export interface IIdentifier {
-  toNumber(): number;
+  toString(): string;
 }
 
 export class Identifier implements IIdentifier {
@@ -12,12 +12,11 @@ export class Identifier implements IIdentifier {
   }
 
   private fromNumber = (id: number): void => {
-    assert(id > 0, "invalid address");
+    assert(id >= 0, "invalid number");
     this.id = id;
   };
 
-  toNumber = (): number => {
-    return this.id;
+  toString = (): string => {
+    return this.id.toString();
   };
-
 }

@@ -15,9 +15,7 @@ const useToken = () => {
       return () => {
         clearInterval(interval);
       };
-    } catch (error) {
-      router.push("/login");
-    }
+    } catch (error) {}
   });
 };
 

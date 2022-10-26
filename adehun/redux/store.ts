@@ -1,10 +1,9 @@
-
-import { combineReducers } from "redux";
-import { tokenReducer, userReducer } from "./reducers";
-
-const reducers = combineReducers({
-  user: userReducer,
-  token: tokenReducer
+import { configureStore } from "@reduxjs/toolkit";
+import reducers from "./reducers";
+// ...
+const store = configureStore({
+  reducer: reducers,
 });
+export type RootState = ReturnType<typeof store.getState>;
 
-export default reducers;
+export default store;

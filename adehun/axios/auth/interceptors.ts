@@ -1,4 +1,4 @@
-import { API_ENDPOINT } from "../../utils/constants";
+import { API_ENDPOINT, REFRESH_TOKEN_ENDPOINT } from "../../utils/constants";
 
 import axios, {
   AxiosError,
@@ -6,7 +6,7 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
 } from "axios";
-import { refreshAccessToken } from "../../utils/helpers";
+import { getAccessToken, refreshAccessToken } from "../../utils/helpers";
 import { CustomAxiosRequestConfig } from "../interceptors";
 
 interface CustomRetryAxiosRequestConfig
@@ -16,10 +16,13 @@ interface CustomRetryAxiosRequestConfig
 }
 
 const onRequest = (config: CustomAxiosRequestConfig): AxiosRequestConfig => {
+  const access_token: string | null = getAccessToken();
+
   config.baseURL = API_ENDPOINT;
   config.headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
+    Authorization: "Bearer " + access_token,
   };
   return config;
 };
@@ -37,11 +40,12 @@ const onResponseError = async (error: AxiosError): Promise<AxiosError> => {
     error?.config;
   if (
     originalRequest === undefined ||
-    error.response?.status !== 403 ||
+    error.response?.status !== 401 ||
     originalRequest._retry
   ) {
     return Promise.reject(error);
   }
+
   originalRequest._retry = true;
   const access_token: string = await refreshAccessToken();
   originalRequest.headers["Authorization"] = "Bearer " + access_token;

@@ -1,12 +1,12 @@
+import { AnyAction } from "@reduxjs/toolkit";
 import produce from "immer";
 import { Identifier } from "../../interface/id";
 import { IUser } from "../../interface/user";
 import * as actions from "../actions/user/constants";
-import IUserAction from "../actions/user/interface";
 
 export default function userReducer(
   state: IUser,
-  { action, payload }: IUserAction
+  { action, payload }: AnyAction
 ): IUser {
   switch (action) {
     case actions.USER_INITIALIZED:
@@ -19,7 +19,7 @@ export default function userReducer(
       });
     default:
       return {
-        id: new Identifier(0),
+        id: 0,
         is_active: false,
       };
   }

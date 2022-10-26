@@ -7,27 +7,21 @@ import IState from "../../redux/istore";
 import { USER_PROFILE_ENDPOINT } from "../../utils/constants";
 
 const useProfile = () => {
-  const [error, setError] = useState<string>();
+  const [error, setError] = useState<string>("");
 
   const user = useSelector<IState>((state) => state.user);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    getProfile();
-  }, []);
-
   const getProfile = useCallback(async () => {
-    try {
-      const { data } = await authAxios.get(USER_PROFILE_ENDPOINT);
-      const user: IUser = data;
-      dispatch(userAction.userInitialized(user));
-    } catch (e: any) {
-      setError(e.response.data.details);
-    }
+    const { data } = await authAxios.get(USER_PROFILE_ENDPOINT);
+    const user: IUser = data;
+    dispatch(userAction.userInitialized(user));
+
+    return true;
   }, [dispatch]);
 
-  return { user, error, getProfile };
+  return { error, getProfile };
 };
 
 export default useProfile;

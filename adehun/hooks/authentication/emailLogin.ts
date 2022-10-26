@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { IEmail, Email } from "../../interface/email";
@@ -9,6 +8,7 @@ import {
   LOGIN_WITH_EMAIL_ENDPOINT,
 } from "../../utils/constants";
 import { setAccessToken, setRefreshToken } from "../../utils/helpers";
+import useToast from "../toast";
 
 export const useEmailLogin = () => {
   const [email, setEmail] = useState<IEmail>(new Email("", true));
@@ -19,6 +19,8 @@ export const useEmailLogin = () => {
 
   const router = useRouter();
 
+  const toast = useToast();
+
   const handleLogin = useCallback(async () => {
     try {
       await customAxios.post(LOGIN_WITH_EMAIL_ENDPOINT, {
@@ -26,10 +28,14 @@ export const useEmailLogin = () => {
       });
       sessionStorage.setItem(CURRENT_USER_EMAIL, email.toString());
       setLoginError("");
-      router.push("/email/verify/");
+
+      router.push("/login/verify/");
     } catch (e: any) {
-      console.log(e);
       setLoginError(e);
+      toast.fire({
+        icon: "error",
+        title: "an error occurred",
+      });
     }
   }, [email]);
 
@@ -64,6 +70,8 @@ export const useEmailLoginVerify = () => {
 
   const router = useRouter();
 
+  const toast = useToast();
+
   useEffect(() => {
     if (code.length > 10) {
       setError("");
@@ -83,12 +91,19 @@ export const useEmailLoginVerify = () => {
       setAccessToken(access);
       setRefreshToken(refresh);
       setVerificationError("");
-
+      toast.fire({
+        icon: "success",
+        title: "otp validated!",
+      });
       router.push("/dashboard/");
     } catch (e: any) {
       setVerificationError(e);
+      toast.fire({
+        icon: "error",
+        title: "invalid token!",
+      });
     }
-  }, [code]);
+  }, [code, toast]);
 
   return {
     code,
