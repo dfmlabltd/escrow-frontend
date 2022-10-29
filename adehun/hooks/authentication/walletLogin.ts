@@ -7,14 +7,19 @@ import {
   ACCESS_TOKEN_ENDPOINT,
   API_ENDPOINT,
   LOGIN_WITH_WALLET_ENDPOINT,
+  REDIRECT_TO_AFTER,
 } from "../../utils/constants";
 import { setAccessToken, setRefreshToken } from "../../utils/helpers";
 import customAxios from "../../axios";
+import useToast from "../toast";
+import useLoading from "../loading";
 
 const useWalletLogin = () => {
   const { address, isConnected } = useAccount();
 
   const [error, setError] = useState<string>("");
+
+  const { isLoading, startLoading, stopLoading } = useLoading();
 
   const { openConnectModal } = useConnectModal();
 
@@ -22,7 +27,9 @@ const useWalletLogin = () => {
 
   const router = useRouter();
 
-  const { data, signMessage, isSuccess } = useSignMessage({
+  const { persistentToast, toast } = useToast();
+
+  const { data, signMessage, isSuccess, isError } = useSignMessage({
     message: secretCache,
   });
 
@@ -31,9 +38,25 @@ const useWalletLogin = () => {
   const [isReady, setIsReady] = useState<boolean>(false);
 
   useEffect(() => {
+    if (isError) {
+      toast.fire({
+        icon: "error",
+        title: "signing error occured",
+      });
+      return () => {
+        toast.close();
+      };
+    }
+  }, [isError]);
+
+  useEffect(() => {
     if (isReady && isConnected) {
       handleSignHelper();
       setIsReady(() => false);
+      persistentToast.fire({
+        icon: "info",
+        title: "check your wallet for signing request",
+      });
     }
   }, [isReady, isConnected]);
 
@@ -52,19 +75,20 @@ const useWalletLogin = () => {
   }, [secretCache]);
 
   const handleSignHelper = useCallback(async () => {
-    try {
-      customAxios
-        .post(LOGIN_WITH_WALLET_ENDPOINT, {
-          address,
-        })
-        .then((response) => {
-          const { secret } = response.data;
-          setSecretCache(secret);
+    customAxios
+      .post(LOGIN_WITH_WALLET_ENDPOINT, {
+        address,
+      })
+      .then((response) => {
+        const { secret } = response.data;
+        setSecretCache(secret);
+      })
+      .catch(() => {
+        toast.fire({
+          icon: "error",
+          title: "error occured, try again!",
         });
-    } catch (e: any) {
-      setError(e.message);
-      return;
-    }
+      });
   }, [address, signMessage]);
 
   const handleLoginHelper = useCallback(() => {
@@ -77,12 +101,18 @@ const useWalletLogin = () => {
         const { access, refresh } = response.data;
         setAccessToken(access);
         setRefreshToken(refresh);
-        router.push("/dashboard/");
+        router.push(sessionStorage.getItem(REDIRECT_TO_AFTER) ?? "/dashboard");
+      })
+      .catch(() => {
+        toast.fire({
+          icon: "error",
+          title: "invalid signature, try again!",
+        });
       });
   }, [data, secretCache]);
 
   const handleLogin = useCallback(() => {
-    console.log("attempting to login");
+    console.log(isConnected);
     if (!isConnected) {
       openConnectModal?.();
     }

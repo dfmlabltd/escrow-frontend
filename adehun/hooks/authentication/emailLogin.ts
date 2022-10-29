@@ -6,6 +6,7 @@ import {
   ACCESS_TOKEN_ENDPOINT,
   CURRENT_USER_EMAIL,
   LOGIN_WITH_EMAIL_ENDPOINT,
+  REDIRECT_TO_AFTER,
 } from "../../utils/constants";
 import { setAccessToken, setRefreshToken } from "../../utils/helpers";
 import useToast from "../toast";
@@ -19,7 +20,7 @@ export const useEmailLogin = () => {
 
   const router = useRouter();
 
-  const toast = useToast();
+  const { toast } = useToast();
 
   const handleLogin = useCallback(async () => {
     try {
@@ -70,7 +71,7 @@ export const useEmailLoginVerify = () => {
 
   const router = useRouter();
 
-  const toast = useToast();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (code.length > 10) {
@@ -95,7 +96,9 @@ export const useEmailLoginVerify = () => {
         icon: "success",
         title: "otp validated!",
       });
-      router.push("/dashboard/");
+      await router.push(
+        sessionStorage.getItem(REDIRECT_TO_AFTER) ?? "/dashboard"
+      );
     } catch (e: any) {
       setVerificationError(e);
       toast.fire({

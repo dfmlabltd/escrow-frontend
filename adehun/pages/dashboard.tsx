@@ -1,9 +1,9 @@
 import { ReactElement } from "react";
 import { NextPageWithLayout } from "../interface/page";
-import AuthMiddleware from "../middlewares/auth";
+import EmailVerifiedMiddleware from "../middlewares/emailverified";
 import "@rainbow-me/rainbowkit/styles.css";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useAccount, useSignMessage } from "wagmi";
+import { useSignMessage } from "wagmi";
 
 const DashboardPage: NextPageWithLayout = () => {
   const { data, isError, isLoading, isSuccess, signMessage } = useSignMessage({
@@ -22,7 +22,7 @@ const DashboardPage: NextPageWithLayout = () => {
 };
 
 DashboardPage.getLayout = function getLayout(page: ReactElement) {
-  return <AuthMiddleware>{page}</AuthMiddleware>;
+  return <EmailVerifiedMiddleware>{page}</EmailVerifiedMiddleware>;
 };
 
 export default DashboardPage;

@@ -4,41 +4,29 @@ import { ReactElement, useEffect, useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Label from "../../components/Label";
-import {
-  useEmailLogin,
-  useEmailLoginVerify,
-} from "../../hooks/authentication/emailLogin";
+
 import useLoading from "../../hooks/loading";
+import useSendOTK from "../../hooks/user/sendEmailOtk";
+import useVerifyEmail from "../../hooks/user/verifyEmail";
 import { NextPageWithLayout } from "../../interface/page";
 import AuthLayout from "../../layout/auth";
-import NotAuthMiddleware from "../../middlewares/notauth";
-import { CURRENT_USER_EMAIL } from "../../utils/constants";
+import EmailVerifiedMiddleware from "../../middlewares/emailverified";
 
 const EmailVerifyPage: NextPageWithLayout = () => {
-  const {
-    setCode,
-    error,
-    handleVerify,
-    verificationError,
-    setVerificationError,
-  } = useEmailLoginVerify();
-
-  const { handleEmail, handleLogin } = useEmailLogin();
+  const { setCode, verifyEmail, error } = useVerifyEmail();
 
   const [codeCache, setCodeCache] = useState<string>("");
 
   const { isLoading, startLoading, stopLoading } = useLoading();
 
+  const { sendOTK } = useSendOTK();
+
   const router = useRouter();
 
   useEffect(() => {
-    if (!sessionStorage.getItem(CURRENT_USER_EMAIL)) {
-      router.push("/login");
+    if (codeCache) {
+      setCode(codeCache);
     }
-    if (codeCache && verificationError) {
-      setVerificationError("");
-    }
-    setCode(codeCache);
   }, [codeCache]);
 
   return (
@@ -79,12 +67,12 @@ const EmailVerifyPage: NextPageWithLayout = () => {
             <Button label="Login to your Space" text="Loading..." />
           ) : (
             <Button
-              label="Login to your Space"
-              text="Login to your Space"
+              label="Verify your Email"
+              text="Verify your Email"
               onClick={async () => {
                 startLoading();
                 if (!error) {
-                  await handleVerify();
+                  await verifyEmail();
                 }
                 stopLoading();
               }}
@@ -98,17 +86,23 @@ const EmailVerifyPage: NextPageWithLayout = () => {
             <span className="text-white text-base">
               Didn't receive Any verification code? Please&nbsp;
               <span
-                onClick={() => {
-                  const current_user_email =
-                    sessionStorage.getItem(CURRENT_USER_EMAIL);
-                  if (current_user_email) {
-                    handleEmail(current_user_email);
-                    handleLogin();
-                  }
+                onClick={async () => {
+                  startLoading();
+                  await sendOTK();
+                  stopLoading();
                 }}
                 className="font-bold text-secondary"
               >
-                Resend
+                Resend&nbsp;
+              </span>
+              <span>or</span>
+              <span
+                onClick={() => {
+                  router.push("/email");
+                }}
+                className="font-bold text-secondary"
+              >
+                change email
               </span>
             </span>
           </div>
@@ -120,9 +114,9 @@ const EmailVerifyPage: NextPageWithLayout = () => {
 
 EmailVerifyPage.getLayout = function getLayout(page: ReactElement) {
   return (
-    <NotAuthMiddleware>
+    <EmailVerifiedMiddleware>
       <AuthLayout title="email verification page">{page}</AuthLayout>{" "}
-    </NotAuthMiddleware>
+    </EmailVerifiedMiddleware>
   );
 };
 

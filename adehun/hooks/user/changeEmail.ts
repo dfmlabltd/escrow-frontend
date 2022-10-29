@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import authAxios from "../../axios/auth";
@@ -11,21 +12,36 @@ const useChangeEmail = () => {
 
   const [email, setEmail] = useState<IEmail>(new Email("", true));
 
+  const router = useRouter();
+
   const dispatch = useDispatch();
+
+  const handleEmail = useCallback(
+    (email: string): void => {
+      try {
+        setEmail(new Email(email));
+        setError("");
+      } catch (error) {
+        setError("invalid email address");
+      }
+    },
+    [email]
+  );
 
   const changeEmail = useCallback(async () => {
     try {
-      const { data } = await authAxios.post(USER_EMAIL_VERIFICATION_ENDPOINT, {
-        email,
+      const { data } = await authAxios.patch(USER_EMAIL_VERIFICATION_ENDPOINT, {
+        email: email.toString(),
       });
       const user: IUser = data;
       dispatch(userAction.userDataUpdated(user));
+      router.push("/email/verify");
     } catch (e: any) {
-      setError(e.response.data.details);
+      setError(e.message);
     }
-  }, [dispatch]);
+  }, [dispatch, email]);
 
-  return { email, setEmail, error, changeEmail };
+  return { email, handleEmail, error, changeEmail };
 };
 
 export default useChangeEmail;

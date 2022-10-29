@@ -1,30 +1,25 @@
 import { Tooltip } from "flowbite-react";
 import { ReactElement, useEffect, useState } from "react";
-import Button, { GradientButton1 } from "../../components/Button";
+import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Label from "../../components/Label";
-import { useEmailLogin } from "../../hooks/authentication/emailLogin";
-import useWalletLogin from "../../hooks/authentication/walletLogin";
 import useLoading from "../../hooks/loading";
+import useChangeEmail from "../../hooks/user/changeEmail";
 import { NextPageWithLayout } from "../../interface/page";
 import AuthLayout from "../../layout/auth";
-import NotAuthMiddleware from "../../middlewares/notauth";
+import EmailVerifiedMiddleware from "../../middlewares/emailverified";
 
 const LoginPage: NextPageWithLayout = () => {
-  const { handleEmail, error, handleLogin, loginError, setLoginError } =
-    useEmailLogin();
-
   const [emailCache, setEmailCache] = useState("");
 
   const { isLoading, startLoading, stopLoading } = useLoading();
 
-  const { handleLogin: handleWalletLogin } = useWalletLogin();
+  const { handleEmail, error, changeEmail } = useChangeEmail();
 
   useEffect(() => {
-    if (emailCache && loginError) {
-      setLoginError("");
+    if (emailCache != "") {
+      handleEmail(emailCache);
     }
-    handleEmail(emailCache);
   }, [emailCache]);
   return (
     <>
@@ -65,41 +60,17 @@ const LoginPage: NextPageWithLayout = () => {
             <Button text="Loading...." label="login" />
           ) : (
             <Button
-              text="Login"
-              label="login"
+              text="Change Email"
+              label="Change Email"
               onClick={async (e) => {
                 startLoading();
                 if (!error) {
-                  await handleLogin();
+                  await changeEmail();
                 }
                 stopLoading();
               }}
             />
           )}
-        </div>
-      </div>
-      <div className="relative w-full py-1">
-        <div className="flex justify-center items-center h-12 authDivider">
-          <div className="h-full flex">
-            <p className="w-12 rounded-full flex items-center justify-center text-center bg-gray-800 z-50">
-              <span className="text-white text-sm">ok</span>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        className="flex flex-col space-y-1"
-        aria-labelledby="Alternative Sign In"
-      >
-        <div></div>
-        <div className="text-center py-3">
-          <GradientButton1
-            text="Sign in with your wallet"
-            label="Sign in with your wallet"
-            onClick={() => {
-              handleWalletLogin();
-            }}
-          />
         </div>
       </div>
     </>
@@ -108,9 +79,9 @@ const LoginPage: NextPageWithLayout = () => {
 
 LoginPage.getLayout = function getLayout(page: ReactElement) {
   return (
-    <NotAuthMiddleware>
-      <AuthLayout title="login page">{page}</AuthLayout>{" "}
-    </NotAuthMiddleware>
+    <EmailVerifiedMiddleware>
+      <AuthLayout title="change email page">{page}</AuthLayout>{" "}
+    </EmailVerifiedMiddleware>
   );
 };
 

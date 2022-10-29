@@ -48,7 +48,11 @@ const onResponseError = async (error: AxiosError): Promise<AxiosError> => {
 
   originalRequest._retry = true;
   const access_token: string = await refreshAccessToken();
-  originalRequest.headers["Authorization"] = "Bearer " + access_token;
+  originalRequest.headers = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + access_token,
+  };
   return axios(originalRequest);
 };
 

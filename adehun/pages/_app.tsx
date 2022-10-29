@@ -4,14 +4,13 @@ import { AppPropsWithLayout } from "../interface/prop";
 import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
-import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { Provider } from "react-redux";
 import store from "../redux/store";
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
-  [alchemyProvider(), publicProvider()]
+  [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({

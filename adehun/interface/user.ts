@@ -10,6 +10,7 @@ export interface IAnonymousUser {
 
 export interface IUser extends IAnonymousUser {
   readonly id: IIdentifier;
+  readonly is_email_verified: boolean;
   readonly is_active: boolean;
   readonly first_name?: IName;
   readonly last_name?: IName;
