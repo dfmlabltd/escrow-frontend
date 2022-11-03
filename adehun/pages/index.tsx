@@ -6,7 +6,7 @@ const Home: NextPage = () => {
     <div>
       {" "}
       <h1>Test Page</h1>
-      <a href="/login">click me here to start</a>
+      <Link href="/login">click me here to start</Link>
     </div>
   );
 };

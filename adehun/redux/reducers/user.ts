@@ -21,6 +21,7 @@ export default function userReducer(
       return {
         id: 0,
         is_active: false,
+        is_email_verified: false,
       };
   }
 }

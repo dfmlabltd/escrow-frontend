@@ -22,10 +22,10 @@ const LoginPage: NextPageWithLayout = () => {
 
   useEffect(() => {
     if (emailCache && loginError) {
-      setLoginError("");
+      setLoginError(() => "");
     }
     handleEmail(emailCache);
-  }, [emailCache]);
+  }, [emailCache, handleLogin, setLoginError, loginError, handleEmail]);
   return (
     <>
       <div className="flex flex-col gap-4 pt-12">

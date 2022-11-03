@@ -27,7 +27,7 @@ const EmailVerifyPage: NextPageWithLayout = () => {
     if (codeCache) {
       setCode(codeCache);
     }
-  }, [codeCache]);
+  }, [codeCache, setCode]);
 
   return (
     <>
@@ -84,7 +84,7 @@ const EmailVerifyPage: NextPageWithLayout = () => {
         <div className="flex justify-center items-center h-12">
           <div className="h-full flex">
             <span className="text-white text-base">
-              Didn't receive Any verification code? Please&nbsp;
+              Didn&apos;t receive Any verification code? Please&nbsp;
               <span
                 onClick={async () => {
                   startLoading();

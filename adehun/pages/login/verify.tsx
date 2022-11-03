@@ -36,10 +36,10 @@ const EmailVerifyPage: NextPageWithLayout = () => {
       router.push("/login");
     }
     if (codeCache && verificationError) {
-      setVerificationError("");
+      setVerificationError(() => "");
     }
     setCode(codeCache);
-  }, [codeCache]);
+  }, [codeCache, router, setCode, setVerificationError, verificationError]);
 
   return (
     <>
@@ -96,7 +96,7 @@ const EmailVerifyPage: NextPageWithLayout = () => {
         <div className="flex justify-center items-center h-12">
           <div className="h-full flex">
             <span className="text-white text-base">
-              Didn't receive Any verification code? Please&nbsp;
+              Didn&apos;t receive Any verification code? Please&nbsp;
               <span
                 onClick={() => {
                   const current_user_email =

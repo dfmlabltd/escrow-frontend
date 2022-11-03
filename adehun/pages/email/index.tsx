@@ -20,7 +20,7 @@ const LoginPage: NextPageWithLayout = () => {
     if (emailCache != "") {
       handleEmail(emailCache);
     }
-  }, [emailCache]);
+  }, [emailCache, handleEmail]);
   return (
     <>
       <div className="flex flex-col gap-4 pt-12">

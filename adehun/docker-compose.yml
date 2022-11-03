@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  adehun:
+    image: nginx:latest
+    container_name: test.adehun.com
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/usr/src/app/
+      - ./config/nginx/logs:/etc/nginx/logs
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - ./config/nginx/others:/etc/nginx/others
+      - ./config/nginx/security:/etc/nginx/security
