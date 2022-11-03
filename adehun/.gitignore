@@ -120,3 +120,5 @@ artifacts
 cache/
 
 *.log
+
+out/*
