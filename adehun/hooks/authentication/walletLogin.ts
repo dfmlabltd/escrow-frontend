@@ -101,7 +101,8 @@ const useWalletLogin = () => {
         const { access, refresh } = response.data;
         setAccessToken(access);
         setRefreshToken(refresh);
-        router.push(sessionStorage.getItem(REDIRECT_TO_AFTER) ?? "/dashboard");
+        window.location.href =
+          sessionStorage.getItem(REDIRECT_TO_AFTER) ?? "/dashboard";
       })
       .catch(() => {
         toast.fire({

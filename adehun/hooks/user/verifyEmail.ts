@@ -28,9 +28,8 @@ const useVerifyEmail = () => {
       });
       const user: IUser = data;
       dispatch(userAction.userDataUpdated(user));
-      await router.push(
-        sessionStorage.getItem(REDIRECT_TO_AFTER) ?? "/dashboard"
-      );
+      window.location.href =
+        sessionStorage.getItem(REDIRECT_TO_AFTER) ?? "/dashboard";
     } catch (e: any) {
       toast.fire({
         icon: "error",

@@ -101,7 +101,7 @@ const EmailVerifyPage: NextPageWithLayout = () => {
               <span
                 onClick={(e) => {
                   e.preventDefault();
-                  router.push("/email");
+                  window.location.href = "/email";
                 }}
                 className="font-bold text-secondary"
               >

@@ -33,7 +33,7 @@ const EmailVerifyPage: NextPageWithLayout = () => {
 
   useEffect(() => {
     if (!sessionStorage.getItem(CURRENT_USER_EMAIL)) {
-      router.push("/login");
+      window.location.href = "/login";
     }
     if (codeCache && verificationError) {
       setVerificationError(() => "");

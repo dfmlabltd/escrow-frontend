@@ -18,7 +18,7 @@ const NotAuthMiddleware: React.FC<PropsWithChildren<{}>> = ({ children }) => {
       } catch (error) {
         return;
       }
-      await router.push("/dashboard");
+      window.location.href = "/dashboard";
     }
     _getProfile();
     stopLoading();

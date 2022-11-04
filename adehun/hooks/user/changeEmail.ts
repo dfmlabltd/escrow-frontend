@@ -35,7 +35,7 @@ const useChangeEmail = () => {
       });
       const user: IUser = data;
       dispatch(userAction.userDataUpdated(user));
-      router.push("/email/verify");
+      window.location.href = "/email/verify";
     } catch (e: any) {
       setError(e.message);
     }

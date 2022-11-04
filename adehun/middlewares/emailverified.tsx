@@ -21,7 +21,7 @@ const EmailVerifiedMiddleware: React.FC<PropsWithChildren<{}>> = ({
     async function _getProfile(): Promise<void> {
       try {
         const user = await getProfile();
-        const current_path = router.asPath;
+        const current_path = window.location.pathname;
         if (!(current_path == "/email" || current_path == "/email/verify")) {
           sessionStorage.setItem(REDIRECT_TO_AFTER, current_path);
         }
@@ -38,16 +38,16 @@ const EmailVerifiedMiddleware: React.FC<PropsWithChildren<{}>> = ({
           !user.is_email_verified &&
           user.email?.toString()
         ) {
-          await router.push("/email/verify");
+          window.location.href = "/email/verify";
           return;
         }
 
         if (!(user.is_email_verified && user.email?.toString())) {
-          await router.push("/email");
+          window.location.href = "/email";
           return;
         }
       } catch (error) {
-        await router.push("/login");
+        window.location.href = "/login";
       }
     }
     _getProfile();

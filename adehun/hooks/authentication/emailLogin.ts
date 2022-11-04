@@ -30,7 +30,7 @@ export const useEmailLogin = () => {
       sessionStorage.setItem(CURRENT_USER_EMAIL, email.toString());
       setLoginError("");
 
-      router.push("/login/verify/");
+      window.location.href = "/login/verify/";
     } catch (e: any) {
       setLoginError(e);
       toast.fire({
@@ -96,9 +96,8 @@ export const useEmailLoginVerify = () => {
         icon: "success",
         title: "otp validated!",
       });
-      await router.push(
-        sessionStorage.getItem(REDIRECT_TO_AFTER) ?? "/dashboard"
-      );
+      window.location.href =
+        sessionStorage.getItem(REDIRECT_TO_AFTER) ?? "/dashboard";
     } catch (e: any) {
       setVerificationError(e);
       toast.fire({

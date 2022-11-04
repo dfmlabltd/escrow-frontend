@@ -20,8 +20,8 @@ const AuthMiddleware: React.FC<PropsWithChildren<{}>> = ({ children }) => {
       try {
         await getProfile();
       } catch (error) {
-        sessionStorage.setItem(REDIRECT_TO_AFTER, router.asPath);
-        await router.push("/login");
+        sessionStorage.setItem(REDIRECT_TO_AFTER, window.location.href);
+        window.location.href = "/login";
       }
     }
     _getProfile();
