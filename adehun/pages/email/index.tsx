@@ -63,6 +63,7 @@ const LoginPage: NextPageWithLayout = () => {
               text="Change Email"
               label="Change Email"
               onClick={async (e) => {
+                e.preventDefault();
                 startLoading();
                 if (!error) {
                   await changeEmail();

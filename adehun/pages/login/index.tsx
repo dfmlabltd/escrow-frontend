@@ -68,6 +68,7 @@ const LoginPage: NextPageWithLayout = () => {
               text="Login"
               label="login"
               onClick={async (e) => {
+                e.preventDefault();
                 startLoading();
                 if (!error) {
                   await handleLogin();
@@ -96,7 +97,8 @@ const LoginPage: NextPageWithLayout = () => {
           <GradientButton1
             text="Sign in with your wallet"
             label="Sign in with your wallet"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               handleWalletLogin();
             }}
           />

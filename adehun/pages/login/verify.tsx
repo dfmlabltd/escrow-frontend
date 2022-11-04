@@ -81,7 +81,8 @@ const EmailVerifyPage: NextPageWithLayout = () => {
             <Button
               label="Login to your Space"
               text="Login to your Space"
-              onClick={async () => {
+              onClick={async (e) => {
+                e.preventDefault();
                 startLoading();
                 if (!error) {
                   await handleVerify();
@@ -98,7 +99,8 @@ const EmailVerifyPage: NextPageWithLayout = () => {
             <span className="text-white text-base">
               Didn&apos;t receive Any verification code? Please&nbsp;
               <span
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   const current_user_email =
                     sessionStorage.getItem(CURRENT_USER_EMAIL);
                   if (current_user_email) {

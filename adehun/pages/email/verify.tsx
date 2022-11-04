@@ -69,7 +69,8 @@ const EmailVerifyPage: NextPageWithLayout = () => {
             <Button
               label="Verify your Email"
               text="Verify your Email"
-              onClick={async () => {
+              onClick={async (e) => {
+                e.preventDefault();
                 startLoading();
                 if (!error) {
                   await verifyEmail();
@@ -86,7 +87,8 @@ const EmailVerifyPage: NextPageWithLayout = () => {
             <span className="text-white text-base">
               Didn&apos;t receive Any verification code? Please&nbsp;
               <span
-                onClick={async () => {
+                onClick={async (e) => {
+                  e.preventDefault();
                   startLoading();
                   await sendOTK();
                   stopLoading();
@@ -97,7 +99,8 @@ const EmailVerifyPage: NextPageWithLayout = () => {
               </span>
               <span>or</span>
               <span
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   router.push("/email");
                 }}
                 className="font-bold text-secondary"
