@@ -16,15 +16,15 @@ const NotAuthMiddleware: React.FC<PropsWithChildren<{}>> = ({ children }) => {
       try {
         await getProfile();
       } catch (error) {
+        stopLoading();
         return;
       }
       window.location.href = "/dashboard";
     }
     _getProfile();
-    stopLoading();
   }, [error]);
 
-  return <>{children}</>;
+  return isLoading ? <></> : <>{children}</>;
 };
 
 export default NotAuthMiddleware;

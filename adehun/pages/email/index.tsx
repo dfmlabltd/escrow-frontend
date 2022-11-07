@@ -60,8 +60,8 @@ const LoginPage: NextPageWithLayout = () => {
             <Button text="Loading...." label="login" />
           ) : (
             <Button
-              text="Change Email"
-              label="Change Email"
+              text="Set a new Email"
+              label="Set a new Email"
               onClick={async (e) => {
                 e.preventDefault();
                 startLoading();

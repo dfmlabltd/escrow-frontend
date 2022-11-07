@@ -8,7 +8,7 @@ import { REDIRECT_TO_AFTER } from "../utils/constants";
 const EmailVerifiedMiddleware: React.FC<PropsWithChildren<{}>> = ({
   children,
 }) => {
-  const { startLoading, stopLoading } = useLoading();
+  const { startLoading, stopLoading, isLoading } = useLoading();
 
   const { getProfile, error } = useProfile();
 
@@ -22,15 +22,9 @@ const EmailVerifiedMiddleware: React.FC<PropsWithChildren<{}>> = ({
       try {
         const user = await getProfile();
         const current_path = window.location.pathname;
+        console.log(current_path);
         if (!(current_path == "/email" || current_path == "/email/verify")) {
           sessionStorage.setItem(REDIRECT_TO_AFTER, current_path);
-        }
-        if (
-          current_path === "/email/verify" &&
-          !user.is_email_verified &&
-          user.email
-        ) {
-          return;
         }
 
         if (
@@ -46,6 +40,15 @@ const EmailVerifiedMiddleware: React.FC<PropsWithChildren<{}>> = ({
           window.location.href = "/email";
           return;
         }
+
+        if (
+          current_path === "/email/verify" &&
+          user.is_email_verified &&
+          user.email
+        ) {
+          window.location.href = "/dashboard";
+          return;
+        }
       } catch (error) {
         window.location.href = "/login";
       }
@@ -54,7 +57,7 @@ const EmailVerifiedMiddleware: React.FC<PropsWithChildren<{}>> = ({
     stopLoading();
   }, [error]);
 
-  return <>{children}</>;
+  return isLoading ? <></> : <>{children}</>;
 };
 
 export default EmailVerifiedMiddleware;

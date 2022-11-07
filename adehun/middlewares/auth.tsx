@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useEffect, PropsWithChildren } from "react";
 import useToken from "../hooks/authentication/token";
 import useLoading from "../hooks/loading";
@@ -6,11 +5,9 @@ import useProfile from "../hooks/user/profile";
 import { REDIRECT_TO_AFTER } from "../utils/constants";
 
 const AuthMiddleware: React.FC<PropsWithChildren<{}>> = ({ children }) => {
-  const { startLoading, stopLoading } = useLoading();
+  const { startLoading, stopLoading, isLoading } = useLoading();
 
   const { getProfile, error } = useProfile();
-
-  const router = useRouter();
 
   useToken();
 
@@ -28,7 +25,7 @@ const AuthMiddleware: React.FC<PropsWithChildren<{}>> = ({ children }) => {
     stopLoading();
   }, [error]);
 
-  return <>{children}</>;
+  return isLoading ? <></> : <>{children}</>;
 };
 
 export default AuthMiddleware;

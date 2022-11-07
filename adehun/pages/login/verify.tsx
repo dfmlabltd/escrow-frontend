@@ -9,6 +9,7 @@ import {
   useEmailLoginVerify,
 } from "../../hooks/authentication/emailLogin";
 import useLoading from "../../hooks/loading";
+import { Email } from "../../interface/email";
 import { NextPageWithLayout } from "../../interface/page";
 import AuthLayout from "../../layout/auth";
 import NotAuthMiddleware from "../../middlewares/notauth";
@@ -32,8 +33,15 @@ const EmailVerifyPage: NextPageWithLayout = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!sessionStorage.getItem(CURRENT_USER_EMAIL)) {
+    const current_user_email =
+      sessionStorage.getItem(CURRENT_USER_EMAIL) ?? undefined;
+    console.log("current_user_email");
+    console.log(current_user_email);
+    try {
+      new Email(current_user_email);
+    } catch (e) {
       window.location.href = "/login";
+      return;
     }
     if (codeCache && verificationError) {
       setVerificationError(() => "");

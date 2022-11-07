@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { IEmail, Email } from "../../interface/email";
 import customAxios from "../../axios";
@@ -17,8 +16,6 @@ export const useEmailLogin = () => {
   const [error, setError] = useState<string>("");
 
   const [loginError, setLoginError] = useState<string>("");
-
-  const router = useRouter();
 
   const { toast } = useToast();
 
@@ -68,8 +65,6 @@ export const useEmailLoginVerify = () => {
   const [error, setError] = useState<string>("");
 
   const [verificationError, setVerificationError] = useState<string>("");
-
-  const router = useRouter();
 
   const { toast } = useToast();
 

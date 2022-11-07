@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import authAxios from "../../axios/auth";
@@ -18,8 +17,6 @@ const useVerifyEmail = () => {
   const dispatch = useDispatch();
 
   const { toast } = useToast();
-
-  const router = useRouter();
 
   const verifyEmail = useCallback(async () => {
     try {
