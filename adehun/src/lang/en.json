@@ -1,0 +1,12 @@
+{
+  "INVALID_EMAIL_ERROR": "invalid email",
+  "GET_USER_PROFILE_ERROR": "cannot get user profile",
+  "VERIFICATION_CODE_SENT": "verification code sent successfully",
+  "VERIFICATION_CODE_FAILED": "can not send verification code",
+  "INVALID_CODE_ERROR": "invalid code",
+  "EMAIL_VERIFICATION_ERROR": "couldn't verify email",
+  "LOGIN_ERROR": "error occurred while trying to login",
+  "EMAIL_ERROR": "invalid email address",
+  "SIGNING_ERROR": "error occurred while signing",
+  "SIGNING_REQUEST": "check your wallet for signing request"
+}
