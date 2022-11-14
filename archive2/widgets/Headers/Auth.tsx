@@ -1,4 +1,4 @@
-const AuthHeader = () => {
+const AuthHeader = (): JSX.Element => {
   return (
     <header className="relative" aria-labelledby="Header">
       <div className="container">

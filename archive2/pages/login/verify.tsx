@@ -131,7 +131,7 @@ const EmailVerifyPage: NextPageWithLayout = () => {
 EmailVerifyPage.getLayout = function getLayout(page: ReactElement) {
   return (
     <NotAuthMiddleware>
-      <AuthLayout title="email verification page">{page}</AuthLayout>{" "}
+      <AuthLayout title="login verification page">{page}</AuthLayout>{" "}
     </NotAuthMiddleware>
   );
 };
