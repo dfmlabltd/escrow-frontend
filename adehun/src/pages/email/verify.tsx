@@ -87,6 +87,7 @@ const EmailVerifyPage: React.FC = () => {
               id="code"
               placeholder="Input your verification code"
             />
+        
           </div>
           <div className="text-center py-3">
             {isLoading ? (
