@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  adehun:
+    build: .
+    container_name: adehun
+    restart: on-failure:5
+    volumes:
+      - ./:/usr/src/app
+    command: npm run start
+    expose:
+      - 3000
+  adehun_nginx:
+    image: nginx:latest
+    container_name: adehun_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/usr/src/app/
+      - ./config/nginx/logs:/etc/nginx/logs
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - ./config/nginx/others:/etc/nginx/others
+      - ./config/nginx/security:/etc/nginx/security

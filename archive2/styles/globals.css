@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "adreg";
+    src: url("/assets/ClashDisplay/Fonts/WEB/fonts/ClashDisplay-Regular.ttf");
+  }
+  @font-face {
+    font-family: "adbold";
+    src: url("/assets/ClashDisplay/Fonts/WEB/fonts/ClashDisplay-Bold.ttf");
+  }
+}
+
+body {
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: "wasset-reg";
+}
+.navlinks {
+  border-radius: 40px;
+}
+.navlinks > a {
+  border-radius: 40px;
+  @apply flex justify-center items-center text-center px-5 py-2 min-w-[80px];
+}
+.navBtnIcon:hover > .btnIconInner {
+  @apply bg-secondary transition duration-150 ease-out hover:ease-in;
+}
+.navlinks > a:hover {
+  @apply bg-secondary transition duration-150 ease-out hover:ease-in;
+}
+.heroBtn > button:hover {
+  @apply bg-secondary transition duration-150 ease-out hover:ease-in;
+}
+.featureList > div:nth-child(even) {
+  margin-left: 8.333333%;
+}
+.shadow_primary {
+  box-shadow: rgba(50, 50, 93, 0.1) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.05) 0px 30px 60px -30px;
+}
+.customer_quote {
+  width: 150px;
+  background-color: transparent;
+  display: inline-block;
+  position: absolute;
+  bottom: 10px;
+  right: 3rem;
+  overflow: hidden;
+  z-index: 1;
+}
+.customer_quote {
+  color: rgba(101, 101, 101, 0.03);
+  vertical-align: baseline;
+  width: 80px;
+  height: 80px;
+  opacity: 0.8;
+}
+.auth-wrapper {
+  @apply bg-dark min-h-screen py-20;
+}
+/* .buttonAuth  */
+/* .{
+  border-image: linear-gradient(180deg, #6413F1, #ab006f) 1;
+} */
+.buttonAuth {
+  background: linear-gradient(#010910, #010910) padding-box,
+    linear-gradient(180deg, #6413f1, #ab006f) border-box;
+  border: 1px solid transparent;
+  @apply rounded-md;
+}
+.authDivider::before {
+  content: "";
+  width: 100%;
+  position: absolute;
+  z-index: 9;
+  @apply border border-gray-800/80;
+}
+
+.w-fit {
+  width: 100%;
+}
