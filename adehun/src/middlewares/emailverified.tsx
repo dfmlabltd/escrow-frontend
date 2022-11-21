@@ -26,14 +26,6 @@ const EmailVerifiedMiddleware: React.FC<PropsWithChildren<{}>> = ({
     startLoading();
     async function _getProfile(): Promise<void> {
       try {
-        let current_path = window.location.pathname;
-
-        if (current_path.slice(-1) == "/") {
-          current_path = current_path.substring(1);
-          return;
-        }
-
-        console.log(current_path);
         const user = await getProfile();
         // if user is not logged in redirect to login page
         if (typeof user === "boolean") {
@@ -41,8 +33,14 @@ const EmailVerifiedMiddleware: React.FC<PropsWithChildren<{}>> = ({
           return;
         }
 
+        let current_path = window.location.pathname;
+
+        if (current_path.slice(-1) == "/") {
+          current_path = current_path.substring(1);
+          return;
+        }
+
         if (current_path == "/email/success") {
-          console.log(222666776);
           return;
         }
         const WHITELIST_PATHS = [
