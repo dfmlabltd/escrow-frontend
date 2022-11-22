@@ -21,7 +21,7 @@ const DashboardPage: React.FC = () => {
     //   {isError && <div>Error signing message</div>}
     // </EmailVerifiedMiddleware>
     <>
-      <Aside />git 
+      <Aside />
       <Main />
     </>
   );
