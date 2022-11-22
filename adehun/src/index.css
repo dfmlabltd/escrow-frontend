@@ -16,7 +16,7 @@
 
 
 *{
-  background-color: #010910;
+  background-color: inherit;
 }
 
 body {
@@ -98,4 +98,52 @@ body {
   position: absolute;
   z-index: 9;
   @apply border border-gray-800/80;
+}
+
+/* Dashboard Style start here */
+.max-w-navx{
+  width: 15rem;
+  position: relative;
+  float: left;
+  background-color: #101a2b;
+}
+.sidenav_adehun{
+  height: calc(100vh - 17.25rem);
+  background-color: transparent;
+}
+.main-adehun{
+  width: calc(100% - 15rem);
+  position: absolute;
+  top: 0;
+  overflow-x: auto;
+  float: left;
+  margin-left: 15rem;
+}
+.status_card{
+  position: relative;
+  float: left;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+.status_card::before{
+  content: "";
+  width: 5px;
+  height: 5px;
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  border-radius: 100%;
+}
+.dashwarning{
+  background-color: #3f2555;
+  color: #b142c4;
+}
+.dashdanger{
+  background-color: #681551;
+  color: #e80d8d;
+}
+.dashsuccess{
+  background-color: #145a37;
+  color: #1eff5b;
 }
