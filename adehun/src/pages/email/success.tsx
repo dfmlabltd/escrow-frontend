@@ -5,6 +5,7 @@ const EmailSuccessPage: React.FC = () => {
     <EmailVerifiedMiddleware>
       <div className="flex flex-col justify-center items-center w-full h-full">
         <img
+          alt="site logo"
           src={process.env.PUBLIC_URL + "/assets/Logo/Group 37470.png"}
           className="w-[64px] mt-20"
         />
@@ -17,6 +18,7 @@ const EmailSuccessPage: React.FC = () => {
         <img
           src={process.env.PUBLIC_URL + "/assets/checkmark.png"}
           className="py-4 px-4"
+          alt="checkmark"
         />
         <button className="bg-pink-700 hover:bg-pink-700 text-white font-bold py-2 px-6 flex mt-7 w-fit h-fit">
           Proceed To Your Space

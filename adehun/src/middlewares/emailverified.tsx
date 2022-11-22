@@ -35,12 +35,12 @@ const EmailVerifiedMiddleware: React.FC<PropsWithChildren<{}>> = ({
 
         let current_path = window.location.pathname;
 
-        if (current_path.slice(-1) == "/") {
+        if (current_path.slice(-1) === "/") {
           current_path = current_path.substring(1);
           return;
         }
 
-        if (current_path == "/email/success") {
+        if (current_path === "/email/success") {
           return;
         }
         const WHITELIST_PATHS = [
