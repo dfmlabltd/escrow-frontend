@@ -32,7 +32,17 @@ const EmailVerifiedMiddleware: React.FC<PropsWithChildren<{}>> = ({
           navigate(LOGIN_PAGE);
           return;
         }
-        const current_path = window.location.pathname;
+
+        let current_path = window.location.pathname;
+
+        if (current_path.slice(-1) === "/") {
+          current_path = current_path.substring(1);
+          return;
+        }
+
+        if (current_path === "/email/success") {
+          return;
+        }
         const WHITELIST_PATHS = [
           EMAIL_CHANGE_PAGE,
           USER_EMAIL_VERIFICATION_PAGE,

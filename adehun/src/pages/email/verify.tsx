@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -16,16 +16,15 @@ import {
 } from "../../interface/types";
 import AuthLayout from "../../layout/auth";
 import EmailVerifiedMiddleware from "../../middlewares/emailverified";
-import {
-  DASHBOARD_PAGE,
-  EMAIL_CHANGE_PAGE,
-  REDIRECT_TO_AFTER,
-} from "../../utils/constants";
+import { EMAIL_CHANGE_PAGE } from "../../utils/constants";
+import EmailSuccessWidget from "../../widgets/Emails/success";
 
 const EmailVerifyPage: React.FC = () => {
   const { setCode, verifyEmail, error } = useVerifyEmail();
 
   const { isLoading, startLoading, stopLoading } = useLoading();
+
+  const [success, setSuccess] = useState<boolean>(false);
 
   const { sendOTK, error: otkError } = useSendOTK();
 
@@ -45,10 +44,10 @@ const EmailVerifyPage: React.FC = () => {
         stopLoading();
         return;
       }
-      navigate(sessionStorage.getItem(REDIRECT_TO_AFTER) ?? DASHBOARD_PAGE);
+      setSuccess(true);
     };
     _verifyEmail();
-  }, [verifyEmail, toast, error, stopLoading, startLoading, navigate]);
+  }, [verifyEmail, toast, error, stopLoading, startLoading, setSuccess]);
 
   const handleSendOTK = useCallback(() => {
     startLoading();
@@ -71,9 +70,12 @@ const EmailVerifyPage: React.FC = () => {
     _sendOTK();
   }, [otkError, sendOTK, startLoading, toast, stopLoading]);
 
-  return (
-    <EmailVerifiedMiddleware>
-      <AuthLayout title="email verification page">
+  const EmailWidget: React.FC = () => {
+    return success ? (
+      <EmailSuccessWidget />
+    ) : (
+      <>
+        {" "}
         <div className="flex flex-col gap-4 pt-12 w-full">
           <div className="flex flex-col space-y-1">
             <Label aria-label="Email Address">Email Address</Label>
@@ -87,7 +89,6 @@ const EmailVerifyPage: React.FC = () => {
               id="code"
               placeholder="Input your verification code"
             />
-        
           </div>
           <div className="text-center py-3">
             {isLoading ? (
@@ -135,6 +136,14 @@ const EmailVerifyPage: React.FC = () => {
             </div>
           </div>
         </div>
+      </>
+    );
+  };
+
+  return (
+    <EmailVerifiedMiddleware>
+      <AuthLayout title="email verification page">
+        <EmailWidget />
       </AuthLayout>
     </EmailVerifiedMiddleware>
   );
