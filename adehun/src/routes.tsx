@@ -5,7 +5,6 @@ import HomePage from "./pages";
 import LoginVerifyPage from "./pages/login/verify";
 import DashboardPage from "./pages/dashboard";
 import EmailVerifyPage from "./pages/email/verify";
-import EmailSuccessPage from "./pages/email/success";
 
 const PageRoutes = (): JSX.Element => {
   return (
@@ -14,7 +13,6 @@ const PageRoutes = (): JSX.Element => {
         <Route index element={<HomePage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="email" element={<EmailChangePage />} />
-        <Route path="email/success" element={<EmailSuccessPage />} />
         <Route path="email/verify" element={<EmailVerifyPage />} />
         <Route path="login/verify" element={<LoginVerifyPage />} />
         <Route path="dashboard" element={<DashboardPage />} />
