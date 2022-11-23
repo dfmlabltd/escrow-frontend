@@ -1,3 +1,5 @@
+import TableRows from "./tablerows";
+
 function TransacationTbl() {
   return (
     <>
@@ -86,7 +88,7 @@ function TransacationTbl() {
                 Date
               </th>
               <th scope="col" class="py-3 px-6 text-right">
-                Client
+                Title
               </th>
               <th scope="col" class="py-3 px-6 text-right">
                 Amount
@@ -97,50 +99,7 @@ function TransacationTbl() {
             </tr>
           </thead>
           <tbody className="text-sm">
-            <tr class="bg-dashsecondary text-white pb-4 border-b-[10px] border-dashprimary">
-              <td class="py-3 px-6">#0001</td>
-              <td class="py-3 px-6 text-right">Jul 10, 2021</td>
-              <td class="py-3 px-6 text-right">Emmanuel A</td>
-              <td class="py-3 px-6 text-right">$339.32</td>
-              <td class="py-3 px-6 text-right">
-                <button className="text-xs border border-gray-300 dashwarning rounded-full px-5 py-1 font-bold tbl_status">
-                  Pending
-                </button>
-              </td>
-            </tr>
-            <tr class="bg-dashsecondary text-white pb-4 border-b-[10px] border-dashprimary">
-              <td class="py-3 px-6">#0002</td>
-              <td class="py-3 px-6 text-right">Aug 10, 2021</td>
-              <td class="py-3 px-6 text-right">Femi B</td>
-              <td class="py-3 px-6 text-right">$359.32</td>
-              <td class="py-3 px-6 text-right">
-                <button className="text-xs border border-gray-300 dashsuccess rounded-full px-5 py-1 font-bold tbl_status">
-                  Paid
-                </button>
-              </td>
-            </tr>
-            <tr class="bg-dashsecondary text-white pb-4 border-b-[10px] border-dashprimary">
-              <td class="py-3 px-6">#0002</td>
-              <td class="py-3 px-6 text-right">Sep 10, 2021</td>
-              <td class="py-3 px-6 text-right">Peace A</td>
-              <td class="py-3 px-6 text-right">$359.32</td>
-              <td class="py-3 px-6 text-right">
-                <button className="text-xs border border-gray-300 dashdanger rounded-full px-5 py-1 font-bold tbl_status">
-                  In draft
-                </button>
-              </td>
-            </tr>
-            <tr class="bg-dashsecondary text-white pb-4 border-b-[10px] border-dashprimary">
-              <td class="py-3 px-6">#0002</td>
-              <td class="py-3 px-6 text-right">Sep 10, 2021</td>
-              <td class="py-3 px-6 text-right">Peace A</td>
-              <td class="py-3 px-6 text-right">$359.32</td>
-              <td class="py-3 px-6 text-right">
-                <button className="text-xs border border-gray-300 dashdanger rounded-full px-5 py-1 font-bold tbl_status">
-                  In draft
-                </button>
-              </td>
-            </tr>
+            <TableRows />
           </tbody>
         </table>
       </div>
