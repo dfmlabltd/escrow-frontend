@@ -12,28 +12,20 @@ import "./ContractManager.sol";
 
 pragma solidity ^0.8.4;
 
+// TODO: Logic to remove excess funds from the contract
+// TODO: add events to contract proposalAdded, proposalExecuted
+// TODO: add default DAO members (5x)
 contract DAO {
     enum MemberStatus {
         PENDING,
         ACTIVE,
         RENOUNCED,
-        BANNED
+        REMOVED
     }
 
     struct Member {
-        address wallet;
+        address account;
         MemberStatus status;
-    }
-
-    struct MembershipRequest {
-        address wallet;
-        string reason;
-        uint256 deadline;
-        uint256 total;
-        uint256 support;
-        uint256 against;
-        uint256 abstain;
-        bool completed;
     }
 
     enum VoteChoice {
@@ -43,8 +35,23 @@ contract DAO {
     }
 
     struct Vote {
-        address wallet;
+        address account;
         VoteChoice choice;
+    }
+
+    struct Proposal {
+        address from;
+        address to;
+        string description;
+        uint256 deadline;
+        uint256 support;
+        uint256 against;
+        uint256 abstain;
+        bool completed;
+        uint256 stake;
+        mapping(uint256 => Vote) votes;
+        // add - 0, remove - 1
+        uint256 category;
     }
 
     /**
@@ -53,6 +60,13 @@ contract DAO {
      **/
 
     uint256 constant _stakeAmount = 1000 * 10**18;
+
+    /**
+     * @notice this state variable stores the amount
+     * that should be staked into the DAO
+     **/
+
+    uint256 constant _removeStakeAmount = 100 * 10**18;
 
     /**
      * @notice this state variable stores the members
@@ -86,14 +100,14 @@ contract DAO {
      * @notice number of requests in the DAO
      **/
 
-    uint256 _membersRequestsCount;
+    uint256 _proposalsCount;
 
     /**
      * @notice number of days before a requests
      * is passed
      **/
 
-    uint256 _requestDays = 7 days;
+    uint256 _proposalDays = 7 days;
 
     /**
      * @notice this state variable stores the manager
@@ -108,11 +122,8 @@ contract DAO {
 
     uint256 _balance;
 
-    /**
-     * @notice state storage for votes
-     **/
-
-    mapping(uint256 => mapping(address => Vote)) public _votes;
+    // TODO: implement minimum_votes
+    uint256 minimum_votes;
 
     constructor(ContractManager manager) {
         _manager = manager;
@@ -120,73 +131,111 @@ contract DAO {
 
     receive() external payable {}
 
-    function requestToJoin(string memory reason) external payable {
+    function requestToJoin(string memory description) external payable {
         require(msg.value == _stakeAmount, "INVALID");
+
+        /** you can only join if you formerly renounce or yet to join */
         require(
-            _members[msg.sender].wallet == address(0) ||
+            _members[msg.sender].account == address(0) ||
                 _members[msg.sender].status == MemberStatus.RENOUNCED,
             "UNAUTHORIZED"
         );
 
-        MembershipRequest storage request = _memberRequests[
-            ++_membersRequestsCount
-        ];
+        Proposal storage proposal = getProposalByID(++_proposalsCount);
 
-        request.wallet = msg.sender;
+        proposal.stake = _stakeAmount;
 
-        request.deadline = block.timestamp + _requestDays;
+        proposal.from = msg.sender;
 
-        request.reason = reason;
+        proposal.to = msg.sender;
+
+        proposal.deadline = block.timestamp + _proposalDays;
+
+        proposal.description = description;
+
+        proposal.minimum_votes = minimum_votes;
 
         _balance += msg.value;
     }
 
-    function voteOnMembershipRequest(VoteChoice choice, uint256 requestID)
+    function requestToRemove(string memory description, address account)
         external
+        payable
         isMember
     {
-        Vote storage vote = _votes[requestID][msg.sender];
+        require(msg.value == _removeStakeAmount, "INVALID");
 
-        MembershipRequest storage request = _memberRequests[requestID];
+        /** you can only join if you formerly renounce or yet to join */
+        require(_members[wallet].status == MemberStatus.ACTIVE, "UNAUTHORIZED");
 
-        // revert vote
-        if (vote.choice == VoteChoice.SUPPORT) {
-            request.support -= 1;
-        } else if (vote.choice == VoteChoice.AGAINST) {
-            request.against -= 1;
-        } else if (
-            vote.choice == VoteChoice.ABSTAIN && vote.wallet != address(0)
-        ) {
-            request.abstain -= 1;
-        }
+        Proposal storage proposal = getProposalByID(++_proposalsCount);
 
-        if (vote.wallet != address(0)) {
-            request.total -= 1;
-        }
+        proposal.stake = _removeStakeAmount;
 
-        if (choice == VoteChoice.SUPPORT) {
-            request.support += 1;
-        } else if (choice == VoteChoice.AGAINST) {
-            request.against += 1;
-        } else if (vote.choice == VoteChoice.ABSTAIN) {
-            request.abstain += 1;
-        }
+        proposal.from = msg.sender;
 
-        request.total += 1;
+        proposal.to = account;
 
-        vote.wallet = msg.sender;
+        proposal.deadline = block.timestamp + _proposalDays;
 
-        vote.choice = choice;
+        proposal.description = description;
+
+        proposal.category = 1;
+
+        _balance += msg.value;
     }
 
-    function join(uint256 id) external {
-        MembershipRequest storage request = _memberRequests[id];
+    function hasExpired(uint256 deadline) internal returns (bool) {
+        return block.timestamp >= deadline;
+    }
 
-        require(!request.completed, "INVALID");
-        require(block.timestamp >= request.deadline, "INVALID");
-        require(request.support > request.against, "INVALID");
+    function getProposalByID(uint256 id) internal returns (Proposal) {
+        return _proposals[id];
+    }
 
-        Member storage member = _members[msg.sender];
+    function isZeroAddress(address account) internal returns (bool) {
+        return account == address(0);
+    }
+
+    function voteForProposal(uint256 id) external isMember {
+        Proposal storage proposal = getProposalByID(id);
+
+        require(!hasExpired(proposal.deadline), "DEADLINE");
+
+        proposal.votes[++proposal.total] = Vote(msg.sender, VoteChoice.SUPPORT);
+
+        require(isZeroAddress(vote.account), "CANNOT VOTE");
+
+        proposal.support += 1;
+    }
+
+    function voteAgainstProposal(uint256 id) external isMember {
+        Proposal storage proposal = getProposalByID(id);
+
+        require(!hasExpired(proposal.deadline), "DEADLINE");
+
+        proposal.votes[++proposal.total] = Vote(msg.sender, VoteChoice.AGAINST);
+
+        require(isZeroAddress(vote.account), "CANNOT VOTE");
+
+        proposal.against += 1;
+    }
+
+    modifier canExecuteProposal(uint256 id) {
+        Proposal memory proposal = getProposalByID(id);
+        require(!proposal.completed, "INVALID");
+        require(hasExpired(proposal.deadline), "DEADLINE");
+        require(proposal.support > proposal.against, "INVALID");
+        require(proposal.total >= proposal.minimum_votes, "INSUFFICIENT");
+        _;
+    }
+
+    function addMember(uint256 id) external canExecuteProposal(id) {
+        Proposal storage proposal = getProposalByID(id);
+
+        require(proposal.category == 0, "WRONG");
+
+        Member storage member = _members[proposal.to];
 
         require(
             member.status == MemberStatus.PENDING ||
@@ -194,25 +243,43 @@ contract DAO {
             "INVALID"
         );
 
-        if (member.status != MemberStatus.RENOUNCED) {
-            _membersAddress[++_membersCount] = msg.sender;
-        }
+        proposal.completed = true;
 
-        request.completed = true;
+        member.account = proposal.to;
+
+        member.status = MemberStatus.ACTIVE;
+
+        _membersCount++;
     }
 
-    function renounce() external payable isMember {
+    function removeMember(uint256 id) external canExecuteProposal(id) {
+        Proposal storage proposal = getProposalByID(id);
+
+        require(proposal.category == 1, "WRONG");
+
+        Member storage member = _members[proposal.to];
+
+        require(member.status == MemberStatus.ACTIVE, "INVALID");
+
+        proposal.completed = true;
+
+        member.status = MemberStatus.REMOVED;
+
+        payable(proposal.from).transfer(proposal.stake);
+    }
+
+    function renounceMembership() external payable isMember {
         require(_balance >= _stakeAmount, "INVALID");
         _members[msg.sender].status = MemberStatus.RENOUNCED;
-        address payable sender = payable(msg.sender);
-        sender.transfer(_stakeAmount);
+        payable(msg.sender).transfer(_stakeAmount);
+    }
+
+    function isMember(address account) public returns (bool) {
+        return _members[account].status == MemberStatus.ACTIVE;
     }
 
     modifier isMember() {
-        require(
-            _members[msg.sender].status == MemberStatus.ACTIVE,
-            "UNAUTHORIZED"
-        );
+        require(isMember(msg.sender), "UNAUTHORIZED");
         _;
     }
 }
