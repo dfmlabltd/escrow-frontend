@@ -2,7 +2,7 @@ import TableRows from "./tablerows";
 
 function TransacationTbl() {
   return (
-    <>
+    <div className="relative w-full col-span-2 h-full block">
       <div className="relative w-full flex flex-row justify-between items-center gap-4">
         <div className="text-white flex flex-col gap-y-1">
           <p className="uppercase text-sm font-bold">Invoice</p>
@@ -78,32 +78,111 @@ function TransacationTbl() {
             </button>
           </div>
         </div>
-        <table class="w-full text-sm text-left text-gray-500">
-          <thead class="text-[0.8rem] text-gray-100 capitalize">
-            <tr className="border-b-[10px] border-dashprimary">
-              <th scope="col" class="py-3 px-6">
-                No.
-              </th>
-              <th scope="col" class="py-3 px-6 text-right">
-                Date
-              </th>
-              <th scope="col" class="py-3 px-6 text-right">
-                Title
-              </th>
-              <th scope="col" class="py-3 px-6 text-right">
-                Amount
-              </th>
-              <th scope="col" class="py-3 px-6 text-right">
-                Status
-              </th>
-            </tr>
-          </thead>
-          <tbody className="text-sm">
-            <TableRows />
-          </tbody>
-        </table>
+        <div className="relative w-full block max-h-[335px] overflow-y-auto">
+          <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-[0.8rem] text-gray-100 capitalize">
+              <tr className="border-b-[10px] border-dashprimary">
+                <th scope="col" class="py-3 px-6">
+                  No.
+                </th>
+                <th scope="col" class="py-3 px-6 text-right">
+                  Date
+                </th>
+                <th scope="col" class="py-3 px-6 text-right">
+                  Title
+                </th>
+                <th scope="col" class="py-3 px-6 text-right">
+                  Amount
+                </th>
+                <th scope="col" class="py-3 px-6 text-right">
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody className="text-sm max-h-16">
+              <TableRows />
+              <tr className="bg-dashsecondary text-white pb-4 border-b-[10px] border-dashprimary">
+                <td className="py-3 px-6">1</td>
+                <td className="py-3 px-6 text-right">Mar 27, 2020</td>
+                <td className="py-3 px-6 text-right">Transatioo</td>
+                <td className="py-3 px-6 text-right">$100</td>
+                <td className="py-3 px-6 text-right">
+                  <button className="text-xs border border-gray-300 dashwarning rounded-full px-5 py-1 font-bold tbl_status">
+                    Pending
+                  </button>
+                </td>
+              </tr>
+              <tr className="bg-dashsecondary text-white pb-4 border-b-[10px] border-dashprimary">
+                <td className="py-3 px-6">1</td>
+                <td className="py-3 px-6 text-right">Mar 27, 2020</td>
+                <td className="py-3 px-6 text-right">Transatioo</td>
+                <td className="py-3 px-6 text-right">$100</td>
+                <td className="py-3 px-6 text-right">
+                  <button className="text-xs border border-gray-300 dashwarning rounded-full px-5 py-1 font-bold tbl_status">
+                    Pending
+                  </button>
+                </td>
+              </tr>
+              <tr className="bg-dashsecondary text-white pb-4 border-b-[10px] border-dashprimary">
+                <td className="py-3 px-6">1</td>
+                <td className="py-3 px-6 text-right">Mar 27, 2020</td>
+                <td className="py-3 px-6 text-right">Transatioo</td>
+                <td className="py-3 px-6 text-right">$100</td>
+                <td className="py-3 px-6 text-right">
+                  <button className="text-xs border border-gray-300 dashwarning rounded-full px-5 py-1 font-bold tbl_status">
+                    Pending
+                  </button>
+                </td>
+              </tr>
+              <tr className="bg-dashsecondary text-white pb-4 border-b-[10px] border-dashprimary">
+                <td className="py-3 px-6">1</td>
+                <td className="py-3 px-6 text-right">Mar 27, 2020</td>
+                <td className="py-3 px-6 text-right">Transatioo</td>
+                <td className="py-3 px-6 text-right">$100</td>
+                <td className="py-3 px-6 text-right">
+                  <button className="text-xs border border-gray-300 dashwarning rounded-full px-5 py-1 font-bold tbl_status">
+                    Pending
+                  </button>
+                </td>
+              </tr>
+              <tr className="bg-dashsecondary text-white pb-4 border-b-[10px] border-dashprimary">
+                <td className="py-3 px-6">1</td>
+                <td className="py-3 px-6 text-right">Mar 27, 2020</td>
+                <td className="py-3 px-6 text-right">Transatioo</td>
+                <td className="py-3 px-6 text-right">$100</td>
+                <td className="py-3 px-6 text-right">
+                  <button className="text-xs border border-gray-300 dashwarning rounded-full px-5 py-1 font-bold tbl_status">
+                    Pending
+                  </button>
+                </td>
+              </tr>
+              <tr className="bg-dashsecondary text-white pb-4 border-b-[10px] border-dashprimary">
+                <td className="py-3 px-6">1</td>
+                <td className="py-3 px-6 text-right">Mar 27, 2020</td>
+                <td className="py-3 px-6 text-right">Transatioo</td>
+                <td className="py-3 px-6 text-right">$100</td>
+                <td className="py-3 px-6 text-right">
+                  <button className="text-xs border border-gray-300 dashwarning rounded-full px-5 py-1 font-bold tbl_status">
+                    Pending
+                  </button>
+                </td>
+              </tr>
+              <tr className="bg-dashsecondary text-white pb-4 border-b-[10px] border-dashprimary">
+                <td className="py-3 px-6">1</td>
+                <td className="py-3 px-6 text-right">Mar 27, 2020</td>
+                <td className="py-3 px-6 text-right">Transatioo</td>
+                <td className="py-3 px-6 text-right">$100</td>
+                <td className="py-3 px-6 text-right">
+                  <button className="text-xs border border-gray-300 dashwarning rounded-full px-5 py-1 font-bold tbl_status">
+                    Pending
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 

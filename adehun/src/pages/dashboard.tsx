@@ -5,10 +5,10 @@ import Main from "./dashboard/Main";
 
 const DashboardPage: React.FC = () => {
   return (
-    <EmailVerifiedMiddleware>
+    <>
       <Aside />
       <Main />
-    </EmailVerifiedMiddleware>
+    </>
   );
 };
 
