@@ -2,12 +2,9 @@ import "@rainbow-me/rainbowkit/styles.css";
 import EmailVerifiedMiddleware from "../../middlewares/emailverified";
 import Aside from "../../widgets/Dashboard/Aside";
 import Main from "../../widgets/Dashboard/Main";
-import Invoice from "../../components/dash/Invoice";
-import { useState } from "react";
+import Invoice from "../../widgets/Dashboard/Invoice";
 
 const DashboardPage: React.FC = () => {
-  const [isToggleInvoice, toggleInvoice] = useState<boolean>(true);
-
   return (
     <EmailVerifiedMiddleware>
       <Aside />

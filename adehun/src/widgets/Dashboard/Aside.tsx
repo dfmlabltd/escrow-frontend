@@ -1,4 +1,4 @@
-import Sidebar from "../../components/dash/Sidebar";
+import Sidebar from "./Sidebar";
 
 const Aside: React.FC = () => {
   return (

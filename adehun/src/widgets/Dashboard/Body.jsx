@@ -1,5 +1,5 @@
-import TransacationTbl from "../../widgets/Dashboard/Table/Transaction";
-import IntroVideo from "../../widgets/Dashboard/Intro/Introvideo";
+import TransacationTbl from "./Table/Transaction";
+import IntroVideo from "./Intro/Introvideo";
 
 function TableCard() {
   return (

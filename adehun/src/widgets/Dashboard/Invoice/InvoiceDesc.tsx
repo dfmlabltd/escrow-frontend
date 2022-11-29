@@ -1,4 +1,4 @@
-import InvoiceDetails from "../../../components/dash/Invoice/InvoiceDetails";
+import InvoiceDetails from "./InvoiceDetails";
 
 const InvoiceDesc: React.FC = () => {
   return (

@@ -1,6 +1,6 @@
-import Nav from "../../components/dash/Nav";
-import DashHeader from "../../components/dash/DashHeader";
-import TableCard from "../../components/dash/DashBody";
+import TableCard from "./Body";
+import DashHeader from "./Header";
+import Nav from "./Nav";
 
 const Main: React.FC = () => {
   return (
