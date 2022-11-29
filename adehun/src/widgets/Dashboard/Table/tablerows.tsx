@@ -19,8 +19,9 @@ const TableRows = () => {
     getContracts();
   }, [getContracts]);
 
-  return contracts
-    ? contracts.map((contract) => (
+  return contracts ? (
+    <>
+      {contracts.map((contract) => (
         <TableRow
           id={contract.id}
           date={contract.date}
@@ -28,8 +29,11 @@ const TableRows = () => {
           status={contract.status}
           amount={contract.amount}
         />
-      ))
-    : "";
+      ))}
+    </>
+  ) : (
+    <></>
+  );
 };
 
 export default TableRows;

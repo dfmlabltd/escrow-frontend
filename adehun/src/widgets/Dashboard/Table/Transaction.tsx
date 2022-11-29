@@ -1,6 +1,6 @@
 import TableRows from "./tablerows";
 
-function TransacationTbl() {
+const TransacationTbl: React.FC = () => {
   return (
     <div className="relative w-full col-span-2 h-full block">
       <div className="relative w-full flex flex-row justify-between items-center gap-4">
@@ -26,19 +26,18 @@ function TransacationTbl() {
         </div>
       </div>
 
-      <div class="overflow-x-auto relative shadow-md">
-        <div class="flex justify-between items-center py-6 gap-4">
+      <div className="overflow-x-auto relative shadow-md">
+        <div className="flex justify-between items-center py-6 gap-4">
           <label
-            for="default-search"
-            class="mb-2 text-sm font-medium text-gray-900 sr-only"
+            className="mb-2 text-sm font-medium text-gray-900 sr-only"
           >
             Search
           </label>
-          <div class="relative flex-1">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none bg-dashsecondary">
+          <div className="relative flex-1">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none bg-dashsecondary">
               <svg
                 aria-hidden="true"
-                class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                className="w-5 h-5 text-gray-500 dark:text-gray-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -55,7 +54,7 @@ function TransacationTbl() {
             <input
               type="search"
               id="default-search"
-              class="block w-full h-12 pl-10 text-sm border-0 text-white bg-dashsecondary flex-1"
+              className="block w-full h-12 pl-10 text-sm border-0 text-white bg-dashsecondary flex-1"
               placeholder="Search"
               required
             />
@@ -66,7 +65,7 @@ function TransacationTbl() {
               <span className="text-sm text-white">Show All</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="w-5 h-5"
+                className="w-5 h-5"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -79,22 +78,22 @@ function TransacationTbl() {
           </div>
         </div>
         <div className="relative w-full block max-h-[335px] overflow-y-auto">
-          <table class="w-full text-sm text-left text-gray-500">
-            <thead class="text-[0.8rem] text-gray-100 capitalize">
+          <table className="w-full text-sm text-left text-gray-500">
+            <thead className="text-[0.8rem] text-gray-100 capitalize">
               <tr className="border-b-[10px] border-dashprimary">
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" className="py-3 px-6">
                   No.
                 </th>
-                <th scope="col" class="py-3 px-6 text-right">
+                <th scope="col" className="py-3 px-6 text-right">
                   Date
                 </th>
-                <th scope="col" class="py-3 px-6 text-right">
+                <th scope="col" className="py-3 px-6 text-right">
                   Title
                 </th>
-                <th scope="col" class="py-3 px-6 text-right">
+                <th scope="col" className="py-3 px-6 text-right">
                   Amount
                 </th>
-                <th scope="col" class="py-3 px-6 text-right">
+                <th scope="col" className="py-3 px-6 text-right">
                   Status
                 </th>
               </tr>
@@ -184,6 +183,6 @@ function TransacationTbl() {
       </div>
     </div>
   );
-}
+};
 
 export default TransacationTbl;
