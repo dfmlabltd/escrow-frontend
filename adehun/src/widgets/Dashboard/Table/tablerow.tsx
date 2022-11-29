@@ -1,5 +1,3 @@
-import { JsxElement } from "typescript";
-
 type Props = {
   id: number;
   date: string;
@@ -8,7 +6,13 @@ type Props = {
   amount: number;
 };
 
-const TableRow = ({ id, date, title, status, amount }: Props) => {
+const TableRow: React.FC<Props> = ({
+  id,
+  date,
+  title,
+  status,
+  amount,
+}: Props) => {
   return (
     <tr className="bg-dashsecondary text-white pb-4 border-b-[10px] border-dashprimary">
       <td className="py-3 px-6">{id}</td>
