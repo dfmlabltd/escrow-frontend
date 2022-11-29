@@ -6,15 +6,17 @@ import InvoiceTable from "../../widgets/Dashboard/Invoice/InvoiceTable";
 import InvoiceAdd from "./Invoice/InvoiceAdd";
 import InvoiceTextarea from "../../widgets/Dashboard/Invoice/InvoiceTextarea";
 import InvoiceFoot from "../../widgets/Dashboard/Invoice/InvoiceFoot";
+import { useSelector } from "react-redux";
 
-function Invoice({ isToggleInvoice, toggleInvoice }) {
-  return isToggleInvoice ? (
+function Invoice() {
+  const contractWidget = useSelector((state) => state.contractWidget);
+  return contractWidget.isContractWidgetTogged ? (
     <section
       className="fixed h-screen w-[26rem] max-h-screen right-0 top-0 inset-y-0 overflow-y-auto z-50 font-adreg py-9 transition-transform duration-200 bg-dashsecondary px-9"
       aria-labelledby="Invoice"
     >
       <div className="flex flex-col relative w-full gap-y-4">
-        <InvoiceHeader toggleInvoice={toggleInvoice} />
+        <InvoiceHeader />
         <InvoiceCard />
         <InvoiceDesc />
         <InvoiceCheckbox checkboxtext="This is a recurring invoice (monthly)" />

@@ -1,6 +1,14 @@
+import { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { openContractWidget } from "../../../redux/actions/contract/toggleContractWidget";
 import TableRows from "./tablerows";
 
 const TransacationTbl: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const openWidget = useCallback(() => {
+    dispatch(openContractWidget());
+  }, [dispatch]);
   return (
     <div className="relative w-full col-span-2 h-full block">
       <div className="relative w-full flex flex-row justify-between items-center gap-4">
@@ -21,16 +29,16 @@ const TransacationTbl: React.FC = () => {
             >
               <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path>
             </svg>
-            <span className="text-sm">New Invoice</span>
+            <span onClick={openWidget} className="text-sm">
+              New Invoice
+            </span>
           </button>
         </div>
       </div>
 
       <div className="overflow-x-auto relative shadow-md">
         <div className="flex justify-between items-center py-6 gap-4">
-          <label
-            className="mb-2 text-sm font-medium text-gray-900 sr-only"
-          >
+          <label className="mb-2 text-sm font-medium text-gray-900 sr-only">
             Search
           </label>
           <div className="relative flex-1">

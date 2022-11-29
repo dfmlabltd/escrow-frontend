@@ -1,17 +1,21 @@
-import { PropsWithChildren } from "react";
+import { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { closeContractWidget } from "../../../redux/actions/contract/toggleContractWidget";
 
-type InvoiceHeaderProps = {
-  toggleInvoice(state: boolean): never;
-};
+const InvoiceHeader = () => {
+  const dispatch = useDispatch();
 
-const InvoiceHeader = ({ toggleInvoice }: InvoiceHeaderProps) => {
+  const closeWidget = useCallback(() => {
+    dispatch(closeContractWidget());
+  }, [dispatch]);
+
   return (
     <div className="flex flex-col relative w-full gap-y-4 text-white">
       <div className="flex flex-row justify-between items-center gap-4">
         <h5 className="text-base font-bold pb-1">Create New Invoice</h5>
         <button
           onClick={() => {
-            toggleInvoice(false);
+            closeWidget();
           }}
           className="relative inline-block"
         >

@@ -12,10 +12,7 @@ const DashboardPage: React.FC = () => {
     <EmailVerifiedMiddleware>
       <Aside />
       <Main />
-      <Invoice
-        isToggleInvoice={isToggleInvoice}
-        toggleInvoice={toggleInvoice}
-      />
+      <Invoice />
     </EmailVerifiedMiddleware>
   );
 };
