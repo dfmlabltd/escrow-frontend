@@ -2,7 +2,7 @@ type Props = {
   id: number;
   date: string;
   title: string;
-  status: string;
+  status: number;
   amount: number;
 };
 
