@@ -2,7 +2,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 function Nav() {
   return (
-    <nav className="relative font-adreg py-1">
+    <nav className="relative font-adreg py-1 pt-3">
       <div className="flex flex-wrap items-center justify-between px-0">
         <div className="grid grid-cols-2 gap-4 items-center w-full mx-auto flex-wrap">
           <div className="flex relative items-center">

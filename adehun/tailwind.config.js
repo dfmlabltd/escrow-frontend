@@ -43,6 +43,9 @@ module.exports = {
         adreg: ["adreg", "sans-serif"],
         adbold: ["adbold", "sans-serif"],
       },
+      fontSize: {
+        adbase: "0.78rem",
+      },
     },
   },
   plugins: [require("flowbite/plugin")],
