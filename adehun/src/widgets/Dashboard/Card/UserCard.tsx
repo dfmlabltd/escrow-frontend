@@ -1,6 +1,6 @@
 import useClipboard from "react-use-clipboard";
 
-function UserCard() {
+const UserCard = () => {
   const [isCopied, setCopied] = useClipboard(
     "https://adehun.com/user/?ref=dhhgshgh",
     { successDuration: 1000 }
@@ -75,6 +75,6 @@ function UserCard() {
       </div>
     </div>
   );
-}
+};
 
 export default UserCard;

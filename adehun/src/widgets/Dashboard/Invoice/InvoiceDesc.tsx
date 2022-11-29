@@ -1,6 +1,6 @@
 import InvoiceDetails from "../../../components/dash/Invoice/InvoiceDetails";
 
-function InvoiceDesc() {
+const InvoiceDesc: React.FC = () => {
   return (
     <>
       <div className="grid grid-cols-1 gap-4 py-2">
@@ -12,6 +12,6 @@ function InvoiceDesc() {
       </div>
     </>
   );
-}
+};
 
 export default InvoiceDesc;

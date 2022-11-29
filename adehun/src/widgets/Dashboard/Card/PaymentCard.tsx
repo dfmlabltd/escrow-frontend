@@ -1,4 +1,4 @@
-function PaymentCard() {
+const PaymentCard: React.FC = () => {
   return (
     <div className="flex flex-row flex-wrap bg-secondary p-6 rounded-sm gap-4 items-center justify-between text-white">
       <div className="flex flex-col gap-y-1">
@@ -17,6 +17,6 @@ function PaymentCard() {
       </div>
     </div>
   );
-}
+};
 
 export default PaymentCard;

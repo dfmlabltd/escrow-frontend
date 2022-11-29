@@ -1,4 +1,10 @@
-const InvoiceHeader = ({ toggleInvoice }) => {
+import { PropsWithChildren } from "react";
+
+type InvoiceHeaderProps = {
+  toggleInvoice(state: boolean): never;
+};
+
+const InvoiceHeader = ({ toggleInvoice }: InvoiceHeaderProps) => {
   return (
     <div className="flex flex-col relative w-full gap-y-4 text-white">
       <div className="flex flex-row justify-between items-center gap-4">

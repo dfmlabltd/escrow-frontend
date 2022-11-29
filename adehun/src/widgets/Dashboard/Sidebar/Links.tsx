@@ -1,14 +1,11 @@
-function SidebarLink() {
+const SidebarLink: React.FC = () => {
   return (
     <div
       className="flex items-center w-auto max-h-screen overflow-auto h-sidenav grow basis-full sidenav_adehun my-4"
       aria-labelledby="Sidenav Menu"
     >
       <div className="w-full block items-center">
-        <ul
-          className="flex flex-col relative pl-0 ml-0"
-          aria-labelledby="Menu"
-        >
+        <ul className="flex flex-col relative pl-0 ml-0" aria-labelledby="Menu">
           <li className="w-full block py-4 px-7 mt-0.5">
             <a
               href="/index"
@@ -155,5 +152,5 @@ function SidebarLink() {
       </div>
     </div>
   );
-}
+};
 export default SidebarLink;

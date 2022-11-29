@@ -1,4 +1,4 @@
-function InvoiceFoot() {
+const InvoiceFoot: React.FC = () => {
   return (
     <div className="relative items-center w-full mx-auto flex flex-row justify-between text-white text-adbase mt-2 py-2">
       <p className="uppercase py-1.5 border border-none">Preview</p>
@@ -12,6 +12,6 @@ function InvoiceFoot() {
       </div>
     </div>
   );
-}
+};
 
 export default InvoiceFoot;

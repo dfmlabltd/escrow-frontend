@@ -1,6 +1,6 @@
-function FootLinks() {
-    return (
-        <div className="block overflow-auto px-7 py-2">
+const FootLinks: React.FC = () => {
+  return (
+    <div className="block overflow-auto px-7 py-2">
       <ul className="flex flex-col relative pl-0 ml-0">
         <li className="w-full block py-4 mt-0.5">
           <a
@@ -47,7 +47,7 @@ function FootLinks() {
         </li>
       </ul>
     </div>
-    )
-}
+  );
+};
 
 export default FootLinks;

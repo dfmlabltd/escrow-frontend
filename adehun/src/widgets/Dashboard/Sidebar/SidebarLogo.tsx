@@ -1,4 +1,4 @@
-function SidebarLogo() {
+const SidebarLogo: React.FC = () => {
   return (
     <div className="h-16" aria-labelledby="Sidenav Logo">
       <a className="block px-7 py-6">
@@ -12,6 +12,6 @@ function SidebarLogo() {
       </a>
     </div>
   );
-}
+};
 
 export default SidebarLogo;
