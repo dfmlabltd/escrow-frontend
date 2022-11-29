@@ -3,7 +3,7 @@ import LoginPage from "./pages/login";
 import EmailChangePage from "./pages/email";
 import HomePage from "./pages";
 import LoginVerifyPage from "./pages/login/verify";
-import DashboardPage from "./pages/dashboard";
+import DashboardPage from "./pages/dashboard/";
 import EmailVerifyPage from "./pages/email/verify";
 
 const PageRoutes = (): JSX.Element => {
