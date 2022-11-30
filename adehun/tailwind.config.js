@@ -44,7 +44,7 @@ module.exports = {
         adbold: ["adbold", "sans-serif"],
       },
       fontSize: {
-        adbase: "0.78rem",
+        adbase: "0.79rem",
       },
     },
   },
