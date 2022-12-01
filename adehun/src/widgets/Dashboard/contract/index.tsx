@@ -1,6 +1,6 @@
 import ContractHeader from "./Header";
 import ContractSelect from "./Select";
-import ContractInputWidget from "./TextInput";
+import ContractInput from "./Input";
 import ContractDescription from "./TextArea";
 import ContractTable from "./Table";
 import ContractFoot from "./Footer";
@@ -21,11 +21,15 @@ function Contract() {
       <div className="flex flex-col relative w-full gap-y-4">
         <ContractHeader />
         <ContractSelect />
-        <ContractInputWidget title="Title" placeholder="contract title" />
-        <ContractInputWidget
-          title="Title"
+        <ContractInput title="Title" placeholder="contract title" />
+        <ContractInput
+          title="Amount"
           type="number"
-          placeholder="contract title"
+          placeholder="contract amount"
+        />
+        <ContractInput
+          title="Beneficiary's Email"
+          placeholder="Beneficiary's Email"
         />
 
         <ContractCheckbox title="This is a recurring Contract (monthly)" />

@@ -1,4 +1,4 @@
-import { InputPropsWithTitle } from "./TextInput";
+import { InputPropsWithTitle } from "./Input";
 
 const CheckBox: React.FC<InputPropsWithTitle> = (
   props: InputPropsWithTitle

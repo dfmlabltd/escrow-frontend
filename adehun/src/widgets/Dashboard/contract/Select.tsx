@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { Network } from "../../../interface/blockchain";
 
-const InvoiceCard: React.FC = () => {
+export interface InputPropsWithTitle {
+  networks: Network[];
+}
+
+const Select: React.FC = () => {
   const [isOpenWidget, openWidget] = useState<boolean>(false);
   const [networkID, setNetworkID] = useState<number>(0);
   return (
@@ -56,4 +61,4 @@ const InvoiceCard: React.FC = () => {
   );
 };
 
-export default InvoiceCard;
+export default Select;
