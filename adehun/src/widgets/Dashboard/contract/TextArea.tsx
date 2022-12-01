@@ -2,7 +2,7 @@ const InvoiceTextarea: React.FC = () => {
   return (
     <div className="grid grid-cols-1 gap-4 py-2">
       <div className="w-full relative text-white text-adbase">
-        <span className="block font-medium">Additional Notes</span>
+        <span className="block font-medium">Description</span>
         <textarea
           id="notes"
           className="block px-4 py-2 mt-1.5 w-full text-adbase text-white bg-dashbase/40 border-none outline-none max-h-28"

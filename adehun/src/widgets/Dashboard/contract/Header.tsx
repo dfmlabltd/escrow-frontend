@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { closeContractWidget } from "../../../redux/actions/contract/toggleContractWidget";
 
-const InvoiceHeader = () => {
+const Header = () => {
   const dispatch = useDispatch();
 
   const closeWidget = useCallback(() => {
@@ -55,4 +55,4 @@ const InvoiceHeader = () => {
   );
 };
 
-export default InvoiceHeader;
+export default Header;

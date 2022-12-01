@@ -13,7 +13,7 @@ import {
   ReactHTMLButtonEvent,
   ReactHTMLInputEvent,
   ReactHTMLSpanEvent,
-} from "../../interface/types";
+} from "../../interface";
 import AuthLayout from "../../layout/auth";
 import EmailVerifiedMiddleware from "../../middlewares/emailverified";
 import { EMAIL_CHANGE_PAGE } from "../../utils/constants";

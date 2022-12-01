@@ -1,9 +1,5 @@
 import React from "react";
-
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-
-interface InputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "className"> {}
+import { InputProps } from "../interface";
 
 const Input: React.FC<InputProps> = (props) => {
   return (
