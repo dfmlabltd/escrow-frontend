@@ -1,6 +1,6 @@
-import PaymentCard from "../../widgets/Dashboard/Card/PaymentCard";
-import Transactioncard from "../../widgets/Dashboard/Card/TransactionCard";
-import UserCard from "../../widgets/Dashboard/Card/UserCard";
+import PaymentCard from "./Card/Payment";
+import Transactioncard from "./Card/Transaction";
+import UserCard from "./Card/PaymentLink";
 
 function DashHeader() {
 
