@@ -1,6 +1,6 @@
 import useClipboard from "react-use-clipboard";
 
-const PaymentLink = () => {
+const PaymentLink: React.FC = () => {
   const [isCopied, setCopied] = useClipboard(
     "https://adehun.com/user/?ref=dhhgshgh",
     { successDuration: 1000 }

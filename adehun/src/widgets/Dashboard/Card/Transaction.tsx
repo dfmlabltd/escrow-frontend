@@ -1,4 +1,4 @@
-const Transaction = () => {
+const Transaction: React.FC = () => {
   return (
     <div className="grid grid-cols-2 flex-wrap bg-primary p-6 rounded-sm gap-4 justify-between text-white">
       <div className="flex flex-col gap-y-1">
