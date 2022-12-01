@@ -19,7 +19,7 @@ const TableRows = () => {
     };
     _getContracts();
   }, []);
-
+  
   useEffect(() => {
     getContracts();
   }, [getContracts]);
