@@ -2,11 +2,9 @@ import ContractHeader from "./Header";
 import ContractSelect from "./Select";
 import ContractInput from "./Input";
 import ContractDescription from "./TextArea";
-import ContractTable from "./Table";
 import ContractFoot from "./Footer";
 import { useSelector } from "react-redux";
 import IState from "../../../redux/istore";
-import ContractAdd from "./Add";
 import ContractCheckbox from "./Checkbox";
 
 function Contract() {
@@ -28,13 +26,10 @@ function Contract() {
           placeholder="contract amount"
         />
         <ContractInput
-          title="Beneficiary's Email"
-          placeholder="Beneficiary's Email"
+          title="Beneficiary"
+          placeholder="Beneficiary's Email or Payment Link"
         />
-
         <ContractCheckbox title="This is a recurring Contract (monthly)" />
-        <ContractTable />
-        <ContractAdd addtext="Add Item" />
         <ContractDescription />
         <hr className="border-t-[0.01rem] border-secondary overflow-visible mt-6"></hr>
         <ContractFoot />

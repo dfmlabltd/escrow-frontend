@@ -1,10 +1,9 @@
 import useClipboard from "react-use-clipboard";
 
 const PaymentLink: React.FC = () => {
-  const [isCopied, setCopied] = useClipboard(
-    "https://adehun.com/user/?ref=dhhgshgh",
-    { successDuration: 1000 }
-  );
+  const [isCopied, setCopied] = useClipboard("https://adehun.com/pay/eax", {
+    successDuration: 1000,
+  });
 
   const CopyCard = () => {
     return isCopied ? (
@@ -60,7 +59,7 @@ const PaymentLink: React.FC = () => {
             </svg>
           </div>
           <span className="text-sm">
-            adehun.com/<span className="font-bold">eax</span>
+            adehun.com/pay/<span className="font-bold">eax</span>
           </span>
           <div>
             <CopyCard />
@@ -68,8 +67,8 @@ const PaymentLink: React.FC = () => {
         </div>
         <div>
           <p className="text-sm bg-dashbasealt p-3 rounded-sm mt-2">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem
+            Rather than giving out your email address, why not send your payment
+            link instead?
           </p>
         </div>
       </div>
