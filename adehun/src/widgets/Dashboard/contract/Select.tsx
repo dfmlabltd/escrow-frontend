@@ -12,6 +12,18 @@ const Select: React.FC = () => {
     <div className="relative block">
       <div className="flex flex-col w-full bg-dashprimary p-6 text-white">
         <p className="text-sm">Blockchain Network</p>
+        <label
+          className="block mb-1 sr-only text-adbase font-medium text-white"
+        >
+          Select an option
+        </label>
+        <select
+          id="option"
+          className="block text-white mt-1.5 bg-dashbase/40 focus:ring-0 focus:outline-none font-medium text-adbase px-4 py-1.5 text-center w-full outline-none border-none"
+        >
+          <option value="eax">EAx Olagunju (eax email.com)</option>
+          <option value="orx">ORx</option>
+        </select>
         <button
           id="dropdown"
           onClick={() => openWidget((state) => !state)}

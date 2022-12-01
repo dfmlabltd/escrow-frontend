@@ -83,6 +83,23 @@ const TransacationTbl: React.FC = () => {
                 <path d="M16.293 9.293L12 13.586 7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z"></path>
               </svg>
             </button>
+            <div className="hidden absolute z-50 w-full bg-dashsecondary shadow">
+              <ul
+                className="py-1 text-sm text-white"
+                aria-labelledby="dropdownlist"
+              >
+                <li>
+                  <a href="#" className="block py-2 px-4">
+                    List Goes here
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="block py-2 px-4">
+                    List Goes Here
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div className="relative w-full block max-h-[335px] overflow-y-auto">
