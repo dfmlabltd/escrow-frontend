@@ -79,11 +79,12 @@ const Select: React.FC = () => {
   );
 
   useEffect(() => {
+    setTokens([]);
     if (currentNetwork == 0) {
       return;
     }
     getTokensByNetworkID(currentNetwork);
-  }, [getTokensByNetworkID, currentNetwork]);
+  }, [getTokensByNetworkID, currentNetwork, setTokens]);
 
   const setCurrentNetworkFunc = useCallback(
     (id: number) => {
