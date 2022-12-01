@@ -1,4 +1,5 @@
 export interface Network {
+  id: number;
   name: string;
   rpc: number;
   chain_id: number;
@@ -8,6 +9,7 @@ export interface Network {
 }
 
 export interface Token {
+  id: number;
   name: string;
   contract_address: string;
   symbol: string;
