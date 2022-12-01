@@ -1,6 +1,6 @@
 import useClipboard from "react-use-clipboard";
 
-const UserCard = () => {
+const PaymentLink = () => {
   const [isCopied, setCopied] = useClipboard(
     "https://adehun.com/user/?ref=dhhgshgh",
     { successDuration: 1000 }
@@ -77,4 +77,4 @@ const UserCard = () => {
   );
 };
 
-export default UserCard;
+export default PaymentLink;
