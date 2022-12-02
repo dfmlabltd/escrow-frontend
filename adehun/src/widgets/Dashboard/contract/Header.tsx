@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <div className="flex flex-col relative w-full gap-y-4 text-white">
       <div className="flex flex-row justify-between items-center gap-4">
-        <h5 className="text-base font-bold pb-1">Create New Invoice</h5>
+        <h5 className="text-lg font-bold pb-1">Create New Invoice</h5>
         <button
           onClick={() => {
             closeWidget();

@@ -5,7 +5,7 @@ const InvoiceTextarea: React.FC = () => {
         <span className="block font-medium">Description</span>
         <textarea
           id="notes"
-          className="block px-4 py-2 mt-1.5 w-full text-adbase text-white bg-dashbase/40 border-none outline-none max-h-28"
+          className="block px-4 py-2 mt-1.5 w-full text-sm text-white bg-gray-800 border-none outline-none max-h-32"
           placeholder="Some additional notes for the client"
           aria-labelledby="Additiosnal Note"
         ></textarea>

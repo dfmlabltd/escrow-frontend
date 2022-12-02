@@ -15,7 +15,7 @@ const InputWidget: React.FC<InputPropsWithTitle> = (
           <input
             type="text"
             {...props}
-            className="block h-10 py-1 w-full px-4 mt-1.5 text-adbase text-white border-none bg-dashbase/40"
+            className="block h-12 py-1 w-full px-4 mt-1.5 text-sm text-white border-none bg-gray-800"
             required
           />{" "}
         </div>
