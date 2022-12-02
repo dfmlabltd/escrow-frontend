@@ -1,13 +1,5 @@
 import { AnyAction } from "@reduxjs/toolkit";
-import { IContract } from "../../../interface/contract";
-
-export interface IContractWidget {
-  readonly isContractWidgetTogged: boolean;
-}
-
-export interface IContractWidgetAction extends AnyAction {
-  type: string;
-}
+import { IContract } from "../../../interfaces/contract";
 
 export interface IContractAction extends AnyAction {
   type: string;

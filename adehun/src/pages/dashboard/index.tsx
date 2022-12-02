@@ -2,14 +2,17 @@ import "@rainbow-me/rainbowkit/styles.css";
 import EmailVerifiedMiddleware from "../../middlewares/emailverified";
 import Aside from "../../widgets/Dashboard/Aside";
 import Main from "../../widgets/Dashboard/Main";
-import Invoice from "../../widgets/Dashboard/contract";
+import Contract from "../../widgets/Dashboard/Contract";
+import ContractWidgetContextProvider from "../../contexts/contractWidget";
 
 const DashboardPage: React.FC = () => {
   return (
     <EmailVerifiedMiddleware>
-      <Aside />
-      <Main />
-      <Invoice />
+      <ContractWidgetContextProvider>
+        <Aside />
+        <Main />
+        <Contract />
+      </ContractWidgetContextProvider>
     </EmailVerifiedMiddleware>
   );
 };

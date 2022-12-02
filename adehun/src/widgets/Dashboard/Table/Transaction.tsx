@@ -1,14 +1,13 @@
-import { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { openContractWidget } from "../../../redux/actions/contract/toggleContractWidget";
+import { useContext } from "react";
+import {
+  ContractWidgetContext,
+  IContractWidgetContext,
+} from "../../../contexts/contractWidget";
 import TableRows from "./tablerows";
 
-const TransacationTbl: React.FC = () => {
-  const dispatch = useDispatch();
+const Transaction: React.FC = () => {
+  const { open } = useContext<IContractWidgetContext>(ContractWidgetContext);
 
-  const openWidget = useCallback(() => {
-    dispatch(openContractWidget());
-  }, [dispatch]);
   return (
     <div className="relative w-full col-span-2 h-full block">
       <div className="relative w-full flex flex-row justify-between items-center gap-4">
@@ -29,7 +28,7 @@ const TransacationTbl: React.FC = () => {
             >
               <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path>
             </svg>
-            <span onClick={openWidget} className="text-sm">
+            <span onClick={open} className="text-sm">
               New Invoice
             </span>
           </button>
@@ -89,12 +88,12 @@ const TransacationTbl: React.FC = () => {
                 aria-labelledby="dropdownlist"
               >
                 <li>
-                  <a href="#" className="block py-2 px-4">
+                  <a href="#none" className="block py-2 px-4">
                     List Goes here
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="block py-2 px-4">
+                  <a href="#none" className="block py-2 px-4">
                     List Goes Here
                   </a>
                 </li>
@@ -144,4 +143,4 @@ const TransacationTbl: React.FC = () => {
   );
 };
 
-export default TransacationTbl;
+export default Transaction;

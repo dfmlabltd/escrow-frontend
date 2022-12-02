@@ -1,4 +1,4 @@
-import { IContract } from "../../../interface/contract";
+import { IContract } from "../../../interfaces/contract";
 import { CONTRACTS_INITIALIZED } from "./constants";
 import { IContractAction } from "./interface";
 

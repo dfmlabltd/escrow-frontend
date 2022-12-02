@@ -1,4 +1,4 @@
-import { IUser } from "../../../interface/user";
+import { IUser } from "../../../interfaces/user";
 import { USER_INITIALIZED } from "./constants";
 import IUserAction from "./interface";
 

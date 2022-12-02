@@ -1,13 +1,11 @@
-import { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { closeContractWidget } from "../../../redux/actions/contract/toggleContractWidget";
+import { useContext } from "react";
+import {
+  IContractWidgetContext,
+  ContractWidgetContext,
+} from "../../../contexts/contractWidget";
 
 const Header = () => {
-  const dispatch = useDispatch();
-
-  const closeWidget = useCallback(() => {
-    dispatch(closeContractWidget());
-  }, [dispatch]);
+  const { close } = useContext<IContractWidgetContext>(ContractWidgetContext);
 
   return (
     <div className="flex flex-col relative w-full gap-y-4 text-white">
@@ -15,7 +13,7 @@ const Header = () => {
         <h5 className="text-lg font-bold pb-1">Create New Invoice</h5>
         <button
           onClick={() => {
-            closeWidget();
+            close();
           }}
           className="relative inline-block"
         >

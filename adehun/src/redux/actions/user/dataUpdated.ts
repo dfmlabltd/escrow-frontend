@@ -1,4 +1,4 @@
-import { IUser } from "../../../interface/user";
+import { IUser } from "../../../interfaces/user";
 import { USER_DATA_UPDATED } from "./constants";
 import IUserAction from "./interface";
 

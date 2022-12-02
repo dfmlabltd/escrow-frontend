@@ -10,7 +10,7 @@ import useToast from "../../hooks/toast";
 import {
   ReactHTMLButtonEvent,
   ReactHTMLInputEvent,
-} from "../../interface";
+} from "../../interfaces";
 import AuthLayout from "../../layout/auth";
 import NotAuthMiddleware from "../../middlewares/notauth";
 import { LOGIN_VERIFY_PAGE } from "../../utils/constants";

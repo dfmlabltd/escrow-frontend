@@ -1,6 +1,6 @@
 import { AnyAction } from "@reduxjs/toolkit";
 import produce from "immer";
-import { IUser } from "../../interface/user";
+import { IUser } from "../../interfaces/user";
 import * as actions from "../actions/user/constants";
 
 export default function userReducer(

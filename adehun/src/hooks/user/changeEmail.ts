@@ -1,7 +1,7 @@
 import { Dispatch, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import authAxios from "../../axios/auth";
-import { IUser } from "../../interface/user";
+import { IUser } from "../../interfaces/user";
 import grammar from "../../lang/en.json";
 import { userAction } from "../../redux/actions";
 import IUserAction from "../../redux/actions/user/interface";

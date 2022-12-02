@@ -1,6 +1,6 @@
 import { useCallback, useState, useEffect } from "react";
 import authAxios from "../../../axios/auth";
-import { Network, Token } from "../../../interface/blockchain";
+import { Network, Token } from "../../../interfaces/blockchain";
 
 interface Data {
   id: number;
@@ -67,7 +67,7 @@ const Select: React.FC = () => {
 
   useEffect(() => {
     getNetworks();
-  }, []);
+  }, [getNetworks]);
 
   const getTokensByNetworkID = useCallback(
     (id: number) => {
@@ -82,7 +82,7 @@ const Select: React.FC = () => {
 
   useEffect(() => {
     setTokens([]);
-    if (currentNetwork == 0) {
+    if (currentNetwork === 0) {
       return;
     }
     getTokensByNetworkID(currentNetwork);

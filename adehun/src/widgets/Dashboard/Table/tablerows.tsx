@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import authAxios from "../../../axios/auth";
-import { IContract } from "../../../interface/contract";
+import { IContract } from "../../../interfaces/contract";
 import { contractsInitialized } from "../../../redux/actions/contract/contract";
 import IState from "../../../redux/istore";
 import TableRow from "./tablerow";
@@ -19,7 +19,7 @@ const TableRows = () => {
     };
     _getContracts();
   }, []);
-  
+
   useEffect(() => {
     getContracts();
   }, [getContracts]);

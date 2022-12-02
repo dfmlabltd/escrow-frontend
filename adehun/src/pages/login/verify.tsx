@@ -13,7 +13,7 @@ import {
   ReactHTMLButtonEvent,
   ReactHTMLInputEvent,
   ReactHTMLSpanEvent,
-} from "../../interface";
+} from "../../interfaces";
 
 import grammar from "../../lang/en.json";
 import AuthLayout from "../../layout/auth";

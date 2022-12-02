@@ -1,9 +1,7 @@
-import { IContract } from "../interface/contract";
-import { IUser } from "../interface/user";
-import { IContractWidget } from "./actions/contract/interface";
+import { IContract } from "../interfaces/contract";
+import { IUser } from "../interfaces/user";
 
 export default interface IState {
   readonly user?: IUser;
-  readonly contractWidget?: IContractWidget;
   readonly contracts?: IContract;
 }

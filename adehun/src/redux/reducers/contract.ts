@@ -1,5 +1,5 @@
 import { AnyAction } from "@reduxjs/toolkit";
-import { IContract } from "../../interface/contract";
+import { IContract } from "../../interfaces/contract";
 import * as actions from "../actions/contract/constants";
 
 export default function contractsReducer(

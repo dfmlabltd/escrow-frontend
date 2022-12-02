@@ -9,7 +9,7 @@ import useChangeEmail from "../../hooks/user/changeEmail";
 import {
   ReactHTMLButtonEvent,
   ReactHTMLInputEvent,
-} from "../../interface";
+} from "../../interfaces";
 import AuthLayout from "../../layout/auth";
 import EmailVerifiedMiddleware from "../../middlewares/emailverified";
 import { DASHBOARD_PAGE, REDIRECT_TO_AFTER } from "../../utils/constants";
