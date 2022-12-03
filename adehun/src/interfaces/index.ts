@@ -8,6 +8,8 @@ type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "className"> {}
 
+export type ReactHTMLSelectEvent = React.ChangeEvent<HTMLSelectElement>;
+
 export interface ReactTextAreaProps
   extends Omit<
     React.TextareaHTMLAttributes<HTMLTextAreaElement>,
