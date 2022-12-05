@@ -1,17 +1,57 @@
-import { useSelector } from "react-redux";
+import { useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import useClipboard from "react-use-clipboard";
 import IState from "../../../redux/istore";
+import Swal from "sweetalert2";
+import authAxios from "../../../axios/auth";
+import userUsernameUpdated from "../../../redux/actions/user/usernameUpdated";
 
 const PaymentLink: React.FC = () => {
   const user: any = useSelector<IState>((state) => state.user);
+
+  const dispatch = useDispatch();
 
   const [isCopied, setCopied] = useClipboard("https://adehun.com/pay/eax", {
     successDuration: 1000,
   });
 
   const SetCard = () => {
+    const createPaymentLink = useCallback(() => {
+      Swal.fire({
+        title: "Input your payment link",
+        input: "text",
+        inputAttributes: {
+          autocapitalize: "off",
+        },
+        showCancelButton: true,
+        confirmButtonText: "Create",
+        showLoaderOnConfirm: true,
+        preConfirm: (username) => {
+          return authAxios
+            .put("user/username/", { username })
+            .then(async (response: any) => {
+              const user = {
+                id: 0,
+                username: response.username,
+                is_email_verified: true,
+                is_active: true,
+              };
+              dispatch(userUsernameUpdated(user));
+            })
+            .catch((error) => {
+              Swal.showValidationMessage(`Request failed: ${error}`);
+            });
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+      });
+    }, []);
+
     return (
-      <span>
+      <span
+        onClick={() => {
+          createPaymentLink();
+        }}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="w-5 h-5"

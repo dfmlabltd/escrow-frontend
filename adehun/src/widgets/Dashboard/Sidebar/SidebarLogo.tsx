@@ -1,7 +1,7 @@
 const SidebarLogo: React.FC = () => {
   return (
     <div className="h-16" aria-labelledby="Sidenav Logo">
-      <a className="block px-7 py-6">
+      <a href="#logo" className="block px-7 py-6">
         <div className="w-full flex justify-start">
           <img
             src={process.env.PUBLIC_URL + "/assets/Logo/001.png"}

@@ -62,7 +62,6 @@ function Contract() {
           .post("wallet/", { address: wallet })
           .then(async (response) => {
             if (await getWallets()) {
-              console.log("response");
               setDepositorWallet(response.data.id);
             }
           })
@@ -92,7 +91,6 @@ function Contract() {
             title: "Contract created successfully",
             icon: "success",
           });
-          console.log(request.data);
           dispatch(contractAdded(request.data));
 
           close();

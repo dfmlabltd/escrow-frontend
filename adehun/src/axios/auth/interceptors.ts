@@ -48,8 +48,6 @@ const onResponseError = async (error: AxiosError): Promise<AxiosError> => {
     return Promise.reject(error);
   }
 
-  console.log(1111111);
-
   const access_token: string | boolean = await refreshAccessToken();
 
   config.retry = true;

@@ -1,13 +1,14 @@
 export interface IAnonymousUser {
-  readonly email?: string;
-  readonly address?: string;
+  email?: string;
+  address?: string;
 }
 
 export interface IUser extends IAnonymousUser {
-  readonly id: number;
-  readonly is_email_verified: boolean;
-  readonly is_active: boolean;
-  readonly first_name?: string;
-  readonly last_name?: string;
-  readonly wallet_addresses?: string[];
+  id: number;
+  is_email_verified: boolean;
+  is_active: boolean;
+  first_name?: string;
+  last_name?: string;
+  wallet_addresses?: string[];
+  username?: string;
 }

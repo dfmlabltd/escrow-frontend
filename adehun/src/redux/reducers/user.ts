@@ -5,9 +5,9 @@ import * as actions from "../actions/user/constants";
 
 export default function userReducer(
   state: IUser,
-  { action, payload }: AnyAction
+  { type, payload }: AnyAction
 ): IUser {
-  switch (action) {
+  switch (type) {
     case actions.USER_INITIALIZED:
       return payload;
     case actions.USER_DATA_UPDATED:
@@ -15,6 +15,10 @@ export default function userReducer(
     case actions.USER_EMAIL_VERIFIED:
       return produce(state, (_user) => {
         _user.email = payload.email;
+      });
+    case actions.USER_USERNAME_UPDATED:
+      return produce(state, (_user) => {
+        _user.username = payload.username;
       });
     default:
       return {

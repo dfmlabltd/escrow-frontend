@@ -18,7 +18,7 @@ const useProfile = () => {
       const { data } = await authAxios.get(USER_PROFILE_ENDPOINT);
       const user: IUser = data;
       dispatch(userAction.userInitialized(user));
-      return user;
+      return data;
     } catch {
       setError(grammar["GET_USER_PROFILE_ERROR"]);
       return false;
