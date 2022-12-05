@@ -1,6 +1,7 @@
 import TableCard from "./Body";
 import DashHeader from "./Header";
 import Nav from "./Nav";
+import ContractMain from "./ContractExpand";
 
 const Main: React.FC = () => {
   return (
@@ -8,6 +9,7 @@ const Main: React.FC = () => {
       <Nav />
       <DashHeader />
       <TableCard />
+      {/* <ContractMain /> */}
     </main>
   );
 };
