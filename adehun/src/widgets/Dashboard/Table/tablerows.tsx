@@ -13,7 +13,7 @@ const TableRows = () => {
 
   const getContracts = useCallback(() => {
     const _getContracts = async () => {
-      const { data } = await authAxios.get("contract");
+      const { data } = await authAxios.get("contract/?page_size=10");
       dispatch(contractsInitialized(data.results));
       return data;
     };
