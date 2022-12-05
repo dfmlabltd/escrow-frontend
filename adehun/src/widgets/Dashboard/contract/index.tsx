@@ -12,10 +12,17 @@ import {
 } from "../../../contexts/contractWidget";
 import authAxios from "../../../axios/auth";
 import Swal from "sweetalert2";
+import useToast from "../../../hooks/toast";
+import { useDispatch } from "react-redux";
+import { contractAdded } from "../../../redux/actions/contract/contract";
 
 function Contract() {
-  const { state } = useContext<IContractWidgetContext>(ContractWidgetContext);
+  const { state, close } = useContext<IContractWidgetContext>(
+    ContractWidgetContext
+  );
   const [wallets, setWallets] = useState<[]>([]);
+
+  const dispatch = useDispatch();
 
   const getWallets = useCallback(() => {
     const _getWallets = async () => {
@@ -27,19 +34,18 @@ function Contract() {
   }, []);
 
   useEffect(() => {
-    console.log("sss");
     getWallets();
   }, []);
 
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [depositor_wallet, setDepositorWallet] = useState<number>(0);
-  const [benificiary_wallet, setBeneficiaryWallet] = useState<number>(0);
+  const [beneficiary_wallet, setBeneficiaryWallet] = useState<string>("");
 
   // const [agreement, setAgreement] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
   const [token, setToken] = useState<number>(0);
-  const [draft, setDraft] = useState<boolean>(false);
+  const { toast } = useToast();
 
   const createWalletWidget = useCallback(() => {
     Swal.fire({
@@ -68,23 +74,39 @@ function Contract() {
     });
   }, [setDepositorWallet, getWallets]);
 
-  const createContractForm = useCallback(() => {
-    const __createContractForm = async () => {
-      const data = {
-        title,
-        description,
-        depositor_wallet,
-        amount,
-        token,
-        draft,
-      };
-      console.log(data);
-      const request = await authAxios.post("contract/", data);
+  const createContractForm = useCallback(
+    (draft: boolean) => {
+      const __createContractForm = async () => {
+        const data = {
+          title,
+          description,
+          depositor_wallet,
+          beneficiary: beneficiary_wallet,
+          amount,
+          token,
+          draft,
+        };
+        try {
+          const request = await authAxios.post("contract/", data);
+          toast.fire({
+            title: "Contract created successfully",
+            icon: "success",
+          });
+          console.log(request.data);
+          dispatch(contractAdded(request.data));
 
-      console.log(request.data);
-    };
-    __createContractForm();
-  }, [title, description, depositor_wallet, amount, token, draft]);
+          close();
+        } catch (error) {
+          toast.fire({
+            title: "Error creating contract",
+            icon: "error",
+          });
+        }
+      };
+      __createContractForm();
+    },
+    [title, description, depositor_wallet, beneficiary_wallet, amount, token]
+  );
 
   return state ? (
     <section className="w-full absolute inset-y-0 top-0 block min-h-screen max-h-screen backdrop-blur-sm bg-dashprimary/5">
@@ -127,7 +149,7 @@ function Contract() {
           </a>
 
           <ContractInput
-            onChange={(e) => setBeneficiaryWallet(parseFloat(e.target.value))}
+            onChange={(e) => setBeneficiaryWallet(e.target.value)}
             title="Beneficiary"
             type="text"
             placeholder="Input email, payment id, or wallet address"
@@ -140,12 +162,11 @@ function Contract() {
           <hr className="border-t-[0.01rem] border-secondary overflow-visible mt-6"></hr>
           <ContractFoot
             draft={() => {
-              setDraft(true);
+              createContractForm(true);
             }}
             publish={() => {
-              setDraft(false);
+              createContractForm(false);
             }}
-            submit={createContractForm}
           />
         </div>
       </div>

@@ -3,5 +3,5 @@ import { IContract } from "../../../interfaces/contract";
 
 export interface IContractAction extends AnyAction {
   type: string;
-  payload: IContract[];
+  payload: IContract[] | IContract;
 }

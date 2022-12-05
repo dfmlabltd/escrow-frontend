@@ -124,17 +124,6 @@ const Transaction: React.FC = () => {
             </thead>
             <tbody className="text-sm max-h-16">
               <TableRows />
-              <tr className="bg-dashsecondary text-white pb-4 border-b-[10px] border-dashprimary">
-                <td className="py-3 px-6">1</td>
-                <td className="py-3 px-6 text-right">Mar 27, 2020</td>
-                <td className="py-3 px-6 text-right">Transatioo</td>
-                <td className="py-3 px-6 text-right">$100</td>
-                <td className="py-3 px-6 text-right">
-                  <button className="text-xs border border-gray-300 dashwarning rounded-full px-5 py-1 font-bold tbl_status">
-                    Pending
-                  </button>
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>
