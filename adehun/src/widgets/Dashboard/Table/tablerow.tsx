@@ -21,7 +21,6 @@ const TableRow: React.FC<Props> = ({
   }, [date]);
   return (
     <tr className="bg-dashsecondary text-white pb-4 border-b-[10px] border-dashprimary">
-      <td className="py-3 px-6">{id}</td>
       <td className="py-3 px-6 text-right">{humanizedDate}</td>
       <td className="py-3 px-6 text-right">{title}</td>
       <td className="py-3 px-6 text-right">{amount}</td>
