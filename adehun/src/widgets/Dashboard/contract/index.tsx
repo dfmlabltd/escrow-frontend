@@ -6,6 +6,7 @@ import ContractFoot from "./Footer";
 // import ContractCheckbox from "./Checkbox";
 import ContractToggle from "./Togglebutton";
 import useContractCreate from "./useContractCreate";
+import InvoiceAdd from "./Add";
 
 function Contract() {
   const {
@@ -58,7 +59,7 @@ function Contract() {
             }}
             href="#get"
           >
-            + add new wallet
+            <InvoiceAdd addtext="Add new wallwet" />
           </a>
 
           <ContractInput

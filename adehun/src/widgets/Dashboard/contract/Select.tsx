@@ -72,7 +72,7 @@ export const WalletSelectWidget: React.FC<WalletSelectWidgetProps> = ({
   return (
     <>
       <div className="relative">
-        <p className="text-sm">{title}</p>
+        <p className="relative text-white text-adbase block font-medium">{title}</p>
         <label className="block mb-1 sr-only text-adbase font-medium text-white">
           Select an option
         </label>
@@ -156,7 +156,7 @@ const Select: React.FC<SetTokenProps> = ({
 
   return (
     <div className="relative block">
-      <div className="flex flex-col w-full bg-dashprimary p-6 gap-4 text-white">
+      <div className="flex flex-col w-full bg-dashprimary gap-4 text-white">
         <SelectWidget
           title="Blockchain Network"
           text="select a network"

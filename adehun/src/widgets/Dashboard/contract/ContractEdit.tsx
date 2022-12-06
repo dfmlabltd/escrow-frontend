@@ -5,6 +5,7 @@ import ContractSelect, { WalletSelectWidget } from "./Select";
 import ContractInput from "./Input";
 import ContractDescription from "./TextArea";
 import InvoiceFoot from "./Footer";
+import InvoiceAdd from "./Add";
 
 const ContractExpand: React.FC = () => {
   const {
@@ -26,7 +27,7 @@ const ContractExpand: React.FC = () => {
       <div className="w-full relative block">
         <div className="flex flex-col relative w-full gap-y-4">
           <ContractHeader />
-          <div className="flex flex-row items-center justify-between gap-x-12">
+          <div className="flex flex-row items-end justify-between gap-x-12">
             <div className="w-full">
               <ContractSelect setCurrentToken={setToken} />
             </div>
@@ -73,7 +74,7 @@ const ContractExpand: React.FC = () => {
             }}
             href="#get"
           >
-            + add new wallet
+            <InvoiceAdd addtext="Add new wallwet" />
           </a>
           <div className="flex flex-row items-center justify-between gap-x-12">
             <div className="w-full">
