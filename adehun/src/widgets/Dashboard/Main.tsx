@@ -2,6 +2,7 @@ import TableCard from "./Body";
 import DashHeader from "./Header";
 import Nav from "./Nav";
 import ContractMain from "./ContractExpand";
+import Transaction from "./Transaction/Index";
 
 const Main: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const Main: React.FC = () => {
       <DashHeader />
       <TableCard />
       {/* <ContractMain /> */}
+      {/* <Transaction /> */}
     </main>
   );
 };
