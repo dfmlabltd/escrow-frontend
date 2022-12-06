@@ -1,10 +1,26 @@
 import ContractHeader from "./Header";
-import InputWidget from "./Input";
-import InvoiceTextarea from "./TextArea";
 import Togglebutton from "./Togglebutton";
+import useContractCreate from "./useContractCreate";
+import ContractSelect, { WalletSelectWidget } from "./Select";
+import ContractInput from "./Input";
+import ContractDescription from "./TextArea";
 import InvoiceFoot from "./Footer";
 
-function ContractExpand() {
+const ContractExpand: React.FC = () => {
+  const {
+    state,
+    setDepositorWallet,
+    setTitle,
+    setDescription,
+    setBeneficiaryWallet,
+    setAmount,
+    setToken,
+    createContractForm,
+    createWalletWidget,
+    depositor_wallet,
+    wallets,
+  } = useContractCreate();
+
   return (
     <div className="relative w-9/12 p-4">
       <div className="w-full relative block">
@@ -12,42 +28,68 @@ function ContractExpand() {
           <ContractHeader />
           <div className="flex flex-row items-center justify-between gap-x-12">
             <div className="w-full">
-              <InputWidget
-                title="BlockChain Newtwork"
-                type="text"
-                placeholder="BlockChain Newtwork"
-              />
+              <ContractSelect setCurrentToken={setToken} />
             </div>
             <div className="w-full">
-              <InputWidget
+              <ContractInput
+                onChange={(e) => setAmount(parseFloat(e.target.value))}
+                title="Amount"
+                type="number"
+                placeholder="contract amount"
+              />
+            </div>
+          </div>
+          <div className="flex flex-row items-center justify-between gap-x-12">
+            <div className="w-full">
+              <ContractInput
+                onChange={(e) => setBeneficiaryWallet(e.target.value)}
+                title="Beneficiary"
+                type="text"
+                placeholder="Input email, payment id, or wallet address"
+              />{" "}
+            </div>
+            <div className="w-full">
+              <ContractInput
+                onChange={(e) => setTitle(e.target.value)}
                 title="Title"
-                type="text"
-                placeholder="Contract Title"
+                placeholder="contract title"
               />
             </div>
           </div>
+          {wallets.length > 0 ? (
+            <WalletSelectWidget
+              title="Wallet"
+              text="Select Wallet"
+              onChange={setDepositorWallet}
+              value={depositor_wallet}
+              data={wallets}
+            />
+          ) : (
+            <></>
+          )}
+          <a
+            onClick={() => {
+              createWalletWidget();
+            }}
+            href="#get"
+          >
+            + add new wallet
+          </a>
           <div className="flex flex-row items-center justify-between gap-x-12">
             <div className="w-full">
-              <InputWidget title="Amount" type="number" placeholder="Amount" />
-            </div>
-            <div className="w-full">
-              <InputWidget
-                title="Wallet"
-                type="text"
-                placeholder="Contract Title"
-              />
-            </div>
-          </div>
-          <div className="flex flex-row items-center justify-between gap-x-12">
-            <div className="w-full">
-              <InvoiceTextarea />
+              <ContractDescription
+                onChange={(e) => setDescription(e.target.value)}
+              />{" "}
             </div>
           </div>
           <div>
             <Togglebutton title="Advance Settings" />
             <hr className="border-t-[0.1rem] border-secondary overflow-visible mt-6"></hr>
           </div>
-          <InvoiceFoot />
+          <InvoiceFoot
+            draft={() => createContractForm(true)}
+            publish={() => createContractForm(false)}
+          />
         </div>
       </div>
       <div className="w w-16 h-16 bg-secondary rounded-full absolute -ri -right-20 bottom-[6.5rem] flex justify-center items-center">
@@ -68,6 +110,6 @@ function ContractExpand() {
       </div>
     </div>
   );
-}
+};
 
 export default ContractExpand;

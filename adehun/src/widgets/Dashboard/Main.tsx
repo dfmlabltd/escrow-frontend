@@ -1,7 +1,7 @@
 import TableCard from "./Body";
 import DashHeader from "./Header";
 import Nav from "./Nav";
-import ContractMain from "./ContractExpand";
+import ContractMain from "./Contract/ContractMain";
 import Transaction from "./Transaction/Index";
 
 const Main: React.FC = () => {

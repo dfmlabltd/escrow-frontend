@@ -5,6 +5,7 @@ import HomePage from "./pages";
 import LoginVerifyPage from "./pages/login/verify";
 import DashboardPage from "./pages/dashboard/";
 import EmailVerifyPage from "./pages/email/verify";
+import ContractPage from "./pages/contract";
 
 const PageRoutes = (): JSX.Element => {
   return (
@@ -16,6 +17,7 @@ const PageRoutes = (): JSX.Element => {
         <Route path="email/verify" element={<EmailVerifyPage />} />
         <Route path="login/verify" element={<LoginVerifyPage />} />
         <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="contract" element={<ContractPage />} />
       </Routes>
     </BrowserRouter>
   );
