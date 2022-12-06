@@ -4,9 +4,15 @@ import { IUser } from "../../interfaces/user";
 import * as actions from "../actions/user/constants";
 
 export default function userReducer(
-  state: IUser,
+  state: IUser = {
+    id: 0,
+    is_active: false,
+    is_email_verified: false,
+  },
   { type, payload }: AnyAction
 ): IUser {
+  console.log(type);
+
   switch (type) {
     case actions.USER_INITIALIZED:
       return payload;
@@ -21,10 +27,6 @@ export default function userReducer(
         _user.username = payload.username;
       });
     default:
-      return {
-        id: 0,
-        is_active: false,
-        is_email_verified: false,
-      };
+      return state;
   }
 }
