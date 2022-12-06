@@ -66,7 +66,7 @@ function Contract() {
             }
           })
           .catch((error) => {
-            Swal.showValidationMessage(`Request failed: ${error}`);
+            Swal.showValidationMessage(`invalid wallet address`);
           });
       },
       allowOutsideClick: () => !Swal.isLoading(),
