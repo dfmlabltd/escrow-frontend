@@ -46,6 +46,9 @@ module.exports = {
       fontSize: {
         adbase: "0.85rem",
       },
+      fontSize: {
+        adxs: "0.781rem",
+      },
     },
   },
   plugins: [require("flowbite/plugin")],
