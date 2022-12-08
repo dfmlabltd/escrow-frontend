@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useClipboard from "react-use-clipboard";
 import IState from "../../../redux/istore";
@@ -11,9 +11,12 @@ const PaymentLink: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const [isCopied, setCopied] = useClipboard("https://adehun.com/pay/eax", {
-    successDuration: 1000,
-  });
+  const [isCopied, setCopied] = useClipboard(
+    `https://adehun.com/pay/${user.username}` ?? "",
+    {
+      successDuration: 1000,
+    }
+  );
 
   const SetCard = () => {
     const createPaymentLink = useCallback(() => {

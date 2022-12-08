@@ -9,6 +9,7 @@ const InvoiceFoot: React.FC<Props> = ({ draft, publish }: Props) => {
       <p className="uppercase py-1.5 border border-none">Preview</p>
       <div className="flex items-center gap-3">
         <button
+          type="submit"
           onClick={() => {
             draft();
           }}
@@ -17,6 +18,7 @@ const InvoiceFoot: React.FC<Props> = ({ draft, publish }: Props) => {
           Save as draft
         </button>
         <button
+          type="submit"
           onClick={() => {
             publish();
           }}

@@ -41,6 +41,7 @@ function Contract() {
             title="Amount"
             type="number"
             placeholder="contract amount"
+            pattern="[0-9]{1,5}"
           />
           {wallets.length > 0 ? (
             <WalletSelectWidget
