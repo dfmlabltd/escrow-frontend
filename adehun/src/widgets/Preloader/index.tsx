@@ -13,7 +13,7 @@ const Preloader = () => {
               </div>
             </div>
             <div className="w-full h-full">
-              <div className="w-full h-full hidden bg-white/90 rounded-full flex justify-center items-center loader-ring-1x">
+              <div className="hidden w-full h-full bg-white/90 rounded-full flex justify-center items-center loader-ring-1x">
                 <div className="w-[65%] h-[65%] bg-gray-200/50 rounded-full flex justify-center items-center z-50">
                   <div className="w-[65%] h-[65%] bg-secondary/20 rounded-full flex justify-center items-center z-50 overflow-hidden">
                     <img
