@@ -1,4 +1,4 @@
-const InvoiceHeader = () => {
+const InvoiceHeader: React.FC = () => {
   return (
     <div className="w-full relative flex flex-col text-white gap-y-4 pb-10">
       <div className="relative flex flex-row justify-between gap-4">

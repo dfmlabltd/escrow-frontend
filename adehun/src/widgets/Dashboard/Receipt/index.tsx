@@ -2,7 +2,7 @@ import InvoiceHeader from "./InvoiceHeader";
 import InvoiceBody from "./InvoiceBody";
 import InvoiceFooter from "./InvoiceFooter";
 
-const Trxreceipt = () => {
+const Receipt: React.FC = () => {
   return (
     <section
       className="w-full relative flex flex-col justify-center items-center mt-8"
@@ -19,4 +19,4 @@ const Trxreceipt = () => {
   );
 };
 
-export default Trxreceipt;
+export default Receipt;
