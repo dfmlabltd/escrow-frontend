@@ -4,6 +4,7 @@ import useToken from "../hooks/authentication/token";
 import useLoading from "../hooks/loading";
 import useProfile from "../hooks/user/profile";
 import { LOGIN_PAGE, REDIRECT_TO_AFTER } from "../utils/constants";
+import Preloader from "../widgets/Preloader";
 
 const AuthMiddleware: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const { startLoading, stopLoading, isLoading } = useLoading(true);
@@ -28,7 +29,7 @@ const AuthMiddleware: React.FC<PropsWithChildren<{}>> = ({ children }) => {
     stopLoading();
   }, []);
 
-  return isLoading ? <>loading</> : <>{children}</>;
+  return isLoading ? <Preloader /> : <>{children}</>;
 };
 
 export default AuthMiddleware;

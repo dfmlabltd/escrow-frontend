@@ -10,6 +10,7 @@ import {
   USER_EMAIL_VERIFICATION_PAGE,
 } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
+import Preloader from "../widgets/Preloader";
 
 const EmailVerifiedMiddleware: React.FC<PropsWithChildren<{}>> = ({
   children,
@@ -73,7 +74,7 @@ const EmailVerifiedMiddleware: React.FC<PropsWithChildren<{}>> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return isLoading ? <>loading</> : <>{children}</>;
+  return isLoading ? <Preloader /> : <>{children}</>;
 };
 
 export default EmailVerifiedMiddleware;

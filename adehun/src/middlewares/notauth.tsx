@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useLoading from "../hooks/loading";
 import useProfile from "../hooks/user/profile";
 import { DASHBOARD_PAGE } from "../utils/constants";
+import Preloader from "../widgets/Preloader";
 
 const NotAuthMiddleware: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const { startLoading, stopLoading, isLoading } = useLoading(true);
@@ -27,7 +28,7 @@ const NotAuthMiddleware: React.FC<PropsWithChildren<{}>> = ({ children }) => {
     _getProfile();
   }, [startLoading, getProfile, stopLoading, navigate]);
 
-  return isLoading ? <>loading</> : <>{children}</>;
+  return isLoading ? <Preloader /> : <>{children}</>;
 };
 
 export default NotAuthMiddleware;
