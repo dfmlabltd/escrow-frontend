@@ -9,7 +9,6 @@ import InvoiceAdd from "./Add";
 
 const ContractExpand: React.FC = () => {
   const {
-    state,
     setDepositorWallet,
     setTitle,
     setDescription,

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import {
   IContractWidgetContext,
   ContractWidgetContext,
-} from "../../../contexts/contractWidget";
+} from "../../contexts/contractWidget";
 
 const Header = () => {
   const { close } = useContext<IContractWidgetContext>(ContractWidgetContext);

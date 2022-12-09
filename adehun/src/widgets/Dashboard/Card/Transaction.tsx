@@ -21,7 +21,7 @@ const Transaction: React.FC = () => {
 
   useEffect(() => {
     getContractData();
-  }, []);
+  }, [getContractData]);
 
   return (
     <div className="grid grid-cols-2 flex-wrap bg-primary p-6 rounded-sm gap-4 justify-between text-white">

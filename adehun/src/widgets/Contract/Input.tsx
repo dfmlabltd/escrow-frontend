@@ -1,4 +1,4 @@
-import { InputProps } from "../../../interfaces";
+import { InputProps } from "../../interfaces";
 
 export interface InputPropsWithTitle extends InputProps {
   title: string;

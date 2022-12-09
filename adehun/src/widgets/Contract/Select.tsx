@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect } from "react";
-import authAxios from "../../../axios/auth";
-import useLoading from "../../../hooks/loading";
-import { Network, Token } from "../../../interfaces/blockchain";
+import authAxios from "../../axios/auth";
+import useLoading from "../../hooks/loading";
+import { Network, Token } from "../../interfaces/blockchain";
 
 interface Data {
   id: number;
@@ -72,7 +72,9 @@ export const WalletSelectWidget: React.FC<WalletSelectWidgetProps> = ({
   return (
     <>
       <div className="relative">
-        <p className="relative text-white text-adbase block font-medium">{title}</p>
+        <p className="relative text-white text-adbase block font-medium">
+          {title}
+        </p>
         <label className="block mb-1 sr-only text-adbase font-medium text-white">
           Select an option
         </label>
@@ -135,7 +137,7 @@ const Select: React.FC<SetTokenProps> = ({
       };
       _getTokensByNetworkID();
     },
-    [setTokens]
+    [setTokens, startLoading, stopLoading]
   );
 
   useEffect(() => {
@@ -145,7 +147,7 @@ const Select: React.FC<SetTokenProps> = ({
       return;
     }
     getTokensByNetworkID(currentNetwork);
-  }, [getTokensByNetworkID, currentNetwork, setTokens]);
+  }, [getTokensByNetworkID, currentNetwork, setTokens, startLoading]);
 
   const setCurrentNetworkFunc = useCallback(
     (id: number) => {

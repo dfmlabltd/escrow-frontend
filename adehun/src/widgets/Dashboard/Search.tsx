@@ -9,7 +9,7 @@ const Search = () => {
   const search = useCallback(() => {
     const _searchContracts = async () => {
       let url;
-      if (query == "") {
+      if (query === "") {
         url = "contract/";
       } else {
         url = "contract/?search=" + query;
@@ -19,7 +19,7 @@ const Search = () => {
       return true;
     };
     _searchContracts();
-  }, [query]);
+  }, [query, dispatch]);
 
   return (
     <div className="flex justify-between items-center py-6 gap-4">

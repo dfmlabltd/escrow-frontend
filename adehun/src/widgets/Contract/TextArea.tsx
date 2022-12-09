@@ -1,4 +1,4 @@
-import { ReactTextAreaProps } from "../../../interfaces";
+import { ReactTextAreaProps } from "../../interfaces";
 
 const InvoiceTextarea: React.FC<ReactTextAreaProps> = (
   props: ReactTextAreaProps

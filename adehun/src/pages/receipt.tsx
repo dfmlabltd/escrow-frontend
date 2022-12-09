@@ -1,18 +1,17 @@
-import "@rainbow-me/rainbowkit/styles.css";
+import ContractWidgetContextProvider from "../contexts/contractWidget";
 import EmailVerifiedMiddleware from "../middlewares/emailverified";
 import Aside from "../widgets/Dashboard/Aside";
-import ContractWidgetContextProvider from "../contexts/contractWidget";
-import ContractMain from "../widgets/Contract/ContractMain";
+import Receipt from "../widgets/Receipt";
 
-const ContractPage: React.FC = () => {
+const ReceiptPage = () => {
   return (
     <EmailVerifiedMiddleware>
       <ContractWidgetContextProvider>
         <Aside />
-        <ContractMain />
+        <Receipt />{" "}
       </ContractWidgetContextProvider>
     </EmailVerifiedMiddleware>
   );
 };
 
-export default ContractPage;
+export default ReceiptPage;

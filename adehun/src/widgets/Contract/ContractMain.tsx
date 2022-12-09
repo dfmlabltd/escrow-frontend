@@ -1,4 +1,4 @@
-import Nav from "../Nav";
+import Nav from "../Dashboard/Nav";
 import ContractEdit from "./ContractEdit";
 
 const ContractMain = () => {

@@ -1,16 +1,13 @@
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import {
   ContractWidgetContext,
   IContractWidgetContext,
-} from "../../../contexts/contractWidget";
-import authAxios from "../../../axios/auth";
+} from "../../contexts/contractWidget";
+import authAxios from "../../axios/auth";
 import Swal from "sweetalert2";
-import useToast from "../../../hooks/toast";
+import useToast from "../../hooks/toast";
 import { useDispatch } from "react-redux";
-import { contractAdded } from "../../../redux/actions/contract/contract";
-import { regexValidator } from "../../../utils/validators";
-import { utils } from "ethers";
-import validateEmail from "validator/lib/isEmail";
+import { contractAdded } from "../../redux/actions/contract/contract";
 
 const useContractEdit = () => {
   const { state, close } = useContext<IContractWidgetContext>(
@@ -41,27 +38,7 @@ const useContractEdit = () => {
   // const [agreement, setAgreement] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
   const [token, setToken] = useState<number>(0);
-  const { toast, persistentToast } = useToast();
-
-  const isTitle = useCallback(() => {
-    return title.length > 0 && title.length < 128;
-  }, [title]);
-
-  const isBeneficiary = useCallback(() => {
-    return (
-      regexValidator("/^a-z$/{5, 16}", beneficiary_wallet) ||
-      utils.isAddress(beneficiary_wallet) ||
-      validateEmail(beneficiary_wallet)
-    );
-  }, [beneficiary_wallet]);
-
-  const isToken = useCallback(() => {
-    return token > 0 ? true : false;
-  }, [token]);
-
-  const isAmount = useCallback(() => {
-    return amount > 0;
-  }, [amount]);
+  const { toast } = useToast();
 
   const createWalletWidget = useCallback(() => {
     Swal.fire({
@@ -89,45 +66,8 @@ const useContractEdit = () => {
     });
   }, [setDepositorWallet, getWallets]);
 
-  const isValidForm = useCallback(() => {
-    if (!isToken()) {
-      persistentToast.fire({
-        title: "contract token is invalid",
-        icon: "error",
-      });
-      return false;
-    }
-
-    if (!isTitle()) {
-      persistentToast.fire({
-        title: "contract title is invalid",
-        icon: "error",
-      });
-      return false;
-    }
-
-    if (!isAmount()) {
-      persistentToast.fire({
-        title: "contract amount is invalid",
-        icon: "error",
-      });
-      return false;
-    }
-
-    if (!isBeneficiary()) {
-      persistentToast.fire({
-        title: "contract amount is invalid",
-        icon: "error",
-      });
-      return false;
-    }
-  }, [isAmount, isBeneficiary, isTitle, isToken]);
-
   const createContractForm = useCallback(
     (draft: boolean) => {
-      if (!isValidForm()) {
-        return false;
-      }
       const __createContractForm = async () => {
         const data = {
           title,
@@ -156,15 +96,7 @@ const useContractEdit = () => {
       };
       __createContractForm();
     },
-    [
-      title,
-      description,
-      depositor_wallet,
-      beneficiary_wallet,
-      amount,
-      token,
-      isValidForm,
-    ]
+    [title, description, depositor_wallet, beneficiary_wallet, amount, token]
   );
 
   return {
@@ -177,10 +109,7 @@ const useContractEdit = () => {
     createContractForm,
     createWalletWidget,
     setDepositorWallet,
-    amount,
-    title,
     depositor_wallet,
-    beneficiary_wallet,
     wallets,
   };
 };

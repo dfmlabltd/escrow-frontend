@@ -1,9 +1,9 @@
 import TableCard from "./Body";
 import DashHeader from "./Header";
 import Nav from "./Nav";
-import ContractMain from "./Contract/ContractMain";
-import Transaction from "./Transaction/Index";
-import Trxreceipt from "./Receipt";
+// import ContractMain from "../Contract/ContractMain";
+// import Transaction from "./Transaction/Index";
+// import Trxreceipt from "../Receipt";
 
 const Main: React.FC = () => {
   return (

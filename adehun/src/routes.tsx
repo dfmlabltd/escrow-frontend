@@ -3,9 +3,11 @@ import LoginPage from "./pages/login";
 import EmailChangePage from "./pages/email";
 import HomePage from "./pages";
 import LoginVerifyPage from "./pages/login/verify";
-import DashboardPage from "./pages/dashboard/";
+import DashboardPage from "./pages/dashboard";
 import EmailVerifyPage from "./pages/email/verify";
 import ContractPage from "./pages/contract";
+import ReceiptPage from "./pages/receipt";
+import TransactionPage from "./pages/transaction";
 
 const PageRoutes = (): JSX.Element => {
   return (
@@ -18,6 +20,8 @@ const PageRoutes = (): JSX.Element => {
         <Route path="login/verify" element={<LoginVerifyPage />} />
         <Route path="dashboard" element={<DashboardPage />} />
         <Route path="contract" element={<ContractPage />} />
+        <Route path="receipt" element={<ReceiptPage />} />
+        <Route path="transaction" element={<TransactionPage />} />
       </Routes>
     </BrowserRouter>
   );

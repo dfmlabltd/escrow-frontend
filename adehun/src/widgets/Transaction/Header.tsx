@@ -1,14 +1,12 @@
-import Invoice from "../Card/Invoice";
-import PaymentCard from "../Card/Payment";
-import PaymentLinkCard from "../Card/PaymentLink";
+import Invoice from "../Dashboard/Card/Invoice";
+import PaymentLinkCard from "../Dashboard/Card/PaymentLink";
 
-function TrxCard() {
+const Header: React.FC = () => {
   return (
     <div
       className="relative w-full font-adreg flex flex-col"
       aria-labelledby="Transaction Card"
     >
-      {/* header widgets */}
       <div className="flex items-stretch justify-between flex-row relative gap-4 w-full py-3">
         <div className="relative w-[45%]">
           <Invoice />
@@ -19,6 +17,6 @@ function TrxCard() {
       </div>
     </div>
   );
-}
+};
 
-export default TrxCard;
+export default Header;

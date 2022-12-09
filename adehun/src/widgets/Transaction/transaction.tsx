@@ -1,23 +1,23 @@
-import TransactionTbl from "../Table/Transaction";
-import TrxCard from "./TransactionHeader";
+import Table from "../Dashboard/Table/Transaction";
+import Header from "./Header";
 
-function Transaction() {
+const Transaction: React.FC = () => {
   return (
     <section
       className="w-full relative flex flex-col"
       aria-labelledby="Transaction Header"
     >
       <div className="relative w-full font-adreg py-2 mt-8">
-        <TrxCard />
+        <Header />
       </div>
       <div
         className="relative w-full font-adreg py-2 mt-8 gap-4 flex-row"
         aria-labelledby="Transaction Table"
       >
-        <TransactionTbl />
+        <Table />
       </div>
     </section>
   );
-}
+};
 
 export default Transaction;
