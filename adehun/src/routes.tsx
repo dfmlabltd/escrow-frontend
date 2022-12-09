@@ -8,6 +8,7 @@ import EmailVerifyPage from "./pages/email/verify";
 import ContractPage from "./pages/contract";
 import ReceiptPage from "./pages/receipt";
 import TransactionPage from "./pages/transaction";
+import LogoutPage from "./pages/logout";
 
 const PageRoutes = (): JSX.Element => {
   return (
@@ -22,6 +23,7 @@ const PageRoutes = (): JSX.Element => {
         <Route path="contract" element={<ContractPage />} />
         <Route path="receipt" element={<ReceiptPage />} />
         <Route path="transaction" element={<TransactionPage />} />
+        <Route path="logout" element={<LogoutPage />} />
       </Routes>
     </BrowserRouter>
   );
