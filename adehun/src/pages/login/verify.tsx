@@ -51,9 +51,9 @@ const LoginVerifyPage: React.FC = () => {
           icon: "error",
           title: emailVerifyError,
         });
-        stopLoading();
         return;
       }
+      stopLoading();
 
       navigate(sessionStorage.getItem(REDIRECT_TO_AFTER) ?? DASHBOARD_PAGE);
     };
@@ -88,6 +88,8 @@ const LoginVerifyPage: React.FC = () => {
         icon: "success",
         title: VERIFICATION_CODE_SENT,
       });
+
+      stopLoading();
     };
 
     _handleLogin();
@@ -142,7 +144,7 @@ const LoginVerifyPage: React.FC = () => {
             <div className="h-full flex">
               <span className="text-white text-base">
                 Didn&apos;t receive Any verification code? Please&nbsp;
-                <span
+                <a
                   onClick={async (e: ReactHTMLSpanEvent) => {
                     e.preventDefault();
                     resendEmail();
@@ -150,7 +152,7 @@ const LoginVerifyPage: React.FC = () => {
                   className="font-bold text-secondary"
                 >
                   Resend
-                </span>
+                </a>
               </span>
             </div>
           </div>

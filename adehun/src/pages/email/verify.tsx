@@ -113,7 +113,7 @@ const EmailVerifyPage: React.FC = () => {
             <div className="h-full flex">
               <span className="text-white text-base">
                 Didn&apos;t receive Any verification code? Please&nbsp;
-                <span
+                <a
                   onClick={async (e) => {
                     e.preventDefault();
                     handleSendOTK();
@@ -121,9 +121,9 @@ const EmailVerifyPage: React.FC = () => {
                   className="font-bold text-secondary"
                 >
                   Resend&nbsp;
-                </span>
+                </a>
                 <span>or</span>
-                <span
+                <a
                   onClick={(e: ReactHTMLSpanEvent) => {
                     e.preventDefault();
                     navigate(EMAIL_CHANGE_PAGE);
@@ -131,7 +131,7 @@ const EmailVerifyPage: React.FC = () => {
                   className="font-bold text-secondary"
                 >
                   change email
-                </span>
+                </a>
               </span>
             </div>
           </div>
