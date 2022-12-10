@@ -2,7 +2,9 @@ const Invoice: React.FC = () => {
   return (
     <div className="flex flex-col flex-wrap bg-dashsecondary p-6 rounded-sm gap-4 justify-between text-white">
       <div className="flex flex-row justify-between gap-4">
-        <h2 className="text-xl font-extrabold tracking-wider">Invoice Details</h2>
+        <h2 className="text-xl font-extrabold tracking-wider">
+          Invoice Details
+        </h2>
         <p className="relative">
           <ul className="flex flex-row gap-2">
             <li className="bg-dashprimary w-6 h-6 rounded-full flex items-center justify-center">
@@ -56,6 +58,40 @@ const Invoice: React.FC = () => {
               >
                 <path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
               </svg>
+              <div
+                id="dropdownList"
+                className="hidden z-10 w-28 bg-dashprimary rounded shadow absolute top-7 left-1"
+              >
+                <ul
+                  className="py-1 text-xs text-gray-400"
+                  aria-labelledby="dropdownMenu"
+                >
+                  <li>
+                    <a
+                      href="#"
+                      className="block py-2 px-4 hover:bg-gray-800"
+                    >
+                      Option
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="block py-2 px-4 hover:bg-gray-800"
+                    >
+                      Option 2
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="block py-2 px-4 hover:bg-gray-800"
+                    >
+                      Option 3
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </li>
           </ul>
         </p>
@@ -74,8 +110,8 @@ const Invoice: React.FC = () => {
         <div className="flex flex-col text-sm gap-y-0.5 justify-end">
           <span className="text text-slate-400 font-bold">Description</span>
           <h5 className="mt-1.5">
-            Lorem ipsum dolor sit amet adipisicing  <br /> 
-            consectetur, adipisicing elit. 
+            Lorem ipsum dolor sit amet adipisicing <br />
+            consectetur, adipisicing elit.
           </h5>
         </div>
         <div className="flex flex-col text-sm gap-y-0.5 text-right">
