@@ -7,6 +7,7 @@ type Props = {
   title: string;
   status: number;
   amount: number;
+  page: string;
 };
 
 const TableRow: React.FC<Props> = ({
@@ -15,6 +16,7 @@ const TableRow: React.FC<Props> = ({
   title,
   status,
   amount,
+  page,
 }: Props) => {
   const humanizedDate = useMemo(() => {
     return moment(date).fromNow();
@@ -26,10 +28,10 @@ const TableRow: React.FC<Props> = ({
         <a href={`transaction?id=${id}`}>{humanizedDate}</a>
       </td>
       <td className="py-3 px-6 text-right">
-        <a href={`transaction?id=${id}`}>{title}</a>
+        <a href={`?id=${id}`}>{title}</a>
       </td>
       <td className="py-3 px-6 text-right">
-        <a href={`transaction?id=${id}`}>{amount}</a>
+        <a href={`${page}?id=${id}`}>{amount}</a>
       </td>
       <td className="py-3 px-6 text-right">
         <button className="text-xs border border-gray-300 dashwarning rounded-full px-5 py-1 font-bold tbl_status">

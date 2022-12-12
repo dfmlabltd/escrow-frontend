@@ -6,14 +6,19 @@ import { contractsInitialized } from "../../../redux/actions/contract/contract";
 import IState from "../../../redux/istore";
 import TableRow from "./tablerow";
 
-const TableRows = () => {
+interface Props {
+  url: string;
+  page: string;
+}
+
+const TableRows = ({ url, page }: Props) => {
   const dispatch = useDispatch();
 
   const contracts: any = useSelector<IState>((state) => state.contracts);
 
   const getContracts = useCallback(() => {
     const _getContracts = async () => {
-      const { data } = await authAxios.get("contract/?page_size=10");
+      const { data } = await authAxios.get(url);
       dispatch(contractsInitialized(data.results));
       return data;
     };
@@ -28,6 +33,7 @@ const TableRows = () => {
     <>
       {contracts.map((contract: IContract) => (
         <TableRow
+          page={page}
           id={contract.id}
           date={contract.time_created}
           title={contract.title}

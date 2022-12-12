@@ -8,7 +8,7 @@ const TransactionPage = () => {
     <EmailVerifiedMiddleware>
       <ContractWidgetContextProvider>
         <Aside />
-        <Transaction />{" "}
+        <Transaction page="transaction" url="transaction?page_size=10" />{" "}
       </ContractWidgetContextProvider>
     </EmailVerifiedMiddleware>
   );

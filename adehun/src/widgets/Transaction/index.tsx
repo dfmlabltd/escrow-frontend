@@ -1,11 +1,16 @@
 import Nav from "../Dashboard/Nav";
-import Transaction from "./transaction";
+import Transactions from "./transaction";
 
-const Main: React.FC = () => {
+interface Props {
+  page: string;
+  url: string;
+}
+
+const Main: React.FC<Props> = ({ page, url }: Props) => {
   return (
     <main className="relative h-full min-h-screen main-adehun py-6 px-12 bg-dashprimary">
       <Nav />
-      <Transaction />
+      <Transactions url={url} page={page} />
     </main>
   );
 };

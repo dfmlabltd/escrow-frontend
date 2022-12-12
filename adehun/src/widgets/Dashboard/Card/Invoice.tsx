@@ -1,4 +1,32 @@
+import { useCallback, useEffect, useMemo, useState } from "react";
+import authAxios from "../../../axios/auth";
+import { IContract } from "../../../interfaces/contract";
+import ContractStatus from "../../../utils/contract";
+
 const Invoice: React.FC = () => {
+  const [isOpen, open] = useState<boolean>();
+
+  const [contract, setContract] = useState<IContract>();
+
+  const contract_id = useMemo(() => {
+    const param = new URLSearchParams(window.location.search);
+
+    return param.get("id");
+  }, [window.location.search]);
+
+  const getContract = useCallback(() => {
+    const _getContract = async () => {
+      const { data } = await authAxios.get(`contract/${contract_id}`);
+      setContract(data);
+      return data;
+    };
+    _getContract();
+  }, [setContract]);
+
+  useEffect(() => {
+    getContract();
+  }, []);
+
   return (
     <div className="flex flex-col flex-wrap bg-dashsecondary p-6 rounded-sm gap-4 justify-between text-white">
       <div className="flex flex-row justify-between gap-4">
@@ -47,51 +75,52 @@ const Invoice: React.FC = () => {
               </svg>
             </li>
             <li className="bg-dashprimary w-6 h-6 rounded-full flex items-center justify-center">
-              <svg
-                className="w-3 h-3"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                style={{ msFilter: "" }}
-                fill="currentColor"
+              <span
+                onClick={() => {
+                  open((state) => !state);
+                }}
               >
-                <path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
-              </svg>
-              <div
-                id="dropdownList"
-                className="hidden z-10 w-28 bg-dashprimary rounded shadow absolute top-7 left-1"
-              >
-                <ul
-                  className="py-1 text-xs text-gray-400"
-                  aria-labelledby="dropdownMenu"
+                <svg
+                  className="w-3 h-3"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  style={{ msFilter: "" }}
+                  fill="currentColor"
                 >
-                  <li>
-                    <a
-                      href="#"
-                      className="block py-2 px-4 hover:bg-gray-800"
-                    >
-                      Option
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block py-2 px-4 hover:bg-gray-800"
-                    >
-                      Option 2
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block py-2 px-4 hover:bg-gray-800"
-                    >
-                      Option 3
-                    </a>
-                  </li>
-                </ul>
-              </div>
+                  <path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
+                </svg>
+              </span>
+              {isOpen ? (
+                <div
+                  id="dropdownList"
+                  className="z-10 w-28 bg-dashprimary rounded shadow absolute top-7 left-1"
+                >
+                  <ul
+                    className="py-1 text-xs text-gray-400"
+                    aria-labelledby="dropdownMenu"
+                  >
+                    <li>
+                      <a href="#" className="block py-2 px-4 hover:bg-gray-800">
+                        edit
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" className="block py-2 px-4 hover:bg-gray-800">
+                        delete{" "}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" className="block py-2 px-4 hover:bg-gray-800">
+                        publish{" "}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              ) : (
+                <></>
+              )}
             </li>
           </ul>
         </p>
@@ -99,26 +128,25 @@ const Invoice: React.FC = () => {
       <div className="flex flex-row justify-between py-2 gap-4">
         <div className="flex flex-col text-sm gap-y-0.5">
           <span className="text text-slate-400 font-bold">From</span>
-          <h5 className="mt-1.5">Emmanuel EAx</h5>
+          <h5 className="mt-1.5">{contract?.beneficiary_wallet}</h5>
         </div>
         <div className="flex flex-col text-sm gap-y-0.5 text-right">
           <span className="relative">Amount</span>
-          <p className="text-2xl text-dashsuccessalt">$34.07</p>
+          <p className="text-2xl text-dashsuccessalt">{contract?.amount}</p>
         </div>
       </div>
       <div className="flex flex-row justify-between py-2 gap-4">
         <div className="flex flex-col text-sm gap-y-0.5 justify-end">
           <span className="text text-slate-400 font-bold">Description</span>
-          <h5 className="mt-1.5">
-            Lorem ipsum dolor sit amet adipisicing <br />
-            consectetur, adipisicing elit.
-          </h5>
+          <h5 className="mt-1.5">{contract?.description}</h5>
         </div>
         <div className="flex flex-col text-sm gap-y-0.5 text-right">
           <span className="relative text-slate-400">Date</span>
-          <p>Jul 10, 2021</p>
+          <p>{contract?.time_created}</p>
           <span className="relative text-slate-400 mt-3">Contract Status</span>
-          <p className="text-dashsuccessalt">Delivered</p>
+          <p className="text-dashsuccessalt">
+            {ContractStatus(contract?.status ?? 0)}
+          </p>
         </div>
       </div>
     </div>

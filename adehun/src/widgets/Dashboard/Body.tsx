@@ -7,7 +7,7 @@ const TableCard = () => {
       className="relative w-full font-adreg py-2 mt-8 gap-4 grid grid-cols-3 float-right items-stretch flex-row"
       aria-labelledby="Dashboard Body"
     >
-      <Transaction />
+      <Transaction page={"contract"} url={"contract/?page_size=10"} />
       <IntroVideo />
     </section>
   );

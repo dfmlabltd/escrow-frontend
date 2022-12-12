@@ -1,7 +1,12 @@
-import Table from "../Dashboard/Table/Transaction";
+import Transactions from "../Dashboard/Table/Transaction";
 import Header from "./Header";
 
-const Transaction: React.FC = () => {
+interface Props {
+  page: string;
+  url: string;
+}
+
+const Transaction: React.FC<Props> = ({ page, url }: Props) => {
   return (
     <section
       className="w-full relative flex flex-col"
@@ -14,7 +19,7 @@ const Transaction: React.FC = () => {
         className="relative w-full font-adreg py-2 mt-8 gap-4 flex-row"
         aria-labelledby="Transaction Table"
       >
-        <Table />
+        <Transactions url={url} page={page} />
       </div>
     </section>
   );

@@ -6,7 +6,12 @@ import {
 import Search from "../Search";
 import TableRows from "./tablerows";
 
-const Transaction: React.FC = () => {
+interface Props {
+  url: string;
+  page: string;
+}
+
+const Transaction: React.FC<Props> = ({ url, page }: Props) => {
   const { open } = useContext<IContractWidgetContext>(ContractWidgetContext);
 
   return (
@@ -57,7 +62,7 @@ const Transaction: React.FC = () => {
               </tr>
             </thead>
             <tbody className="text-sm max-h-16">
-              <TableRows />
+              <TableRows url={url} page={page} />
             </tbody>
           </table>
         </div>
