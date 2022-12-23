@@ -18,8 +18,8 @@ const Transaction: React.FC<Props> = ({ url, page }: Props) => {
     <div className="relative w-full col-span-2 h-full block">
       <div className="relative w-full flex flex-row justify-between items-center gap-4">
         <div className="text-white flex flex-col gap-y-1">
-          <p className="uppercase text-sm font-bold">Invoice</p>
-          <span className="text-xs">List of all your recent trasaction</span>
+          <p className="uppercase text-sm font-bold">Transactions</p>
+          <span className="text-xs">List of all your recent trasactions</span>
         </div>
         <div>
           <button className="bg-secondary flex flex-row justify-between py-2 px-3 text-white items-center gap-1 rounded-sm">
@@ -35,7 +35,7 @@ const Transaction: React.FC<Props> = ({ url, page }: Props) => {
               <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path>
             </svg>
             <span onClick={open} className="text-sm">
-              New Invoice
+              New Contract
             </span>
           </button>
         </div>

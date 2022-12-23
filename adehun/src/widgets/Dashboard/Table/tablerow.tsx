@@ -1,6 +1,7 @@
 import ContractStatus from "../../../utils/contract";
 import { useMemo } from "react";
 import moment from "moment";
+import { useParams } from "react-router-dom";
 type Props = {
   id: number;
   date: string;
@@ -21,17 +22,18 @@ const TableRow: React.FC<Props> = ({
   const humanizedDate = useMemo(() => {
     return moment(date).fromNow();
   }, [date]);
+
   return (
     <tr className="bg-dashsecondary text-white pb-4 border-b-[10px] border-dashprimary">
       <td className="py-3 px-6 text-right">
         {" "}
-        <a href={`transaction?id=${id}`}>{humanizedDate}</a>
+        <a href={`${page}/${id}`}>{humanizedDate}</a>
       </td>
       <td className="py-3 px-6 text-right">
-        <a href={`?id=${id}`}>{title}</a>
+        <a href={`${page}/${id}`}>{title}</a>
       </td>
       <td className="py-3 px-6 text-right">
-        <a href={`${page}?id=${id}`}>{amount}</a>
+        <a href={`${page}/${id}`}>{amount}</a>
       </td>
       <td className="py-3 px-6 text-right">
         <button className="text-xs border border-gray-300 dashwarning rounded-full px-5 py-1 font-bold tbl_status">

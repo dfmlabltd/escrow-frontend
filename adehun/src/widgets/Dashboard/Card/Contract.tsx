@@ -1,22 +1,19 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
 import authAxios from "../../../axios/auth";
 import { IContract } from "../../../interfaces/contract";
 import ContractStatus from "../../../utils/contract";
 
 const Invoice: React.FC = () => {
+  const params = useParams();
+
   const [isOpen, open] = useState<boolean>();
 
   const [contract, setContract] = useState<IContract>();
 
-  const contract_id = useMemo(() => {
-    const param = new URLSearchParams(window.location.search);
-
-    return param.get("id");
-  }, [window.location.search]);
-
   const getContract = useCallback(() => {
     const _getContract = async () => {
-      const { data } = await authAxios.get(`contract/${contract_id}`);
+      const { data } = await authAxios.get(`contract/${params.id}`);
       setContract(data);
       return data;
     };
@@ -31,7 +28,7 @@ const Invoice: React.FC = () => {
     <div className="flex flex-col flex-wrap bg-dashsecondary p-6 rounded-sm gap-4 justify-between text-white">
       <div className="flex flex-row justify-between gap-4">
         <h2 className="text-xl font-extrabold tracking-wider">
-          Invoice Details
+          Contract Details
         </h2>
         <p className="relative">
           <ul className="flex flex-row gap-2">
@@ -102,9 +99,12 @@ const Invoice: React.FC = () => {
                     aria-labelledby="dropdownMenu"
                   >
                     <li>
-                      <a href="#" className="block py-2 px-4 hover:bg-gray-800">
+                      <NavLink
+                        to={`/contract/edit/${params.id}`}
+                        className="block py-2 px-4 hover:bg-gray-800"
+                      >
                         edit
-                      </a>
+                      </NavLink>
                     </li>
                     <li>
                       <a href="#" className="block py-2 px-4 hover:bg-gray-800">

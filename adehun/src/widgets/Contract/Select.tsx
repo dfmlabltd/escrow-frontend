@@ -13,6 +13,7 @@ interface Props {
   title: string;
   text: string;
   onChange(id: any): void;
+  value: number;
 }
 
 export const SelectWidget: React.FC<Props> = ({
@@ -20,6 +21,7 @@ export const SelectWidget: React.FC<Props> = ({
   title,
   text,
   onChange,
+  value,
 }: Props) => {
   return (
     <>
@@ -30,6 +32,7 @@ export const SelectWidget: React.FC<Props> = ({
         </label>
         <select
           id="option"
+          value={value}
           onChange={(e) => {
             onChange(parseInt(e.target.value));
           }}
@@ -102,14 +105,16 @@ export const WalletSelectWidget: React.FC<WalletSelectWidgetProps> = ({
 
 interface SetTokenProps {
   setCurrentToken(e: any): void;
+  current_network?: number;
 }
 
 const Select: React.FC<SetTokenProps> = ({
   setCurrentToken,
+  current_network = 0,
 }: SetTokenProps) => {
   const [networks, setNetworks] = useState<Network[]>([]);
 
-  const [currentNetwork, setCurrentNetwork] = useState<number>(0);
+  const [currentNetwork, setCurrentNetwork] = useState<number>(current_network);
 
   const [tokens, setTokens] = useState<Token[]>([]);
 
@@ -163,12 +168,14 @@ const Select: React.FC<SetTokenProps> = ({
           title="Blockchain Network"
           text="select a network"
           onChange={setCurrentNetworkFunc}
+          value={currentNetwork}
           data={networks}
         />
         {isLoading ? (
           <></>
         ) : (
           <SelectWidget
+            value={currentNetwork}
             title="Token"
             text="select a Token"
             onChange={setCurrentToken}

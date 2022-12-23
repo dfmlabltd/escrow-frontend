@@ -5,10 +5,11 @@ import HomePage from "./pages";
 import LoginVerifyPage from "./pages/login/verify";
 import DashboardPage from "./pages/dashboard";
 import EmailVerifyPage from "./pages/email/verify";
-import ContractPage from "./pages/contract";
+import ContractCreatePage from "./pages/contract/create";
 import ReceiptPage from "./pages/receipt";
-import TransactionPage from "./pages/transaction";
+import ContractPage from "./pages/contract";
 import LogoutPage from "./pages/logout";
+import ContractEditPage from "./pages/contract/edit";
 
 const PageRoutes = (): JSX.Element => {
   return (
@@ -20,9 +21,10 @@ const PageRoutes = (): JSX.Element => {
         <Route path="email/verify" element={<EmailVerifyPage />} />
         <Route path="login/verify" element={<LoginVerifyPage />} />
         <Route path="dashboard" element={<DashboardPage />} />
-        <Route path="contract" element={<ContractPage />} />
+        <Route path="contract/create" element={<ContractCreatePage />} />
+        <Route path="contract/edit/:id" element={<ContractEditPage />} />
         <Route path="receipt" element={<ReceiptPage />} />
-        <Route path="transaction" element={<TransactionPage />} />
+        <Route path="contract/:id" element={<ContractPage />} />
         <Route path="logout" element={<LogoutPage />} />
       </Routes>
     </BrowserRouter>

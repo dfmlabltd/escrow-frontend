@@ -1,4 +1,4 @@
-import Invoice from "../Dashboard/Card/Invoice";
+import Invoice from "../Dashboard/Card/Contract";
 import PaymentLinkCard from "../Dashboard/Card/PaymentLink";
 
 const Header: React.FC = () => {

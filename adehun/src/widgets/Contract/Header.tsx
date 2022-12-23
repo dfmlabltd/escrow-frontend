@@ -4,13 +4,19 @@ import {
   ContractWidgetContext,
 } from "../../contexts/contractWidget";
 
-const Header = () => {
+interface Props {
+  title?: string;
+}
+
+const Header: React.FC<Props> = ({ title }: Props) => {
   const { close } = useContext<IContractWidgetContext>(ContractWidgetContext);
 
   return (
     <div className="flex flex-col relative w-full gap-y-4 text-white">
       <div className="flex flex-row justify-between items-center gap-4">
-        <h5 className="text-xl font-bold pb-1">Create New Invoice</h5>
+        <h5 className="text-xl font-bold pb-1">
+          {title ?? "Create New Contract"}
+        </h5>
         <div className="flex items-center justify-between gap-x-4">
           <button className="relative inline-block pr-2">
             <svg

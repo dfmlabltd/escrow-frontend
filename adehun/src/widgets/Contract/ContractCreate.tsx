@@ -1,25 +1,13 @@
 import ContractHeader from "./Header";
 import Togglebutton from "./Togglebutton";
+import useContractCreate from "./useContractCreate";
 import ContractSelect, { WalletSelectWidget } from "./Select";
 import ContractInput from "./Input";
 import ContractDescription from "./TextArea";
 import InvoiceFoot from "./Footer";
 import InvoiceAdd from "./Add";
-import useContractEdit from "./useContractCreate";
-import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import authAxios from "../../axios/auth";
-import ContractStatus from "../../utils/contract";
-import { DASHBOARD_PAGE } from "../../utils/constants";
-import { IContract } from "../../interfaces/contract";
 
-const ContractEdit: React.FC = () => {
-  const params = useParams();
-
-  const navigate = useNavigate();
-
-  const [contract, setContract] = useState<IContract>();
-
+const ContractCreate: React.FC = () => {
   const {
     setDepositorWallet,
     setTitle,
@@ -31,42 +19,22 @@ const ContractEdit: React.FC = () => {
     createWalletWidget,
     depositor_wallet,
     wallets,
-  } = useContractEdit();
-
-  // TODO: preloader for this page lol!!!!
-
-  useEffect(() => {
-    const _getContract = async () => {
-      const { data } = await authAxios.get(`contract/${params.id}`);
-
-      if ("DRAFT" === ContractStatus(data.status)) {
-        navigate(DASHBOARD_PAGE);
-        return;
-      }
-      setContract(data);
-
-      return data;
-    };
-    _getContract();
-  }, []);
-
-  console.log(contract);
+  } = useContractCreate();
 
   return (
     <div className="relative w-9/12 p-4">
       <div className="w-full relative block">
         <div className="flex flex-col relative w-full gap-y-4">
-          <ContractHeader title="Edit Contract" />
+          <ContractHeader />
           <div className="flex flex-row items-end justify-between gap-x-12">
             <div className="w-full">
-              <ContractSelect current_network={1} setCurrentToken={setToken} />
+              <ContractSelect setCurrentToken={setToken} />
             </div>
             <div className="w-full">
               <ContractInput
                 onChange={(e) => setAmount(parseFloat(e.target.value))}
                 title="Amount"
                 type="number"
-                value={contract?.amount}
                 placeholder="contract amount"
               />
             </div>
@@ -77,7 +45,6 @@ const ContractEdit: React.FC = () => {
                 onChange={(e) => setBeneficiaryWallet(e.target.value)}
                 title="Beneficiary"
                 type="text"
-                value={contract?.beneficiary_wallet}
                 placeholder="Input email, payment id, or wallet address"
               />{" "}
             </div>
@@ -85,7 +52,6 @@ const ContractEdit: React.FC = () => {
               <ContractInput
                 onChange={(e) => setTitle(e.target.value)}
                 title="Title"
-                value={contract?.title}
                 placeholder="contract title"
               />
             </div>
@@ -146,4 +112,4 @@ const ContractEdit: React.FC = () => {
   );
 };
 
-export default ContractEdit;
+export default ContractCreate;
