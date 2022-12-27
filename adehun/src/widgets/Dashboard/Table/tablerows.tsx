@@ -34,7 +34,7 @@ const TableRows = ({ url, page }: Props) => {
       {contracts.map((contract: IContract) => (
         <TableRow
           page={page}
-          id={contract.id}
+          id={contract.id ?? 0}
           date={contract.time_created}
           title={contract.title}
           status={contract.status}

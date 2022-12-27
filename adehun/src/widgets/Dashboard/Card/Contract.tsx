@@ -1,15 +1,20 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import authAxios from "../../../axios/auth";
+import useToast from "../../../hooks/toast";
 import { IContract } from "../../../interfaces/contract";
 import ContractStatus from "../../../utils/contract";
 
-const Invoice: React.FC = () => {
+const Contract: React.FC = () => {
   const params = useParams();
 
   const [isOpen, open] = useState<boolean>();
 
   const [contract, setContract] = useState<IContract>();
+
+  const { toast } = useToast();
+
+  const navigate = useNavigate();
 
   const getContract = useCallback(() => {
     const _getContract = async () => {
@@ -23,6 +28,59 @@ const Invoice: React.FC = () => {
   useEffect(() => {
     getContract();
   }, []);
+
+  const cancelContract = useCallback(() => {
+    const _cancelContract = async () => {
+      try {
+        const { data } = await authAxios.delete(`contract/${params.id}`);
+        toast.fire({
+          icon: "success",
+          title: "Contract cancelled successfully",
+        });
+        navigate("/contract");
+        return data;
+      } catch (error) {
+        toast.fire({
+          icon: "error",
+          title: "can not cancel contract",
+        });
+      }
+    };
+    _cancelContract();
+  }, []);
+
+  const publishContract = useCallback(() => {
+    const _publishContract = async () => {
+      if (!contract) {
+        return;
+      }
+
+      const _contract = contract;
+
+      _contract.is_draft = true;
+
+      delete _contract.id;
+
+      try {
+        const { data } = await authAxios.patch(
+          `contract/${params.id}/`,
+          _contract
+        );
+        toast.fire({
+          icon: "success",
+          title: "contract successfully published",
+        });
+        navigate("/contract");
+        return data;
+      } catch (error) {
+        toast.fire({
+          icon: "error",
+          title: "can not published contract",
+        });
+      }
+    };
+    _publishContract();
+  }, [contract]);
 
   return (
     <div className="flex flex-col flex-wrap bg-dashsecondary p-6 rounded-sm gap-4 justify-between text-white">
@@ -107,12 +165,20 @@ const Invoice: React.FC = () => {
                       </NavLink>
                     </li>
                     <li>
-                      <a href="#" className="block py-2 px-4 hover:bg-gray-800">
-                        delete{" "}
+                      <a
+                        href="#delete"
+                        onClick={cancelContract}
+                        className="block py-2 px-4 hover:bg-gray-800"
+                      >
+                        cancel{" "}
                       </a>
                     </li>
                     <li>
-                      <a href="#" className="block py-2 px-4 hover:bg-gray-800">
+                      <a
+                        onClick={publishContract}
+                        href="#publish"
+                        className="block py-2 px-4 hover:bg-gray-800"
+                      >
                         publish{" "}
                       </a>
                     </li>
@@ -153,4 +219,4 @@ const Invoice: React.FC = () => {
   );
 };
 
-export default Invoice;
+export default Contract;

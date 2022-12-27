@@ -1,5 +1,5 @@
 export interface IContract {
-  id: number;
+  id?: number;
   title: string;
   description: string;
   owner: number;
@@ -9,6 +9,7 @@ export interface IContract {
   amount: number;
   contract_address: string;
   token: number;
+  is_draft?: boolean;
   time_created: string;
   time_updated: string;
   status: number;
