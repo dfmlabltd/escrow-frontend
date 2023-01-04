@@ -1,4 +1,4 @@
-import Transactions from "../Dashboard/Table/Transaction";
+import Transactions from "../../Dashboard/Table/Transaction";
 import Header from "./Header";
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
   url: string;
 }
 
-const Transaction: React.FC<Props> = ({ page, url }: Props) => {
+const Main: React.FC<Props> = ({ page, url }: Props) => {
   return (
     <section
       className="w-full relative flex flex-col"
@@ -25,4 +25,4 @@ const Transaction: React.FC<Props> = ({ page, url }: Props) => {
   );
 };
 
-export default Transaction;
+export default Main;

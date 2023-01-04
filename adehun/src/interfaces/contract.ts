@@ -9,7 +9,7 @@ export interface IContract {
   amount: number;
   contract_address: string;
   token: number;
-  is_draft?: boolean;
+  draft?: boolean;
   time_created: string;
   time_updated: string;
   status: number;

@@ -5,13 +5,14 @@ import ContractInput from "./Input";
 import ContractDescription from "./TextArea";
 import InvoiceFoot from "./Footer";
 import InvoiceAdd from "./Add";
-import useContractEdit from "./useContractCreate";
+import useContractEdit from "./hooks/useContractCreate";
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import authAxios from "../../axios/auth";
 import ContractStatus from "../../utils/contract";
 import { DASHBOARD_PAGE } from "../../utils/constants";
 import { IContract } from "../../interfaces/contract";
+import IToken from "../../interfaces/token";
 
 const ContractEdit: React.FC = () => {
   const params = useParams();
@@ -19,6 +20,8 @@ const ContractEdit: React.FC = () => {
   const navigate = useNavigate();
 
   const [contract, setContract] = useState<IContract>();
+
+  const [network, setNetwork] = useState<number>();
 
   const {
     setDepositorWallet,
@@ -50,7 +53,21 @@ const ContractEdit: React.FC = () => {
     _getContract();
   }, []);
 
-  console.log(contract);
+  useEffect(() => {
+    getTokenDetail();
+    console.log(contract?.token);
+  }, [contract]);
+
+  const getTokenDetail = useCallback(() => {
+    const _getTokenDetail = async () => {
+      const { data } = await authAxios.get(
+        `blockchain/token/${contract?.token}/`
+      );
+      setNetwork(data.network);
+      return data;
+    };
+    _getTokenDetail();
+  }, [network, contract]);
 
   return (
     <div className="relative w-9/12 p-4">
@@ -59,14 +76,18 @@ const ContractEdit: React.FC = () => {
           <ContractHeader title="Edit Contract" />
           <div className="flex flex-row items-end justify-between gap-x-12">
             <div className="w-full">
-              <ContractSelect current_network={1} setCurrentToken={setToken} />
+              <ContractSelect
+                current_network={network}
+                current_token={network}
+                setCurrentToken={setToken}
+              />
             </div>
             <div className="w-full">
               <ContractInput
                 onChange={(e) => setAmount(parseFloat(e.target.value))}
                 title="Amount"
                 type="number"
-                value={contract?.amount}
+                defaultValue={contract?.amount}
                 placeholder="contract amount"
               />
             </div>
@@ -77,7 +98,7 @@ const ContractEdit: React.FC = () => {
                 onChange={(e) => setBeneficiaryWallet(e.target.value)}
                 title="Beneficiary"
                 type="text"
-                value={contract?.beneficiary_wallet}
+                defaultValue={contract?.beneficiary_wallet}
                 placeholder="Input email, payment id, or wallet address"
               />{" "}
             </div>
@@ -85,7 +106,7 @@ const ContractEdit: React.FC = () => {
               <ContractInput
                 onChange={(e) => setTitle(e.target.value)}
                 title="Title"
-                value={contract?.title}
+                defaultValue={contract?.title}
                 placeholder="contract title"
               />
             </div>

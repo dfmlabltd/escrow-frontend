@@ -3,7 +3,7 @@ import EmailVerifiedMiddleware from "../middlewares/emailverified";
 import Aside from "../widgets/Dashboard/Aside";
 import Receipt from "../widgets/Receipt";
 
-const ReceiptPage = () => {
+const DetailPage = () => {
   return (
     <EmailVerifiedMiddleware>
       <ContractWidgetContextProvider>
@@ -14,4 +14,4 @@ const ReceiptPage = () => {
   );
 };
 
-export default ReceiptPage;
+export default DetailPage;

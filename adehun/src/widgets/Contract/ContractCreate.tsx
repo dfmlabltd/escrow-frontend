@@ -1,6 +1,6 @@
 import ContractHeader from "./Header";
 import Togglebutton from "./Togglebutton";
-import useContractCreate from "./useContractCreate";
+import useContractCreate from "./hooks/useContractCreate";
 import ContractSelect, { WalletSelectWidget } from "./Select";
 import ContractInput from "./Input";
 import ContractDescription from "./TextArea";
