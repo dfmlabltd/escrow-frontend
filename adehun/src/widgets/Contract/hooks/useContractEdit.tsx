@@ -30,6 +30,7 @@ const useContractEdit = () => {
     getWallets();
   }, []);
 
+  const [id, setID] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [depositor_wallet, setDepositorWallet] = useState<number>(0);
@@ -66,9 +67,9 @@ const useContractEdit = () => {
     });
   }, [setDepositorWallet, getWallets]);
 
-  const createContractForm = useCallback(
+  const editContractForm = useCallback(
     (draft: boolean) => {
-      const __createContractForm = async () => {
+      const _editContractForm = async () => {
         const data = {
           title,
           description,
@@ -78,8 +79,9 @@ const useContractEdit = () => {
           token,
           draft,
         };
+        console.log(data);
         try {
-          const request = await authAxios.post("contract/", data);
+          const request = await authAxios.patch(`contract/${id}/`, data);
           toast.fire({
             title: "Contract created successfully",
             icon: "success",
@@ -94,19 +96,28 @@ const useContractEdit = () => {
           });
         }
       };
-      __createContractForm();
+      _editContractForm();
     },
-    [title, description, depositor_wallet, beneficiary_wallet, amount, token]
+    [
+      id,
+      title,
+      description,
+      depositor_wallet,
+      beneficiary_wallet,
+      amount,
+      token,
+    ]
   );
 
   return {
     state,
+    setID,
     setTitle,
     setDescription,
     setBeneficiaryWallet,
     setAmount,
     setToken,
-    createContractForm,
+    editContractForm,
     createWalletWidget,
     setDepositorWallet,
     depositor_wallet,

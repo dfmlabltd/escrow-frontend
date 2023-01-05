@@ -5,14 +5,14 @@ import ContractInput from "./Input";
 import ContractDescription from "./TextArea";
 import InvoiceFoot from "./Footer";
 import InvoiceAdd from "./Add";
-import useContractEdit from "./hooks/useContractCreate";
+import useContractEdit from "./hooks/useContractEdit";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import authAxios from "../../axios/auth";
 import ContractStatus from "../../utils/contract";
 import { DASHBOARD_PAGE } from "../../utils/constants";
 import { IContract } from "../../interfaces/contract";
-import IToken from "../../interfaces/token";
+import { setMaxIdleHTTPParsers } from "http";
 
 const ContractEdit: React.FC = () => {
   const params = useParams();
@@ -24,15 +24,15 @@ const ContractEdit: React.FC = () => {
   const [network, setNetwork] = useState<number>();
 
   const {
+    setID,
     setDepositorWallet,
     setTitle,
     setDescription,
     setBeneficiaryWallet,
     setAmount,
     setToken,
-    createContractForm,
+    editContractForm,
     createWalletWidget,
-    depositor_wallet,
     wallets,
   } = useContractEdit();
 
@@ -47,6 +47,14 @@ const ContractEdit: React.FC = () => {
         return;
       }
       setContract(data);
+      setID(data?.id);
+      setDepositorWallet(data?.depositor_wallet);
+      setTitle(data?.title);
+      setDescription(data?.description);
+      setBeneficiaryWallet(data?.beneficiary_wallet);
+      setAmount(data?.amount);
+      setToken(data?.token);
+      console.log(data);
 
       return data;
     };
@@ -116,7 +124,7 @@ const ContractEdit: React.FC = () => {
               title="Wallet"
               text="Select Wallet"
               onChange={setDepositorWallet}
-              value={depositor_wallet}
+              value={parseInt(contract?.depositor_wallet ?? "0")}
               data={wallets}
             />
           ) : (
@@ -142,8 +150,8 @@ const ContractEdit: React.FC = () => {
             <hr className="border-t-[0.1rem] border-secondary overflow-visible mt-6"></hr>
           </div>
           <InvoiceFoot
-            draft={() => createContractForm(true)}
-            publish={() => createContractForm(false)}
+            draft={() => editContractForm(true)}
+            publish={() => editContractForm(false)}
           />
         </div>
       </div>
