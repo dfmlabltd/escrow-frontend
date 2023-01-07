@@ -12,7 +12,6 @@ import authAxios from "../../axios/auth";
 import ContractStatus from "../../utils/contract";
 import { DASHBOARD_PAGE } from "../../utils/constants";
 import { IContract } from "../../interfaces/contract";
-import { setMaxIdleHTTPParsers } from "http";
 
 const ContractEdit: React.FC = () => {
   const params = useParams();
@@ -42,7 +41,7 @@ const ContractEdit: React.FC = () => {
     const _getContract = async () => {
       const { data } = await authAxios.get(`contract/${params.id}`);
 
-      if ("DRAFT" === ContractStatus(data.status)) {
+      if ("DRAFT" !== ContractStatus(data.status)) {
         navigate(DASHBOARD_PAGE);
         return;
       }
