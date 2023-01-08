@@ -1,4 +1,4 @@
-import Transactions from "../../Dashboard/Table/Transaction";
+import Transactions from "./Transaction";
 import Header from "./Header";
 
 interface Props {

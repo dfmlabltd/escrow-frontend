@@ -1,5 +1,4 @@
 import ContractDetailCard from "./Card";
-import PaymentLinkCard from "../../Dashboard/Card/PaymentLink";
 
 const Header: React.FC = () => {
   return (

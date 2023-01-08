@@ -1,10 +1,4 @@
-import { useContext } from "react";
-import {
-  ContractWidgetContext,
-  IContractWidgetContext,
-} from "../../../contexts/contractWidget";
-import Search from "../Search";
-import TableRows from "./tablerows";
+import TableRows from "../../Dashboard/Table/tablerows";
 
 interface Props {
   url: string;
@@ -12,14 +6,12 @@ interface Props {
 }
 
 const Transaction: React.FC<Props> = ({ url, page }: Props) => {
-  const { open } = useContext<IContractWidgetContext>(ContractWidgetContext);
-
   return (
     <div className="relative w-full col-span-2 h-full block">
       <div className="relative w-full flex flex-row justify-between items-center gap-4">
         <div className="text-white flex flex-col gap-y-1">
-          <p className="uppercase text-sm font-bold">Contracts</p>
-          <span className="text-xs">List of all your recent contracts</span>
+          <p className="uppercase text-sm font-bold">Transactions</p>
+          <span className="text-xs">List of all your recent transactions</span>
         </div>
         <div>
           <button className="bg-secondary flex flex-row justify-between py-2 px-3 text-white items-center gap-1 rounded-sm">
@@ -34,17 +26,14 @@ const Transaction: React.FC<Props> = ({ url, page }: Props) => {
             >
               <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path>
             </svg>
-            <span onClick={open} className="text-sm">
-              New Contract
-            </span>
+            <span className="text-sm">Withdrawal Request</span>
           </button>
         </div>
       </div>
 
       <div className="overflow-x-auto relative shadow-md">
-        <Search />
         <div className="relative w-full block max-h-[335px] overflow-y-auto">
-          <table className="w-full text-sm text-left text-gray-500">
+          <table className="w-full text-sm text-left text-gray-500 mt-8">
             <thead className="text-[0.8rem] text-gray-100 capitalize">
               <tr className="border-b-[10px] border-dashprimary">
                 <th scope="col" className="py-3 px-6 text-right">

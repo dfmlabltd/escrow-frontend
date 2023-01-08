@@ -31,14 +31,16 @@ export const SelectWidget: React.FC<Props> = ({
           Select an option
         </label>
         <select
-          id="option"
-          value={value}
           onChange={(e) => {
             onChange(parseInt(e.target.value));
           }}
+          value={value}
+          defaultValue={value}
           className="block h-12 py-1 text-white mt-1.5 bg-gray-800 focus:ring-0 focus:outline-none font-medium text-sm px-4 text-center w-full outline-none border-none"
         >
-          <option value="0">{text}</option>
+          <option key={0} value="0">
+            {text}
+          </option>
           {data.map((state: Data) => {
             return (
               <option key={state.id} value={state.id}>
@@ -82,14 +84,16 @@ export const WalletSelectWidget: React.FC<WalletSelectWidgetProps> = ({
           Select an option
         </label>
         <select
-          id="option"
           onChange={(e) => {
             onChange(parseInt(e.target.value));
           }}
           value={value}
+          defaultValue={value}
           className="block h-12 py-1 text-white mt-1.5 bg-gray-800 focus:ring-0 focus:outline-none font-medium text-sm px-4 text-center w-full outline-none border-none"
         >
-          <option value="0">{text}</option>
+          <option key={0} value="0">
+            {text}
+          </option>
           {data.map((state: IWallet) => {
             return (
               <option key={state.id} value={state.id}>
