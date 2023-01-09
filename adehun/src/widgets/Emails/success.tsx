@@ -19,7 +19,7 @@ const EmailSuccessPage: React.FC = () => {
           </h2>
           <p className=" py-4 px-8 font-light text-white text-center sm:mx-auto">
             Congratulations your email address was verified succesfully and your
-            space <br /> is ready for your first transaction.Click the button
+            space <br /> is ready for your first transaction. Click the button
             below to proceed
           </p>
           <img
