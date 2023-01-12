@@ -1,6 +1,6 @@
 import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import authAxios from "../../../axios/auth";
 import useToast from "../../../hooks/toast";
 import { IContract } from "../../../interfaces/contract";
@@ -25,6 +25,8 @@ const Card: React.FC = () => {
   const [tokenDetail, setTokenDetail] = useState<IToken>();
 
   const { toast } = useToast();
+
+  const navigate = useNavigate();
 
   const getContract = useCallback(() => {
     const _getContract = async () => {
@@ -161,7 +163,7 @@ const Card: React.FC = () => {
                 </li>
                 <li
                   onClick={() => {
-                    open((state) => !state);
+                    navigate("edit");
                   }}
                   className="bg-dashprimary w-6 h-6 rounded-full flex items-center justify-center"
                 >

@@ -3,7 +3,6 @@ import ContractSelect, { WalletSelectWidget } from "./Select";
 import ContractInput from "./Input";
 import ContractDescription from "./TextArea";
 import ContractFoot from "./Footer";
-// import ContractCheckbox from "./Checkbox";
 import ContractToggle from "./Togglebutton";
 import useContractCreate from "./hooks/useContractCreate";
 import InvoiceAdd from "./Add";

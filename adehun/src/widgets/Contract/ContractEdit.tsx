@@ -1,6 +1,6 @@
 import ContractHeader from "./Header";
 import Togglebutton from "./Togglebutton";
-import ContractSelect, { WalletSelectWidget } from "./Select";
+import ContractSelect, { WalletSelectWidget } from "./SelectEdit";
 import ContractInput from "./Input";
 import ContractDescription from "./TextArea";
 import InvoiceFoot from "./Footer";
@@ -140,6 +140,7 @@ const ContractEdit: React.FC = () => {
           <div className="flex flex-row items-center justify-between gap-x-12">
             <div className="w-full">
               <ContractDescription
+                defaultValue={contract?.description}
                 onChange={(e) => setDescription(e.target.value)}
               />{" "}
             </div>

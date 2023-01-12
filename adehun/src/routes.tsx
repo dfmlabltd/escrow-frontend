@@ -22,7 +22,7 @@ const PageRoutes = (): JSX.Element => {
         <Route path="login/verify" element={<LoginVerifyPage />} />
         <Route path="dashboard" element={<DashboardPage />} />
         <Route path="contract/create" element={<ContractCreatePage />} />
-        <Route path="contract/edit/:id" element={<ContractEditPage />} />
+        <Route path="contract/:id/edit" element={<ContractEditPage />} />
         <Route path="receipt" element={<ReceiptPage />} />
         <Route path="contract/:id" element={<ContractDetailPage />} />
         <Route path="logout" element={<LogoutPage />} />

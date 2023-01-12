@@ -13,6 +13,7 @@ interface Props {
   title: string;
   text: string;
   onChange(id: any): void;
+  value?: number;
 }
 
 export const SelectWidget: React.FC<Props> = ({
@@ -20,6 +21,7 @@ export const SelectWidget: React.FC<Props> = ({
   title,
   text,
   onChange,
+  value,
 }: Props) => {
   return (
     <>
@@ -29,13 +31,16 @@ export const SelectWidget: React.FC<Props> = ({
           Select an option
         </label>
         <select
-          id="option"
           onChange={(e) => {
             onChange(parseInt(e.target.value));
           }}
+          value={value}
+          defaultValue={value}
           className="block h-12 py-1 text-white mt-1.5 bg-gray-800 focus:ring-0 focus:outline-none font-medium text-sm px-4 text-center w-full outline-none border-none"
         >
-          <option value="0">{text}</option>
+          <option key={0} value="0">
+            {text}
+          </option>
           {data.map((state: Data) => {
             return (
               <option key={state.id} value={state.id}>
@@ -79,14 +84,16 @@ export const WalletSelectWidget: React.FC<WalletSelectWidgetProps> = ({
           Select an option
         </label>
         <select
-          id="option"
           onChange={(e) => {
             onChange(parseInt(e.target.value));
           }}
           value={value}
+          defaultValue={value}
           className="block h-12 py-1 text-white mt-1.5 bg-gray-800 focus:ring-0 focus:outline-none font-medium text-sm px-4 text-center w-full outline-none border-none"
         >
-          <option value="0">{text}</option>
+          <option key={0} value="0">
+            {text}
+          </option>
           {data.map((state: IWallet) => {
             return (
               <option key={state.id} value={state.id}>
@@ -102,10 +109,14 @@ export const WalletSelectWidget: React.FC<WalletSelectWidgetProps> = ({
 
 interface SetTokenProps {
   setCurrentToken(e: any): void;
+  current_network?: number;
+  current_token?: number;
 }
 
 const Select: React.FC<SetTokenProps> = ({
   setCurrentToken,
+  current_network = 0,
+  current_token = 0,
 }: SetTokenProps) => {
   const [networks, setNetworks] = useState<Network[]>([]);
 
@@ -114,6 +125,10 @@ const Select: React.FC<SetTokenProps> = ({
   const [tokens, setTokens] = useState<Token[]>([]);
 
   const { isLoading, startLoading, stopLoading } = useLoading(true);
+
+  useEffect(() => {
+    setCurrentNetwork(current_network);
+  }, [current_network]);
 
   const getNetworks = useCallback(() => {
     const _getNetworks = async () => {
@@ -163,6 +178,7 @@ const Select: React.FC<SetTokenProps> = ({
           title="Blockchain Network"
           text="select a network"
           onChange={setCurrentNetworkFunc}
+          value={currentNetwork}
           data={networks}
         />
         {isLoading ? (
@@ -173,6 +189,7 @@ const Select: React.FC<SetTokenProps> = ({
             text="select a Token"
             onChange={setCurrentToken}
             data={tokens}
+            value={current_token}
           />
         )}
       </div>
