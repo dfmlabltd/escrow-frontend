@@ -1,4 +1,4 @@
-import TableRows from "../../Dashboard/Table/tablerows";
+import TableRows from "./tablerows";
 
 interface Props {
   url: string;
@@ -26,14 +26,14 @@ const Transaction: React.FC<Props> = ({ url, page }: Props) => {
             >
               <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path>
             </svg>
-            <span className="text-sm">Withdrawal Request</span>
+            <span className="text-sm">New Contract</span>
           </button>
         </div>
       </div>
 
       <div className="overflow-x-auto relative shadow-md">
         <div className="relative w-full block max-h-[335px] overflow-y-auto">
-          <table className="w-full text-sm text-left text-gray-500 mt-8">
+          <table className="w-full text-sm text-left text-gray-500">
             <thead className="text-[0.8rem] text-gray-100 capitalize">
               <tr className="border-b-[10px] border-dashprimary">
                 <th scope="col" className="py-3 px-6 text-right">
@@ -51,7 +51,7 @@ const Transaction: React.FC<Props> = ({ url, page }: Props) => {
               </tr>
             </thead>
             <tbody className="text-sm max-h-16">
-              <TableRows url={url} page={page} />
+              <TableRows />
             </tbody>
           </table>
         </div>

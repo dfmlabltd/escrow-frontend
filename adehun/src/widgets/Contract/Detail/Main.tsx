@@ -1,4 +1,4 @@
-import Transactions from "./Transaction";
+import Transactions from "./Table/Transaction";
 import Header from "./Header";
 
 interface Props {
