@@ -7,20 +7,13 @@ import { useEmailLogin } from "../../hooks/authentication/emailLogin";
 import useWalletLogin from "../../hooks/authentication/walletLogin";
 import useLoading from "../../hooks/loading";
 import useToast from "../../hooks/toast";
-import {
-  ReactHTMLButtonEvent,
-  ReactHTMLInputEvent,
-} from "../../interfaces";
+import { ReactHTMLButtonEvent, ReactHTMLInputEvent } from "../../interfaces";
 import AuthLayout from "../../layout/auth";
 import NotAuthMiddleware from "../../middlewares/notauth";
 import { LOGIN_VERIFY_PAGE } from "../../utils/constants";
 
 const LoginPage: React.FC = () => {
-  const {
-    error: emailLoginError,
-    handleLogin: handleEmailLogin,
-    setEmail,
-  } = useEmailLogin();
+  const { handleLogin: handleEmailLogin, setEmail } = useEmailLogin();
 
   const { isLoading, startLoading, stopLoading } = useLoading();
 
@@ -37,7 +30,7 @@ const LoginPage: React.FC = () => {
       if (!success) {
         toast.fire({
           icon: "error",
-          title: emailLoginError,
+          title: "error while login",
         });
         stopLoading();
         return;
@@ -45,14 +38,7 @@ const LoginPage: React.FC = () => {
       navigate(LOGIN_VERIFY_PAGE);
     };
     _handleEmailLogin();
-  }, [
-    startLoading,
-    stopLoading,
-    handleEmailLogin,
-    navigate,
-    emailLoginError,
-    toast,
-  ]);
+  }, [startLoading, stopLoading, handleEmailLogin, navigate, toast]);
 
   return (
     <NotAuthMiddleware>
