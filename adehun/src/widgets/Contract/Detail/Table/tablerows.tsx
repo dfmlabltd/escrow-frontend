@@ -15,16 +15,33 @@ interface ITransaction {
 const TableRows = () => {
   const params = useParams();
 
-  const [transactions, setTransactions] = useState<[]>([]);
+  const [transactions, setTransactions] = useState<ITransaction[]>([]);
+
+  const [page, setPage] = useState<number>(1);
+
+  const [hasNextPage, setHasNextPage] = useState<boolean>(false);
 
   const getTransactions = useCallback(() => {
     const _getTransactions = async () => {
-      const { data } = await authAxios.get(`transaction/list/${params.id}/`);
-      setTransactions(data.results);
+      const { data } = await authAxios.get(
+        `transaction/list/${params.id}/?page_size=10&page=${page}`
+      );
+      if (data.results) {
+        setTransactions((_transactions) => [..._transactions, ...data.results]);
+      }
+      setHasNextPage(data.next ? true : false);
       return data;
     };
     _getTransactions();
-  }, [setTransactions]);
+  }, [setTransactions, page, setHasNextPage]);
+
+  const loadMore = useCallback(() => {
+    const _loadMore = async () => {
+      setPage((_page) => _page++);
+      getTransactions();
+    };
+    _loadMore();
+  }, [setPage]);
 
   useEffect(() => {
     getTransactions();
@@ -42,6 +59,16 @@ const TableRows = () => {
           amount={transaction.amount}
         />
       ))}
+      {hasNextPage ? (
+        <button
+          className="bg-primary flex flex-row justify-between py-2 px-3 text-white items-center gap-1 rounded-sm"
+          onClick={loadMore}
+        >
+          Load more
+        </button>
+      ) : (
+        <></>
+      )}
     </>
   ) : (
     <></>
