@@ -2,6 +2,7 @@ import { IContract } from "../../../interfaces/contract";
 import {
   CONTRACTS_INITIALIZED,
   CONTRACT_ADDED,
+  CONTRACTS_ADDED,
   CONTRACT_SEARCH,
 } from "./constants";
 import { IContractAction } from "./interface";
@@ -9,6 +10,13 @@ import { IContractAction } from "./interface";
 const contractsInitialized = (payload: IContract[]): IContractAction => {
   return {
     type: CONTRACTS_INITIALIZED,
+    payload: payload,
+  };
+};
+
+const contractsAdded = (payload: IContract[]): IContractAction => {
+  return {
+    type: CONTRACTS_ADDED,
     payload: payload,
   };
 };
@@ -27,4 +35,4 @@ const contractSearch = (payload: IContract): IContractAction => {
   };
 };
 
-export { contractsInitialized, contractAdded, contractSearch };
+export { contractsInitialized, contractAdded, contractSearch, contractsAdded };

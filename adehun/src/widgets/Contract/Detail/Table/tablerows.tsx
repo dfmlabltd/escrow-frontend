@@ -32,20 +32,18 @@ const TableRows = () => {
       setHasNextPage(data.next ? true : false);
       return data;
     };
-    _getTransactions();
-  }, [setTransactions, page, setHasNextPage]);
+    return _getTransactions();
+  }, [setTransactions, page, params, setHasNextPage]);
 
   const loadMore = useCallback(() => {
-    const _loadMore = async () => {
-      setPage((_page) => _page++);
-      getTransactions();
-    };
-    _loadMore();
+    console.log(1111);
+
+    setPage((_page) => ++_page);
   }, [setPage]);
 
   useEffect(() => {
     getTransactions();
-  });
+  }, [page]);
 
   return transactions ? (
     <>

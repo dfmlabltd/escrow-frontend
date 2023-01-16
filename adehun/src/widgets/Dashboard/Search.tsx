@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import authAxios from "../../axios/auth";
 import { contractSearch } from "../../redux/actions/contract/contract";
-
+// TODO: search pagination using REDUX
 const Search = () => {
   const dispatch = useDispatch();
   const [query, setQuery] = useState<string>("");

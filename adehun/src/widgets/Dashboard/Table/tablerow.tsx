@@ -1,15 +1,15 @@
 import ContractStatus from "../../../utils/contract";
 import { useMemo } from "react";
 import moment from "moment";
-import { useParams } from "react-router-dom";
 type Props = {
   id: number;
   date: string;
   title: string;
   status: number;
   amount: number;
-  page: string;
 };
+
+const page = "contract";
 
 const TableRow: React.FC<Props> = ({
   id,
@@ -17,7 +17,6 @@ const TableRow: React.FC<Props> = ({
   title,
   status,
   amount,
-  page,
 }: Props) => {
   const humanizedDate = useMemo(() => {
     return moment(date).fromNow();
