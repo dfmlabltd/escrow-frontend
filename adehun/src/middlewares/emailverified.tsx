@@ -38,17 +38,14 @@ const EmailVerifiedMiddleware: React.FC<PropsWithChildren<{}>> = ({
 
         if (current_path.slice(-1) === "/") {
           current_path = current_path.substring(1);
-          return;
         }
 
-        if (current_path === "/email/success") {
-          return;
-        }
         const WHITELIST_PATHS = [
           EMAIL_CHANGE_PAGE,
           USER_EMAIL_VERIFICATION_PAGE,
         ];
         const IS_WHITELISTED_PATH = WHITELIST_PATHS.includes(current_path);
+
         // trying to access email verification or set email page
         // remember the path on redirect_to_after
         if (IS_WHITELISTED_PATH) {
@@ -58,11 +55,21 @@ const EmailVerifiedMiddleware: React.FC<PropsWithChildren<{}>> = ({
         // redirect back to the dashboard if email has been verified
         if (IS_WHITELISTED_PATH && user.is_email_verified) {
           navigate(DASHBOARD_PAGE);
+          stopLoading();
           return;
         }
-        // redirect to email change page if email has not been set
-        if (current_path === WHITELIST_PATHS[1] && !user.email) {
+
+        // redirect to email change page if email has not been set while user is in verification page
+        if (!user.email) {
           navigate(EMAIL_CHANGE_PAGE);
+          stopLoading();
+          return;
+        }
+
+        // user has set email but not verified
+        if (user.email && !user.is_email_verified) {
+          if (!IS_WHITELISTED_PATH) navigate(USER_EMAIL_VERIFICATION_PAGE);
+          stopLoading();
           return;
         }
         stopLoading();

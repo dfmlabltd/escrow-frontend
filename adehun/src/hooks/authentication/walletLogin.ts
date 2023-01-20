@@ -96,8 +96,7 @@ const useWalletLogin = () => {
       setIsReady(() => false);
       persistentToast.fire({
         icon: "info",
-
-        title: grammar["SIGNING_ERROR"],
+        title: "requesting to be signed",
       });
     }
   }, [isReady, isConnected, setIsReady, persistentToast, handleSignHelper]);
@@ -111,6 +110,10 @@ const useWalletLogin = () => {
 
   useEffect(() => {
     if (secretCache !== "") {
+      persistentToast.fire({
+        icon: "info",
+        title: "check your wallet for a prompt",
+      });
       signMessage();
       setSignatureReady(true);
     }

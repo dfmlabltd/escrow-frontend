@@ -6,10 +6,8 @@ import Label from "../../components/Label";
 import useLoading from "../../hooks/loading";
 import useToast from "../../hooks/toast";
 import useChangeEmail from "../../hooks/user/changeEmail";
-import {
-  ReactHTMLButtonEvent,
-  ReactHTMLInputEvent,
-} from "../../interfaces";
+import useProfile from "../../hooks/user/profile";
+import { ReactHTMLButtonEvent, ReactHTMLInputEvent } from "../../interfaces";
 import AuthLayout from "../../layout/auth";
 import EmailVerifiedMiddleware from "../../middlewares/emailverified";
 import { DASHBOARD_PAGE, REDIRECT_TO_AFTER } from "../../utils/constants";
@@ -36,13 +34,14 @@ const LoginWithEmailPage: React.FC = () => {
         return;
       }
       navigate(sessionStorage.getItem(REDIRECT_TO_AFTER) ?? DASHBOARD_PAGE);
+      stopLoading();
     };
     _changeEmail();
   }, [changeEmail, error, navigate, startLoading, stopLoading, toast]);
 
   return (
     <EmailVerifiedMiddleware>
-      <AuthLayout title="change email page">
+      <AuthLayout title="set email page">
         <div className="flex flex-col gap-4 pt-12">
           <div className="flex flex-col space-y-1">
             <Label aria-label="Email Address">Email Address</Label>
