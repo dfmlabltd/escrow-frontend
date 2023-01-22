@@ -7,7 +7,7 @@ interface ContractData {
   total_draft_contracts: number;
 }
 
-const Transaction: React.FC = () => {
+const ContractSummary: React.FC = () => {
   const [contractData, setContractData] = useState<ContractData>();
 
   const getContractData = useCallback(() => {
@@ -46,4 +46,4 @@ const Transaction: React.FC = () => {
   );
 };
 
-export default Transaction;
+export default ContractSummary;

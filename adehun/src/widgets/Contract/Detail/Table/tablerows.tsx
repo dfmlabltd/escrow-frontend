@@ -36,8 +36,6 @@ const TableRows = () => {
   }, [setTransactions, page, params, setHasNextPage]);
 
   const loadMore = useCallback(() => {
-    console.log(1111);
-
     setPage((_page) => ++_page);
   }, [setPage]);
 

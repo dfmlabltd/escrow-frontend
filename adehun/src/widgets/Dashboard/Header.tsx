@@ -1,5 +1,5 @@
-import PaymentCard from "./Card/Payment";
-import Transactioncard from "./Card/Transaction";
+import TransactionSummaryCard from "./Card/TransactionSummaryCard";
+import ContractSummaryCard from "./Card/ContractSummary";
 import PaymentLinkCard from "./Card/PaymentLink";
 
 const DashHeader: React.FC = () => {
@@ -14,8 +14,8 @@ const DashHeader: React.FC = () => {
       </div>
       {/* header widgets */}
       <div className="grid grid-cols-3 items-stretch flex-row relative gap-4 w-full py-3">
-        <PaymentCard />
-        <Transactioncard />
+        <TransactionSummaryCard />
+        <ContractSummaryCard />
         <PaymentLinkCard />
       </div>
     </section>
