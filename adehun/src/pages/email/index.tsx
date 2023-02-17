@@ -6,7 +6,6 @@ import Label from "../../components/Label";
 import useLoading from "../../hooks/loading";
 import useToast from "../../hooks/toast";
 import useChangeEmail from "../../hooks/user/changeEmail";
-import useProfile from "../../hooks/user/profile";
 import { ReactHTMLButtonEvent, ReactHTMLInputEvent } from "../../interfaces";
 import AuthLayout from "../../layout/auth";
 import EmailVerifiedMiddleware from "../../middlewares/emailverified";
