@@ -24,6 +24,8 @@ export const useEmailLogin = () => {
       return false;
     }
 
+    localStorage.clear()
+
     try {
       await customAxios.post(LOGIN_WITH_EMAIL_ENDPOINT, {
         email,

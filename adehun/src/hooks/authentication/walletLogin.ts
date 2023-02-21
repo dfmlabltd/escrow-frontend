@@ -51,6 +51,8 @@ const useWalletLogin = () => {
   }, [address, toast]);
 
   const handleLoginHelper = useCallback(() => {
+    localStorage.clear();
+
     customAxios
       .post(ACCESS_TOKEN_ENDPOINT, {
         email: data,
