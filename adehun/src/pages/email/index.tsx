@@ -9,7 +9,7 @@ import useChangeEmail from "../../hooks/user/changeEmail";
 import { ReactHTMLButtonEvent, ReactHTMLInputEvent } from "../../interfaces";
 import AuthLayout from "../../layout/auth";
 import EmailVerifiedMiddleware from "../../middlewares/emailverified";
-import { DASHBOARD_PAGE, REDIRECT_TO_AFTER } from "../../utils/constants";
+import { USER_EMAIL_VERIFICATION_PAGE } from "../../utils/constants";
 
 const LoginWithEmailPage: React.FC = () => {
   const { isLoading, startLoading, stopLoading } = useLoading();
@@ -32,7 +32,7 @@ const LoginWithEmailPage: React.FC = () => {
         stopLoading();
         return;
       }
-      navigate(sessionStorage.getItem(REDIRECT_TO_AFTER) ?? DASHBOARD_PAGE);
+      navigate(USER_EMAIL_VERIFICATION_PAGE);
       stopLoading();
     };
     _changeEmail();

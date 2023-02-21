@@ -68,7 +68,9 @@ const EmailVerifiedMiddleware: React.FC<PropsWithChildren<{}>> = ({
 
         // user has set email but not verified
         if (user.email && !user.is_email_verified) {
-          if (!IS_WHITELISTED_PATH) navigate(USER_EMAIL_VERIFICATION_PAGE);
+          if (!IS_WHITELISTED_PATH) {
+            navigate(USER_EMAIL_VERIFICATION_PAGE);
+          }
           stopLoading();
           return;
         }
