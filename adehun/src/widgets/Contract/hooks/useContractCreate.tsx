@@ -48,8 +48,9 @@ const useContractEdit = () => {
   }, [title]);
 
   const isBeneficiary = useCallback(() => {
+    console.log(regexValidator("^[a-z]{5,16}$", beneficiary_wallet));
     return (
-      regexValidator("/^a-z$/{5, 16}", beneficiary_wallet) ||
+      regexValidator("^[a-z]{5,16}$", beneficiary_wallet) ||
       utils.isAddress(beneficiary_wallet) ||
       validateEmail(beneficiary_wallet)
     );
@@ -120,7 +121,7 @@ const useContractEdit = () => {
 
     if (!isBeneficiary()) {
       persistentToast.fire({
-        title: "contract amount is invalid",
+        title: "contract beneficiary is invalid",
         icon: "error",
       });
       return false;
