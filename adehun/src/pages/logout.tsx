@@ -8,6 +8,7 @@ const LogoutPage = () => {
 
   useEffect(() => {
     localStorage.clear();
+    sessionStorage.clear();
     navigate(LOGIN_PAGE);
   });
   return <Preloader />;
