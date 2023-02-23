@@ -2,22 +2,26 @@ import { API_ENDPOINT } from "../utils/constants";
 
 import {
   AxiosError,
+  AxiosHeaders,
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
+  InternalAxiosRequestConfig,
+  AxiosRequestHeaders,
 } from "axios";
 
 export interface CustomAxiosRequestConfig
   extends Omit<AxiosRequestConfig, "headers"> {
-  headers?: any;
+  headers: AxiosRequestHeaders;
 }
 
-const onRequest = (config: CustomAxiosRequestConfig): AxiosRequestConfig => {
+const onRequest = (
+  config: InternalAxiosRequestConfig
+): CustomAxiosRequestConfig => {
   config.baseURL = API_ENDPOINT;
-  config.headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  };
+  config.headers = config.headers ?? new AxiosHeaders();
+  config.headers.set("Accept", "application/json");
+  config.headers.set("Content-Type", "application/json");
   return config;
 };
 

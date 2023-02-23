@@ -5,6 +5,8 @@ import axios, {
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
+  AxiosHeaders,
+  InternalAxiosRequestConfig,
 } from "axios";
 import { getAccessToken, refreshAccessToken } from "../../utils/token";
 import { CustomAxiosRequestConfig } from "../interceptors";
@@ -15,15 +17,17 @@ interface CustomRetryAxiosRequestConfig
   headers?: any;
 }
 
-const onRequest = (config: CustomAxiosRequestConfig): AxiosRequestConfig => {
+const onRequest = (
+  config: InternalAxiosRequestConfig
+): CustomAxiosRequestConfig => {
   const access_token: string | null = getAccessToken();
 
   config.baseURL = API_ENDPOINT;
-  config.headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + access_token,
-  };
+  config.headers = config.headers ?? new AxiosHeaders();
+  config.headers.set("Accept", "application/json");
+  config.headers.set("Content-Type", "application/json");
+  config.headers.set("Authorization", "Bearer " + access_token);
+
   return config;
 };
 
