@@ -6,8 +6,10 @@ import ContractInput from "./Input";
 import ContractDescription from "./TextArea";
 import InvoiceFoot from "./Footer";
 import InvoiceAdd from "./Add";
+import { useEffect, useState } from "react";
 
 const ContractCreate: React.FC = () => {
+  const [beneficiary, setBeneficiary] = useState<string>("");
   const {
     setDepositorWallet,
     setTitle,
@@ -20,6 +22,15 @@ const ContractCreate: React.FC = () => {
     depositor_wallet,
     wallets,
   } = useContractCreate();
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const beneficiary = params.get("beneficiary");
+    if (beneficiary) {
+      setBeneficiaryWallet(beneficiary);
+      setBeneficiary(beneficiary);
+    }
+  }, [setBeneficiary]);
 
   return (
     <div className="relative w-9/12 p-4">
@@ -41,12 +52,23 @@ const ContractCreate: React.FC = () => {
           </div>
           <div className="flex flex-row items-center justify-between gap-x-12">
             <div className="w-full">
-              <ContractInput
-                onChange={(e) => setBeneficiaryWallet(e.target.value)}
-                title="Beneficiary"
-                type="text"
-                placeholder="Input email, payment id, or wallet address"
-              />{" "}
+              {beneficiary ? (
+                <ContractInput
+                  onChange={(e) => setBeneficiaryWallet(e.target.value)}
+                  title="Beneficiary"
+                  type="text"
+                  placeholder="Input email, payment id, or wallet address"
+                  defaultValue={beneficiary}
+                  disabled
+                />
+              ) : (
+                <ContractInput
+                  onChange={(e) => setBeneficiaryWallet(e.target.value)}
+                  title="Beneficiary"
+                  type="text"
+                  placeholder="Input email, payment id, or wallet address"
+                />
+              )}
             </div>
             <div className="w-full">
               <ContractInput
