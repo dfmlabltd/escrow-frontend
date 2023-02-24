@@ -11,6 +11,9 @@ interface Props {
 const Header: React.FC<Props> = ({ title }: Props) => {
   const { close } = useContext<IContractWidgetContext>(ContractWidgetContext);
 
+  const expandView = () => {
+    window.open("/contract/create", "__blank");
+  };
   return (
     <div className="flex flex-col relative w-full gap-y-4 text-white">
       <div className="flex flex-row justify-between items-center gap-4">
@@ -18,7 +21,12 @@ const Header: React.FC<Props> = ({ title }: Props) => {
           {title ?? "Create New Contract"}
         </h5>
         <div className="flex items-center justify-between gap-x-4">
-          <button className="relative inline-block pr-2">
+          <button
+            onClick={() => {
+              expandView();
+            }}
+            className="relative inline-block pr-2"
+          >
             <svg
               className="w-5 h-5"
               xmlns="http://www.w3.org/2000/svg"
