@@ -10,6 +10,7 @@ import ReceiptPage from "./pages/receipt";
 import ContractDetailPage from "./pages/contract/detail";
 import LogoutPage from "./pages/logout";
 import ContractEditPage from "./pages/contract/edit";
+import PayPage from "./pages/pay";
 
 const PageRoutes = (): JSX.Element => {
   return (
@@ -25,6 +26,7 @@ const PageRoutes = (): JSX.Element => {
         <Route path="contract/:id/edit" element={<ContractEditPage />} />
         <Route path="receipt" element={<ReceiptPage />} />
         <Route path="contract/:id" element={<ContractDetailPage />} />
+        <Route path="pay/:beneficiary" element={<PayPage />} />
         <Route path="logout" element={<LogoutPage />} />
       </Routes>
     </BrowserRouter>
