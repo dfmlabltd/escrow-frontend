@@ -12,7 +12,7 @@ export default function contractsReducer(
     case actions.CONTRACTS_INITIALIZED:
       return payload;
     case actions.CONTRACTS_ADDED:
-      return [...payload, ...state];
+      return [...state, ...payload];
     case actions.CONTRACT_SEARCH:
       return payload;
     case actions.CONTRACT_ADDED:
