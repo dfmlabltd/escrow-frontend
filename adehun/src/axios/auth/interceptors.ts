@@ -23,7 +23,6 @@ const onRequest = (
   const access_token: string | null = getAccessToken();
 
   config.baseURL = API_ENDPOINT;
-  config.headers = config.headers ?? new AxiosHeaders();
   config.headers.set("Accept", "application/json");
   config.headers.set("Content-Type", "application/json");
   config.headers.set("Authorization", "Bearer " + access_token);

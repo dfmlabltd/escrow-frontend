@@ -19,7 +19,6 @@ const onRequest = (
   config: InternalAxiosRequestConfig
 ): CustomAxiosRequestConfig => {
   config.baseURL = API_ENDPOINT;
-  config.headers = config.headers ?? new AxiosHeaders();
   config.headers.set("Accept", "application/json");
   config.headers.set("Content-Type", "application/json");
   return config;
