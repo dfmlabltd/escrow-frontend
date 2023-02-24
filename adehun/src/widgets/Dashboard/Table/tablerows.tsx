@@ -28,8 +28,6 @@ const TableRows = () => {
   }, [dispatch, page, setHasNextPage]);
 
   const loadMore = useCallback(() => {
-    console.log(1111);
-
     setPage((_page) => ++_page);
   }, [setPage]);
 
@@ -37,7 +35,7 @@ const TableRows = () => {
     getContracts();
   }, [page]);
 
-  return contracts ? (
+  return contracts && contracts.length > 0 ? (
     <>
       {contracts.map((contract: IContract) => (
         <TableRow
@@ -60,7 +58,9 @@ const TableRows = () => {
       )}
     </>
   ) : (
-    <></>
+    <>
+      <p>No result found.</p>
+    </>
   );
 };
 
