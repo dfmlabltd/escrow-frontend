@@ -64,8 +64,8 @@ const Search = () => {
           }}
           className="w-full flex flex-row h-full items-center place-content-center gap-3 px-6"
         >
-          <span className="text-sm text-white">Show All</span>
-          <svg
+          <span className="text-sm text-white">Search</span>
+          {/* <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-5 h-5"
             width="24"
@@ -75,7 +75,7 @@ const Search = () => {
             fill="rgba(255,255, 255, 1)"
           >
             <path d="M16.293 9.293L12 13.586 7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z"></path>
-          </svg>
+          </svg> */}
         </button>
         <div className="hidden absolute z-50 w-full bg-dashsecondary shadow">
           <ul
